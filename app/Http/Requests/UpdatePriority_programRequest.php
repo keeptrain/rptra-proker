@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProgram_prioritasRequest extends FormRequest
+class UpdatePriority_programRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

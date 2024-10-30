@@ -20,9 +20,23 @@ return new class extends Migration
             $table->integer('volume');
             $table->dateTime('schedule_activity');
             $table->string('main_program_id', length: 50);
-            $table->string('instituional_partners_id', length: 50);
+            $table->string('instituional_partner_id', length: 50);
             $table->enum('information',['belum terlaksana', 'terlaksana', 'tidak terlaksana']);
             $table->timestamps();
+
+            // Foreign key to priority_program (id)
+            $table->foreign('main_program_id')
+                ->references('id')
+                ->on('main_programs')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            // Foreign key to institutional_partners (id)
+            $table->foreign('instituional_partner_id')
+            ->references('id')
+            ->on('institutional_partners')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Program_prioritas;
-use App\Http\Requests\StoreProgram_prioritasRequest;
-use App\Http\Requests\UpdateProgram_prioritasRequest;
+use App\Models\Priority_program;
+use App\Http\Requests\StorePriority_programRequest;
+use App\Http\Requests\UpdatePriority_programRequest;
+use App\Http\Requests\Destroy\DestroyPriority_programRequest;
 
 class PriorityProgramController extends Controller
 {
@@ -13,7 +14,7 @@ class PriorityProgramController extends Controller
      */
     public function index()
     {
-        return view("components.work-program");
+        return view('dashboard');
     }
 
     /**
@@ -22,28 +23,42 @@ class PriorityProgramController extends Controller
     public function create()
     {
         //
+        return view('admin.priority.priority-program');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProgram_prioritasRequest $request)
+    public function store(StorePriority_programRequest $request)
     {
-        //
+        // Models
+        $priority = new Priority_program();
+
+        // Combine prefix and number for customeId
+        $customId = $request->input('prefix') . '-' . str_pad($request->input('number'), 3, '0', STR_PAD_LEFT);
+
+        $newProgram = $priority::create([
+            'id' => $customId,
+            'name' => $request->input('name'),
+        ]);
+        
+        return redirect()->route('proker.show')->with('success', 'Program berhasil ditambahkan');
+    
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Program_prioritas $program_prioritas)
+    public function show(Priority_program $priority_program)
     {
-        //
+        $programs = Priority_program::all();
+        return view('admin.priority.priority-program', compact('programs'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Program_prioritas $program_prioritas)
+    public function edit(Priority_program $priority_program)
     {
         //
     }
@@ -51,7 +66,7 @@ class PriorityProgramController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProgram_prioritasRequest $request, Program_prioritas $program_prioritas)
+    public function update(UpdatePriority_programRequest $request, Priority_program $priority_program)
     {
         //
     }
@@ -59,8 +74,12 @@ class PriorityProgramController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Program_prioritas $program_prioritas)
+    public function destroy(DestroyPriority_programRequest $request)
     {
-        //
+        $ids = $request->input('priority_ids');
+        Priority_program::whereIn('id', $ids)->delete();
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('proker.show')->with('success', 'Program yang dipilih berhasil dihapus.');
     }
 }

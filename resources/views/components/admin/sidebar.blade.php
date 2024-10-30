@@ -33,7 +33,7 @@
       <p class="text-2xl leading-6 text-white">RPTRA</p>
     </div>
     <div class="mt-6 flex flex-col justify-start items-center  pl-4 w-full border-gray-600 border-b space-y-3 pb-5">
-      <button onclick="window.location.href='index'" class="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded " type="submit">
+      <button onclick="window.location.href='{{ route('proker.index') }}'" class="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded " type="submit">
         <svg class="fill-stroke " width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M9 4H5C4.44772 4 4 4.44772 4 5V9C4 9.55228 4.44772 10 5 10H9C9.55228 10 10 9.55228 10 9V5C10 4.44772 9.55228 4 9 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           <path d="M19 4H15C14.4477 4 14 4.44772 14 5V9C14 9.55228 14.4477 10 15 10H19C19.5523 10 20 9.55228 20 9V5C20 4.44772 19.5523 4 19 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -52,13 +52,13 @@
         </svg>
       </button>
       <div id="menu1" class="flex justify-start  flex-col w-full md:w-auto items-start pb-1 ">
-        <button  onclick="window.location.href=' program-kerja/prioritas'" class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-52">
+        <button  onclick="window.location.href='{{ route('proker.show') }}'" class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-52">
           <svg class="fill-stroke" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 10L11 14L17 20L21 4L3 11L7 13L9 19L12 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           <p class="text-base leading-4  ">Prioritas</p>
         </button>
-        <button class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-52">
+        <button onclick="window.location.href='{{ route('progpokok.show') }}'" class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2  w-full md:w-52">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 19C10.2091 19 12 17.2091 12 15C12 12.7909 10.2091 11 8 11C5.79086 11 4 12.7909 4 15C4 17.2091 5.79086 19 8 19Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M10.85 12.15L19 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -67,7 +67,7 @@
           </svg>
           <p class="text-base leading-4  ">Pokok</p>
         </button>
-        <button class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2 w-full md:w-52">
+        <button onclick="window.location.href='#'" class="flex justify-start items-center space-x-6 hover:text-white focus:bg-gray-700 focus:text-white hover:bg-gray-700 text-gray-400 rounded px-3 py-2 w-full md:w-52">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M14 8.00002C15.1046 8.00002 16 7.10459 16 6.00002C16 4.89545 15.1046 4.00002 14 4.00002C12.8954 4.00002 12 4.89545 12 6.00002C12 7.10459 12.8954 8.00002 14 8.00002Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M4 6H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -100,8 +100,8 @@
             <img class="rounded-full" src="https://i.ibb.co/L1LQtBm/Ellipse-1.png" alt="avatar" />
           </div>
           <div class="flex justify-start flex-col items-start">
-            <p class="cursor-pointer text-sm leading-5 text-white">Alexis Enache</p>
-            <p class="cursor-pointer text-xs leading-3 text-gray-300">alexis81@gmail.com</p>
+            <p class="cursor-pointer text-sm leading-5 text-white">Admin</p>
+            <p class="cursor-pointer text-xs leading-3 text-gray-300">admin@gmail.com</p>
           </div>
         </div>
         <svg class="cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,40 +112,4 @@
       </div>
     </div>
   </div>
-  
-  <script>let icon1 = document.getElementById("icon1");
-  let menu1 = document.getElementById("menu1");
-  const showMenu1 = (flag) => {
-    if (flag) {
-      icon1.classList.toggle("rotate-180");
-      menu1.classList.toggle("hidden");
-    }
-  };
-  let icon2 = document.getElementById("icon2");
-  
-  const showMenu2 = (flag) => {
-    if (flag) {
-      icon2.classList.toggle("rotate-180");
-    }
-  };
-  let icon3 = document.getElementById("icon3");
-  
-  const showMenu3 = (flag) => {
-    if (flag) {
-      icon3.classList.toggle("rotate-180");
-    }
-  };
-  
-  let Main = document.getElementById("Main");
-  let open = document.getElementById("open");
-  let close = document.getElementById("close");
-  
-  const showNav = (flag) => {
-    if (flag) {
-      Main.classList.toggle("-translate-x-full");
-      Main.classList.toggle("translate-x-0");
-      open.classList.toggle("hidden");
-      close.classList.toggle("hidden");
-    }
-  };
-  </script>
+  <script src="../../../../resources/js/script/sidebar.js"></script>

@@ -38,6 +38,8 @@ class MainProgramController extends Controller
     public function show(Main_program $main_program)
     {
         //
+        $mainPrograms = Main_program::with('priorityProgram')->get();
+        return view('admin.main.main-program', compact('mainPrograms'));
     }
 
     /**

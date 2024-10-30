@@ -17,38 +17,50 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 flex">
         <!-- Sidebar -->
-        <div class="w-64 bg-gray-900 text-white">
-            <x-admin.sidebar />
+        <div class="bg-white text-white">
+            <x-admin.sidebar/>
         </div>
-        
+    
         <!-- Main Content -->
         <main class="flex-1 p-6">
             <!-- Page Heading -->
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    
                     <!-- Heading or Title Section -->
                     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                        @if (Route::currentRouteName() === 'proker.index')
                         {{ __('Program Prioritas') }}
+                        @elseif (Route::currentRouteName() === 'proker.show')
+                        {{ __('Daftar Program Prioritas') }}
+                        @elseif (Route::currentRouteName() === 'proker.store')
+                        {{ __('Tambah Program Prioritas') }}
+                        @elseif (Route::currentRouteName() === 'progpokok.show')
+                        {{ __('Daftar Program Pokok') }}
+                        
+                        @endif
+                    
                     </h2>
                 </div>
             </header>
             
             <!-- Page Content -->
-            <!-- Page Content -->
             <div class="py-6">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-
                         <div class="p-6 bg-white border-gray-200">
-                            @yield('content-table')
-                            @yield('content-add-prioritas') <!-- Table content or main content goes here -->
+                            @if (Route::currentRouteName() === 'proker.show' || Route::currentRouteName() === 'proker.create')
+                                @yield('content-table')
+                            @elseif (Route::currentRouteName() === 'progpokok.show')
+                                @yield('content-table-main')
+                            @endif
+                        
                         </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script> 
 </body>
-
 </html>

@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProgram_prioritasRequest extends FormRequest
+class StorePriority_programRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateProgram_prioritasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => 'required|string|max:255|unique:priority_programs,id',
+            'name' => 'required|string|max:255',
         ];
     }
 }

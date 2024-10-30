@@ -6,17 +6,15 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Table extends Component
+class AddForm extends Component
 {
-    public $programs;
-
     /**
      * Create a new component instance.
      */
-    public function __construct($programs)
+
+    public function __construct()
     {
-        $this->programs = $programs;
-        
+   
     }
 
     /**
@@ -24,6 +22,6 @@ class Table extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.admin.table');
+        return view('components.admin.add-form');
     }
 }

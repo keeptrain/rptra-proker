@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Program_prioritas>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Priority_program>
  */
 class ProgramPrioritasFactory extends Factory
 {
