@@ -34,11 +34,17 @@ class DestroyPriority_programRequest extends FormRequest
     protected function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            // Loop through each priority_id to check if it's used in Main_program
-            foreach ($this->priority_ids as $priorityProgramId) {
-                if (Main_program::where('priority_program_id', $priorityProgramId)->exists()) {
-                    $validator->errors()->add('priority_ids', "Program dengan ID {$priorityProgramId} tidak bisa dihapus karena sedang digunakan dalam Program Pokok.");
-                }
+            $priorityIds = $this->input('priority_ids');
+
+
+            // Cek apakah ada ID dalam priority_ids yang sedang digunakan di Main_program
+            $inUseCount = Main_program::whereIn('priority_program_id', $priorityIds)->count();
+
+            if ($inUseCount > 0) {
+                $validator->errors()->add(
+                    'priority_ids',
+                    'Beberapa program tidak bisa dihapus karena sedang digunakan dalam Program Pokok.'
+                );
             }
         });
     }

@@ -1,14 +1,13 @@
 @extends('layouts.admin')
 
 @section('content-table')
-
-    @if (Route::currentRouteName() === 'prog-prioritas.show')
-        <form action="{{ route('prog-prioritas.destroy') }}" method="POST">
+    @if (Route::currentRouteName() === 'prog-mitra.show')
+        <form action="{{ route('prog-mitra.destroy') }}" method="POST">
             @csrf
             @method('DELETE')
             <x-admin.table :programs="$programs">
                 <x-slot name="slotbutton">
-                    <button type="button" onclick="window.location.href='{{ route('prog-prioritas.create') }}'"
+                    <button type="button" onclick="window.location.href='{{ route('prog-mitra.create') }}'"
                         class="px-3 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-1 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Tambah
                     </button>
@@ -20,25 +19,15 @@
 
                 <!-- Slot untuk thead -->
                 <x-slot name="thead">
-                    @error('priority_ids')
-                        <div class="text-red-500">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                    @error('null_priority_ids')
-                        <div class="text-red-500">
-                            {{ $message }}
-                        </div>
-                    @enderror
                     <tr>
                         <th scope="col" class="p-4">
 
                         </th>
-                        <th scope="col" class="px-6 py-3">Nama Program</th>
-                        <th scope="col" class="px-6 py-3">ID Program (Prioritas)</th>
+                        <th scope="col" class="px-6 py-3">Nama Mitra</th>
+                        <th scope="col" class="px-6 py-3">ID Mitra</th>
+    
                         <th scope="col" class="px-6 py-3">Aksi</th>
                     </tr>
-
                 </x-slot>
 
                 <!-- Slot untuk tbody -->
@@ -48,9 +37,7 @@
                             class="bg-white border-b dark:bg-white dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-50">
                             <td class="w-4 p-4">
                                 <div class="flex items-center">
-
-                                    <input id="checkbox-all"type="checkbox" name="priority_ids[]"
-                                        value="{{ $program->id }}"
+                                    <input id="checkbox-all"type="checkbox" name="main_ids[]" value="{{ $program->id }}"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="checkbox-table-search-{{ $program->id }}" class="sr-only">checkbox</label>
                                 </div>
@@ -61,24 +48,21 @@
                             <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-500">
                                 {{ $program->id }}
                             </td>
+
                             <td class="px-6 py-4">
-                                <a href="{{ route('prog-prioritas.edit', $program->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                <a href="" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                             </td>
                         </tr>
                     @endforeach
                 </x-slot>
             </x-admin.table>
-
         </form>
-        @elseif (Route::currentRouteName() === 'prog-prioritas.create')
-        <x-admin.add-form :route="'prog-prioritas.store'">    
+    @elseif (Route::currentRouteName() === 'prog-mitra.create')
+        <x-admin.add-form :route="'prog-mitra.store'">
             <x-slot name="formBody">
                 <!-- Konten form di sini -->
-                @include('admin.priority.create-prograrm')
+                @include('admin.institutional-partners.create')
             </x-slot>
         </x-admin.add-form>
-        @elseif (Route::currentRouteName() === 'prog-prioritas.edit')
-        <form action="{}" method="PUT">
-        </form>
     @endif
 @endsection

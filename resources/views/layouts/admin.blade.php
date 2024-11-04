@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -26,20 +27,17 @@
             <!-- Page Heading -->
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    
                     <!-- Heading or Title Section -->
                     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                        @if (Route::currentRouteName() === 'proker.index')
+                        @if (Route::currentRouteName() === 'prog-prioritas.index')
                         {{ __('Program Prioritas') }}
-                        @elseif (Route::currentRouteName() === 'proker.show')
+                        @elseif (Route::currentRouteName() === 'prog-prioritas.show')
                         {{ __('Daftar Program Prioritas') }}
-                        @elseif (Route::currentRouteName() === 'proker.store')
+                        @elseif (Route::currentRouteName() === 'prog-prioritas.store')
                         {{ __('Tambah Program Prioritas') }}
                         @elseif (Route::currentRouteName() === 'progpokok.show')
                         {{ __('Daftar Program Pokok') }}
-                        
                         @endif
-                    
                     </h2>
                 </div>
             </header>
@@ -49,12 +47,7 @@
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-gray-200">
-                            @if (Route::currentRouteName() === 'proker.show' || Route::currentRouteName() === 'proker.create')
-                                @yield('content-table')
-                            @elseif (Route::currentRouteName() === 'progpokok.show')
-                                @yield('content-table-main')
-                            @endif
-                        
+                            @yield('content-table')
                         </div>
                     </div>
                 </div>

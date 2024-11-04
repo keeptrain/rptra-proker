@@ -42,7 +42,7 @@ class PriorityProgramController extends Controller
             'name' => $request->input('name'),
         ]);
         
-        return redirect()->route('proker.show')->with('success', 'Program berhasil ditambahkan');
+        return redirect()->route('prog-prioritas.show')->with('success', 'Program berhasil ditambahkan');
     
     }
 
@@ -52,7 +52,7 @@ class PriorityProgramController extends Controller
     public function show(Priority_program $priority_program)
     {
         $programs = Priority_program::all();
-        return view('admin.priority.priority-program', compact('programs'));
+        return view('admin.priority.priority-program', ['programs' => $programs]);
     }
 
     /**
@@ -60,7 +60,7 @@ class PriorityProgramController extends Controller
      */
     public function edit(Priority_program $priority_program)
     {
-        //
+        return view('admin.priority.priority-program');
     }
 
     /**
@@ -80,6 +80,6 @@ class PriorityProgramController extends Controller
         Priority_program::whereIn('id', $ids)->delete();
 
         // Redirect dengan pesan sukses
-        return redirect()->route('proker.show')->with('success', 'Program yang dipilih berhasil dihapus.');
+        return redirect()->route('prog-prioritas.show')->with('success', 'Program yang dipilih berhasil dihapus.');
     }
 }

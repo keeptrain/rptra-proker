@@ -21,7 +21,7 @@ class InstitutionalPartnersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.institutional-partners.show');
     }
 
     /**
@@ -37,7 +37,8 @@ class InstitutionalPartnersController extends Controller
      */
     public function show(Institutional_partners $institutional_partners)
     {
-        //
+        $instituionalPartners = $institutional_partners::all();
+        return view('admin.institutional-partners.show', ['programs' => $instituionalPartners]);
     }
 
     /**

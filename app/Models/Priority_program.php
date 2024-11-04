@@ -12,7 +12,8 @@ class Priority_program extends Model
     public $incrementing = false;
     protected $fillable = ['id','name'];
 
-    
-    
+    public function get() {
+
+    }
     
 }
