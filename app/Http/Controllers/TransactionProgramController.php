@@ -21,7 +21,7 @@ class TransactionProgramController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.transaction.create');
     }
 
     /**

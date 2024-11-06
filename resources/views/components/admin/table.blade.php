@@ -1,4 +1,4 @@
-<div class="relative overflow-x-auto  sm:rounded-lg">
+<div class="relative overflow-x-auto sm:rounded-lg">
     <div
         class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white">
         <div>
@@ -29,7 +29,7 @@
                 </svg>
             </div>
             <input type="text" id="table-search-users"
-                class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-100 dark:border-gray-200 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-100 dark:border-gray-200 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Mencari program...">
         </div>
     </div>
@@ -41,6 +41,12 @@
             {{ $tbody }}
         </tbody>
     </table>
+
+    <!-- Menampilkan pagination -->
+    <div class="mt-4">
+        {{ $programs->links('') }}
+    </div>
+    
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -72,5 +78,20 @@
                 toggleDeleteButton();
             });
         }
+
+      
+        
     });
+
+    function showModal(actionUrl, programName) {
+    document.getElementById('editForm').action = actionUrl;
+    document.getElementById('programName').value = programName;
+    document.getElementById('editModal').classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById('editModal').classList.add('hidden');
+}
+
+    
 </script>

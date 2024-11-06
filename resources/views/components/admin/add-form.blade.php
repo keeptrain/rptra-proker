@@ -1,20 +1,30 @@
-@props(['route' => 'prog-prioritas.store', 'alternativeRoute' => 'prog-pokok.store', 'alternativeRoute1' => 'prog-mitra.store'])
-<form action="{{ route($route) }}" method="POST" class="max-w-lg">
+@props([
+    'route' => 'prog-prioritas.store',
+    'route' => 'prog-pokok.store',
+    'route' => 'prog-mitra.store',
+])
+<form action="{{ route($route) }}" method="POST" >
+   
+        @csrf
+        @method('POST')
+        <!-- Form Body -->
+        <div class="p-6" >
+            {{ $formBody }}
+        </div>
 
-    @csrf
-    {{ $formBody }}
-
-
-    <!-- Submit Button -->
-    <button  onclick="window.location.href='{{ url()->previous() }}';" type="submit"
-        class="mt-4 px-4 py-2 bg-gray-500 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-grey-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Kembali
-    </button>
-    <button type="submit"
-        class="mt-4 px-4 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Tambah
-    </button>
+        <!-- Submit Button -->
+        @if (Route::currentRouteName() === 'prog-prioritas.index')
+        <div class="p-6 ">
+            <button type="submit"
+                class="px-8 py-3 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Tambah
+            </button>
+        </div>
+        @endif
+  
 </form>
+
+
 
 <script>
     // Script to auto-fill the Unik ID field based on prefix and number input

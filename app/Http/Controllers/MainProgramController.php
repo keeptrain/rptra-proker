@@ -15,7 +15,9 @@ class MainProgramController extends Controller
      */
     public function index()
     {
-        //
+        $programs = Main_program::paginate(8);
+        $priorityPrograms = Priority_program::all(); 
+        return view('admin.principal.index', ['mainPrograms' => $programs, 'priorityPrograms' => $priorityPrograms,]);
     }
 
     /**
@@ -26,7 +28,7 @@ class MainProgramController extends Controller
         // Ambil data dari model PriorityProgram
          $priorityPrograms = Priority_program::all();
 
-        return view('admin.main.main-program', ['priorityPrograms' => $priorityPrograms]);
+        return view('admin.principal.index', ['priorityPrograms' => $priorityPrograms]);
     }
 
     /**
@@ -48,7 +50,7 @@ class MainProgramController extends Controller
             'name' => $request->input('name'),
         ]);
         
-        return redirect()->route('progpokok.show')->with('success', 'Program berhasil ditambahkan');
+        return redirect()->route('prog-pokok.index')->with('success', 'Program berhasil ditambahkan');
         
     }
 
@@ -57,9 +59,15 @@ class MainProgramController extends Controller
      */
     public function show(Main_program $main_program)
     {
-        //
-        $mainPrograms = Main_program::with('priorityProgram')->get();
-        return view('admin.main.main-program', compact('mainPrograms'));
+        //$indexView = $this->index();
+        //$mainPrograms = Main_program::with('priorityProgram')->paginate(10);
+        //return $indexView->with('selectedProgram', $main_program);
+    
+    }
+
+    public function showPriorityProgram(Priority_program $priority_program)
+    {
+        
     }
 
     /**
