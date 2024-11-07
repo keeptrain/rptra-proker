@@ -1,15 +1,16 @@
-<form action="{{ route('prog-prioritas.destroy') }}" method="POST">
+@props([
+
+]
+)
+
+<form id="deleteForm" action="{{ route('prog-prioritas.destroy') }}" method="POST">
     @csrf
     @method('DELETE')
 
     <x-admin.table :programs="$programs">
 
         <x-slot name="slotbutton">
-            <!--button type="button" onclick="window.location.href='{{ route('prog-prioritas.create') }}'"
-                            class="px-3 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-1 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Tambah
-                        </button-->
-            <button id="delete-button" type="submit"
+            <button id="delete-button" type="button" 
                 class="ml-2 px-3 py-2 bg-red-600 text-white font-medium text-sm rounded-lg focus:ring-1 focus:ring-red dark:bg-red-500 dark:hover:bg-red-700 dark:focus:ring-red-800 hidden">
                 Hapus
             </button>
@@ -71,7 +72,3 @@
     </x-admin.table>
 
 </form>
-<script>
-
-
-</script>
