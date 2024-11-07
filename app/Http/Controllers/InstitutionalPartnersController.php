@@ -2,18 +2,32 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\Http\Request;
 use App\Models\Institutional_partners;
-use App\Http\Requests\StoreInstitutional_partnersRequest;
+use App\Http\Requests\InstitutionalPartners\StorePartnersRequest;
+use App\Http\Requests\InstitutionalPartners\DestroyPartnersRequest;
 use App\Http\Requests\UpdateInstitutional_partnersRequest;
 
 class InstitutionalPartnersController extends Controller
 {
+
+    protected $institutionalPartner;
+
+    public function __construct(Institutional_partners $institutionalPartner)
+    {
+        $this->institutionalPartner= $institutionalPartner;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $paginate = $this->institutionalPartner->getPaginate();
+        return view('admin.institutional-partners.index', [
+            'institutionalPartners' => $paginate,
+        ]);
     }
 
     /**
@@ -21,15 +35,21 @@ class InstitutionalPartnersController extends Controller
      */
     public function create()
     {
-        return view('admin.institutional-partners.show');
+        return view('admin.institutional-partners.index');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreInstitutional_partnersRequest $request)
+    public function store(StorePartnersRequest $request)
     {
-        //
+        $this->institutionalPartner->storeInstituionalPartner(
+            $request->input('prefix'),
+            $request->input('number'),
+            $request->input('name')
+        );
+        
+        return redirect()->route('prog-mitra.index');
     }
 
     /**
@@ -38,15 +58,22 @@ class InstitutionalPartnersController extends Controller
     public function show(Institutional_partners $institutional_partners)
     {
         $instituionalPartners = $institutional_partners::all();
-        return view('admin.institutional-partners.show', ['programs' => $instituionalPartners]);
+        return view('admin.institutional-partners.show', ['institutionalPartnersShow' => $instituionalPartners]);
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Institutional_partners $institutional_partners)
+    public function edit( $id)
     {
-        //
+
+        $partner = $this->institutionalPartner->editInstitutionalParner($id);
+
+        return view('admin.institutional-partners.index',[
+            'selectedProgram' => $partner,
+            
+        ]);
     }
 
     /**
@@ -60,8 +87,13 @@ class InstitutionalPartnersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Institutional_partners $institutional_partners)
+    public function destroy(DestroyPartnersRequest $request)
     {
-        //
+    
+        $this->institutionalPartner->destroyInstituionalPartners(
+            $request->input('partner_ids'),
+        );
+
+        return redirect()->route('prog-mitra.index');
     }
 }

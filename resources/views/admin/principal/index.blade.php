@@ -20,8 +20,8 @@
 @endsection
 
 @section('content-form')
-    <x-admin.add-form :route="'prog-pokok.store'">
-        <x-slot name="formBody" :programs="$mainPrograms">
+    <x-admin.add-form :routeName="'prog-pokok.store'">
+        <x-slot name="formBody" :programs="$principalPrograms">
             <!-- Konten form di sini -->
             @include('admin.principal.create')
         </x-slot>

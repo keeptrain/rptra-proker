@@ -67,9 +67,8 @@
                 </tr>
             @endforeach
         </x-slot>
-    
-    </x-admin.table>
 
+    </x-admin.table>
 
 </form>
 <script>

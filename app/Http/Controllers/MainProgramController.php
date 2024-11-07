@@ -3,21 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Destroy\DestroyMain_programRequest;
+use App\Http\Requests\Principal\StorePrincipalRequest;
 use App\Models\Main_program;
-use App\Http\Requests\Store\StoreMain_programRequest;
+
 use App\Http\Requests\UpdateMain_programRequest;
 use App\Models\Priority_program;
 
 class MainProgramController extends Controller
 {
+    protected $principalProgram;
+    protected $priorityProgram;
+
+    public function __construct(Main_program $principalProgram, Priority_program $priorityProgram)
+    {
+        $this->principalProgram = $principalProgram;
+        $this->priorityProgram = $priorityProgram;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $programs = Main_program::paginate(8);
-        $priorityPrograms = Priority_program::all(); 
-        return view('admin.principal.index', ['mainPrograms' => $programs, 'priorityPrograms' => $priorityPrograms,]);
+        $principalPrograms = $this->principalProgram->getPaginate();
+
+        return view('admin.principal.index', [
+            'principalPrograms' => $principalPrograms, 
+            'priorityPrograms' => $this->showPriority(),
+        ]);
     }
 
     /**
@@ -25,32 +38,23 @@ class MainProgramController extends Controller
      */
     public function create()
     {
-        // Ambil data dari model PriorityProgram
-         $priorityPrograms = Priority_program::all();
-
-        return view('admin.principal.index', ['priorityPrograms' => $priorityPrograms]);
+        
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMain_programRequest $request)
+    public function store(StorePrincipalRequest $request)
     {
-        // Models
-        $main= new Main_program();
+ 
+        $this->principalProgram->storePrincipalProgram(
+            $request->input('prefix'),
+            $request->input('number'),
+            $request->input('priority_program'),
+            $request->input('name')
+        );
 
-        // Combine prefix and number for customeId
-        $customId = $request->input('prefix') . '-' . str_pad($request->input('number'), 3, '0', STR_PAD_LEFT);
-
-        $priorityProgram = $request->input('priority_program');
-
-        $newProgram = $main::create([
-            'id' => $customId,
-            'priority_program_id' => $priorityProgram,
-            'name' => $request->input('name'),
-        ]);
-        
-        return redirect()->route('prog-pokok.index')->with('success', 'Program berhasil ditambahkan');
+        return redirect()->route('prog-pokok.index')->withInput();
         
     }
 
@@ -65,10 +69,10 @@ class MainProgramController extends Controller
     
     }
 
-    public function showPriorityProgram(Priority_program $priority_program)
-    {
-        
+    public function showPriority() {
+        return $this->priorityProgram->get();
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -89,12 +93,13 @@ class MainProgramController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DestroyMain_programRequest $destroyMain_programRequest)
+    public function destroy(DestroyMain_programRequest $request)
     {
-        $ids = $destroyMain_programRequest->input('main_ids');
-        Main_program::whereIn('id', $ids)->delete();
 
-        // Redirect dengan pesan sukses
-        return redirect()->route('progpokok.show')->with('success', 'Program yang dipilih berhasil dihapus.');
+        $this->principalProgram->destroyPrincipalPrograms(
+            $request->input('main_ids'),
+        );
+
+        return redirect()->route('prog-pokok.index');
     }
 }

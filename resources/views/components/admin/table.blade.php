@@ -1,3 +1,4 @@
+@empty($selectedProgram)
 <div class="relative overflow-x-auto sm:rounded-lg">
     <div
         class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white">
@@ -44,14 +45,14 @@
 
     <!-- Menampilkan pagination -->
     <div class="mt-4">
-        {{ $programs->links('') }}
+        {{ $programs->links() }}
     </div>
     
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Seleksi checkbox dengan name "priority_ids[]"
-        const checkboxes = document.querySelectorAll('input[name="priority_ids[]"], input[name="main_ids[]"]');
+        const checkboxes = document.querySelectorAll('input[name="priority_ids[]"], input[name="main_ids[]"], input[name="partner_ids[]"]');
         const deleteButton = document.getElementById('delete-button');
 
         function toggleDeleteButton() {
@@ -95,3 +96,4 @@ function closeModal() {
 
     
 </script>
+@endempty

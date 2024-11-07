@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Destroy;
+namespace App\Http\Requests\InstitutionalPartners;
 
-use App\Models\Main_program;
+
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroyMain_programRequest extends FormRequest
+class StorePartnersRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
@@ -23,8 +20,9 @@ class DestroyMain_programRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'main_ids' => 'required|array',
-            'main_ids.*' => 'exists:main_programs,id',
+            'prefix' => 'required|string|max:10',
+            'number' => 'required|numeric|digits:3',
+            'name' => 'required|string|max:255',
         ];
     }
 }

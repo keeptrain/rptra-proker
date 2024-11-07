@@ -1,9 +1,7 @@
 @props([
-    'route' => 'prog-prioritas.store',
-    'route' => 'prog-pokok.store',
-    'route' => 'prog-mitra.store',
+    'routeName',
 ])
-<form action="{{ route($route) }}" method="POST" >
+<form action="{{ route($routeName) }}" method="POST" >
    
         @csrf
         @method('POST')
@@ -13,14 +11,14 @@
         </div>
 
         <!-- Submit Button -->
-        @if (Route::currentRouteName() === 'prog-prioritas.index')
+       
         <div class="p-6 ">
             <button type="submit"
                 class="px-8 py-3 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Tambah
             </button>
         </div>
-        @endif
+  
   
 </form>
 

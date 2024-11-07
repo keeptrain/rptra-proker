@@ -1,12 +1,13 @@
 <form action="{{ route('prog-pokok.destroy') }}" method="POST">
     @csrf
     @method('DELETE')
-    <x-admin.table :programs="$mainPrograms">
+    <x-admin.table :programs="$principalPrograms">
         <x-slot name="slotbutton">
             <button id="delete-button" type="submit"
                 class="ml-2 px-3 py-2 bg-red-600 text-white font-medium text-sm rounded-lg focus:ring-1 focus:ring-red dark:bg-red-500 dark:hover:bg-red-700 dark:focus:ring-red-800 hidden">
                 Hapus
             </button>
+        
         </x-slot>
 
         <!-- Slot untuk thead -->
@@ -27,7 +28,7 @@
 
         <!-- Slot untuk tbody -->
         <x-slot name="tbody">
-            @foreach ($mainPrograms as $program)
+            @foreach ($principalPrograms as $program)
                 <tr class="bg-white border-b dark:bg-white dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-50">
                     <td class="w-4 p-4">
                         <div class="flex items-center">

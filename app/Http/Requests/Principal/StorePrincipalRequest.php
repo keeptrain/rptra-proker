@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Store;
+namespace App\Http\Requests\Principal;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMain_programRequest extends FormRequest
+class StorePrincipalRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,16 @@ class StoreMain_programRequest extends FormRequest
             'number' => 'required|numeric|digits:3',
             'priority_program' => 'required|exists:priority_programs,id', // Pastikan id program prioritas valid
             'name' => 'required|string|max:255',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'prefix.required' => 'Prefix ID harus diisi.',
+            'number.required' => 'Nomor harus diisi.',
+            'priority_program.required' => 'Priority Program harus diisi.',
+            'name.required' => 'Nama Program harus diisi.',
         ];
     }
 }
