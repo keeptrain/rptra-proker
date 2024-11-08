@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Priority;
 
-use App\Models\Main_program;
+use App\Models\Principal_program;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DestoryPriorityRequest extends FormRequest
@@ -38,7 +38,7 @@ class DestoryPriorityRequest extends FormRequest
 
 
             // Cek apakah ada ID dalam priority_ids yang sedang digunakan di Main_program
-            $inUseCount = Main_program::whereIn('priority_program_id', $priorityIds)->count();
+            $inUseCount = Principal_program::whereIn('priority_program_id', $priorityIds)->count();
 
             if ($inUseCount > 0) {
                 $validator->errors()->add(

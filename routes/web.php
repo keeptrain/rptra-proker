@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MainProgramController;
+use App\Http\Controllers\PrincipalProgramController;
 use App\Http\Controllers\PriorityProgramController;
 use App\Http\Controllers\TransactionProgramController;
 use App\Http\Controllers\InstitutionalPartnersController;
@@ -22,11 +22,13 @@ Route::controller(PriorityProgramController::class)->group(function () {
     Route::delete('program-kerja/prioritas/hapus', 'destroy')->name('prog-prioritas.destroy');
 });
 
-Route::controller(MainProgramController::class)->group(function () {
+Route::controller(PrincipalProgramController::class)->group(function () {
     Route::get('program-kerja/pokok', 'index')->name('prog-pokok.index');
-    Route::get('program-kerja/pokok/{pokok}', 'show')->name('progpokok.show');      
+    Route::get('program-kerja/pokok/{pokok}', 'show')->name('prog-pokok.show');      
     Route::get('program-kerja/pokok/create', 'create')->name('prog-pokok.create');
     Route::post('program-kerja/pokok/tambah', 'store')->name('prog-pokok.store');
+    Route::get('program-kerja/pokok/ubah/{id}', 'edit')->name('prog-pokok.edit');
+    Route::put('program-kerja/pokok/ubah/{id}', 'update')->name('prog-pokok.update');
     Route::delete('program-kerja/pokok/hapus', 'destroy')->name('prog-pokok.destroy');
 });
 

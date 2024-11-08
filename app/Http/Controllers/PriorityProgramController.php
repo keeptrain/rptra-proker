@@ -7,7 +7,6 @@ use App\Models\Priority_program;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Priority\StorePriorityRequest;
 use App\Http\Requests\Priority\UpdatePriorityRequest;
-
 use Illuminate\Validation\ValidationException;
 
 class PriorityProgramController extends Controller
@@ -51,7 +50,7 @@ class PriorityProgramController extends Controller
                 $request->input('number'), 
                 $request->input('name')
             );
-            return redirect()->route('prog-prioritas.index')->with('success', 'Program berhasil ditambah.');;
+            return redirect()->route('prog-prioritas.index')->with('success', 'Program prioritas berhasil ditambah.');;
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         }

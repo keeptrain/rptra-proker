@@ -24,8 +24,8 @@ class StorePrincipalRequest extends FormRequest
         return [
             'prefix' => 'required|string|max:10',
             'number' => 'required|numeric|digits:3',
-            'priority_program' => 'required|exists:priority_programs,id', // Pastikan id program prioritas valid
-            'name' => 'required|string|max:255',
+            'priority_program' => 'required|exists:priority_programs,id',
+            'name' => 'required|string|max:255|unique:main_programs,name',
         ];
     }
 
@@ -36,6 +36,7 @@ class StorePrincipalRequest extends FormRequest
             'number.required' => 'Nomor harus diisi.',
             'priority_program.required' => 'Priority Program harus diisi.',
             'name.required' => 'Nama Program harus diisi.',
+            'name.unique' => 'Nama Program sudah ada.'
         ];
     }
 }
