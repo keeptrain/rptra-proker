@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Destroy\DestroyMain_programRequest;
+use App\Http\Requests\Principal\DestroyPrincipalRequest;
 use App\Http\Requests\Principal\StorePrincipalRequest;
+use App\Http\Requests\Principal\UpdatePrincipalRequest;
 use App\Models\Main_program;
-
-use App\Http\Requests\UpdateMain_programRequest;
 use App\Models\Priority_program;
 
 class MainProgramController extends Controller
@@ -61,7 +60,7 @@ class MainProgramController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Main_program $main_program)
+    public function show()
     {
         //$indexView = $this->index();
         //$mainPrograms = Main_program::with('priorityProgram')->paginate(10);
@@ -77,7 +76,7 @@ class MainProgramController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Main_program $main_program)
+    public function edit($id)
     {
         //
     }
@@ -85,7 +84,7 @@ class MainProgramController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMain_programRequest $request, Main_program $main_program)
+    public function update(UpdatePrincipalRequest $request)
     {
         //
     }
@@ -93,7 +92,7 @@ class MainProgramController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DestroyMain_programRequest $request)
+    public function destroy(DestroyPrincipalRequest $request)
     {
 
         $this->principalProgram->destroyPrincipalPrograms(

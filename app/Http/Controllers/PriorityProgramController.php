@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Priority\DestoryPriorityRequest;
 use App\Models\Priority_program;
 use Illuminate\Http\RedirectResponse;
-
-use App\Http\Requests\Destroy\DestroyPriority_programRequest;
 use App\Http\Requests\Priority\StorePriorityRequest;
 use App\Http\Requests\Priority\UpdatePriorityRequest;
+
 use Illuminate\Validation\ValidationException;
 
 class PriorityProgramController extends Controller
@@ -106,7 +105,7 @@ class PriorityProgramController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DestroyPriority_programRequest $request)
+    public function destroy(DestoryPriorityRequest $request)
     {
         $this->priorityProgram->destroyPriorityPrograms(
             $request->input('priority_ids')

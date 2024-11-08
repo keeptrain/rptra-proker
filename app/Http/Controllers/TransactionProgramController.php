@@ -8,6 +8,13 @@ use App\Http\Requests\UpdateTransaction_programRequest;
 
 class TransactionProgramController extends Controller
 {
+
+    public $transaction;
+
+    public function __construct(Transaction_program $transaction) {
+        $this->transaction = $transaction;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -27,7 +34,7 @@ class TransactionProgramController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTransaction_programRequest $request)
+    public function store( $request)
     {
         //
     }
@@ -51,7 +58,7 @@ class TransactionProgramController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTransaction_programRequest $request, Transaction_program $transaction_program)
+    public function update($request, Transaction_program $transaction_program)
     {
         //
     }

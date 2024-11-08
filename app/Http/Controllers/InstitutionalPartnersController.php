@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 
-use Illuminate\Http\Request;
+
+use App\Http\Requests\InstitutionalPartners\UpdatePartnersRequest;
 use App\Models\Institutional_partners;
 use App\Http\Requests\InstitutionalPartners\StorePartnersRequest;
 use App\Http\Requests\InstitutionalPartners\DestroyPartnersRequest;
-use App\Http\Requests\UpdateInstitutional_partnersRequest;
 
 class InstitutionalPartnersController extends Controller
 {
@@ -79,7 +79,7 @@ class InstitutionalPartnersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateInstitutional_partnersRequest $request, Institutional_partners $institutional_partners)
+    public function update(UpdatePartnersRequest $request, $id)
     {
         //
     }
