@@ -5,14 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Transaction_program;
 use App\Http\Requests\StoreTransaction_programRequest;
 use App\Http\Requests\UpdateTransaction_programRequest;
+use App\Models\Institutional_partners;
+use App\Models\Principal_program;
 
 class TransactionProgramController extends Controller
 {
 
-    public $transaction;
+    protected $transaction;
+    protected $principalProgram;
 
-    public function __construct(Transaction_program $transaction) {
+    protected $institutionalPartner;
+
+    public function __construct(Transaction_program $transaction, Principal_program $principalProgram, Institutional_partners $institutionalPartner) {
         $this->transaction = $transaction;
+        $this->principalProgram = $principalProgram;
+        $this->institutionalPartner = $institutionalPartner;
     }
 
     /**
@@ -28,7 +35,14 @@ class TransactionProgramController extends Controller
      */
     public function create()
     {
-        return view('admin.transaction.form');
+
+        $principalProgram = $this->principalProgram->get();
+        $institutionalPartner = $this->institutionalPartner->get();
+
+        return view('admin.transaction.create', [
+            'principalPrograms' => $principalProgram,
+            'institutionalPartners' => $institutionalPartner,
+        ]);
     }
 
     /**
@@ -42,9 +56,14 @@ class TransactionProgramController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Transaction_program $transaction_program)
+    public function show()
     {
-        //
+        return $this->principalProgram->id;
+    }
+
+    public function showPartners()
+    {
+        return $this->institutionalPartner->id;
     }
 
     /**

@@ -1,28 +1,21 @@
-@props([
-    'routeName',
-])
-<form action="{{ route($routeName) }}" method="POST" >
-   
-        @csrf
-        @method('POST')
-        <!-- Form Body -->
-        <div class="p-6" >
-            {{ $formBody }}
-        </div>
+@props(['routeName'])
+<form action="{{ route($routeName) }}" method="POST">
 
-        <!-- Submit Button -->
-       
-        <div class="p-6 ">
-            <button type="submit"
-                class="px-8 py-3 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Tambah
-            </button>
-        </div>
-  
-  
+    @csrf
+    @method('POST')
+    <!-- Form Body -->
+    <div class="p-6">
+        {{ $formBody }}
+    </div>
+
+    <!-- Submit Button -->
+    <div class="p-6 ">
+        <button type="submit"
+            class="px-8 py-3 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Tambah
+        </button>
+    </div>
 </form>
-
-
 
 <script>
     // Script to auto-fill the Unik ID field based on prefix and number input

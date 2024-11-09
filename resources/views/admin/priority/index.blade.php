@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 
 
-
+@section('page-heading')
+    {{ __('Program Prioritas') }}
+@endsection
 
 
 @if (isset($selectedProgram))

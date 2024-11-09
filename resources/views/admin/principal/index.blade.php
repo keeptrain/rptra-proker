@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('page-heading')
+    {{ __('Program pokok') }}
+@endsection
+
 
 @if (isset($selectedProgram))
     @section('content-form-header')
@@ -20,15 +24,7 @@
     @section('content-table')
         @include('admin.principal.show')
     @endsection
-
-    @section('content-form-header')
-        @if (Route::currentRouteName() === 'prog-pokok.edit')
-            {{ __('Ubah Program') }}
-        @elseif (Route::currentRouteName() === 'prog-pokok.index')
-            {{ __('Tambah Program') }}
-        @endif
-    @endsection
-
+    
     @section('content-form')
         <x-admin.add-form :routeName="'prog-pokok.store'">
             <x-slot name="formBody">

@@ -1,11 +1,14 @@
 @extends('layouts.admin')
 
-
+@section('page-heading')
+    {{ __('Mitra Lembaga') }}
+@endsection
 
 
 @if (isset($selectedProgram))
+
     @section('content-form-header')
-        {{ __('Edit Program') }}
+        {{ __('Ubah Mitra') }}
     @endsection
     @section('content-form-edit')
         <x-admin.edit-form :routeName="'prog-mitra.update'" :routeParam="$selectedProgram->id" :routeBack="'prog-mitra.index'">
@@ -24,11 +27,7 @@
     @endsection
 
     @section('content-form-header')
-        @if (Route::currentRouteName() === 'prog-mitra.edit')
-            {{ __('Ubah Program') }}
-        @elseif (Route::currentRouteName() === 'prog-mitra.index')
-            {{ __('Tambah Program') }}
-        @endif
+        {{ __('Tambah Mitra') }}
     @endsection
 
     @section('content-form')
