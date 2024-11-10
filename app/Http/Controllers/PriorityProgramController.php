@@ -43,7 +43,6 @@ class PriorityProgramController extends Controller
      */
     public function store(StorePriorityRequest $request)
     {
-        
         try {
             $this->priorityProgram->storePriorityProgram(
                 $request->input('prefix'), 
@@ -54,6 +53,7 @@ class PriorityProgramController extends Controller
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
+
      
     }
 

@@ -38,7 +38,7 @@ Route::controller(InstitutionalPartnersController::class)->group(function () {
     Route::get('program-kerja/mitra/tambah', 'create')->name('prog-mitra.create');
     Route::post('program-kerja/mitra/tambah', 'store')->name('prog-mitra.store');
     Route::get('program-kerja/mitra/ubah/{id}', 'edit')->name('prog-mitra.edit');
-    Route::put('program-kerja/mitra/ubah', 'update')->name('prog-mitra.update');
+    Route::put('program-kerja/mitra/ubah/{id}', 'update')->name('prog-mitra.update');
     Route::delete('program-kerja/mitra/hapus', 'destroy')->name('prog-mitra.destroy');
 });
 

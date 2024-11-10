@@ -20,9 +20,23 @@ class StorePartnersRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'prefix' => 'required|string|max:10',
-            'number' => 'required|numeric|digits:3',
-            'name' => 'required|string|max:255',
+            'id' => 'required|string|max:55|unique:priority_programs,id',
+            'name' => 'required|string|max:255|unique:priority_programs,name',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'id.required' => 'ID mitra wajib diisi.',
+            'id.string' => 'ID mitra harus berupa teks.',
+            'id.max' => 'ID mitra tidak boleh lebih dari 55 karakter.',
+            'id.unique' => 'ID mitra sudah digunakan, silakan gunakan ID yang berbeda.',
+            
+            'name.required' => 'Nama mitra wajib diisi.',
+            'name.string' => 'Nama mitra harus berupa teks.',
+            'name.max' => 'Nama mitra tidak boleh lebih dari 255 karakter.',
+            'name.unique' => 'Nama mitra sudah ada, silakan gunakan nama yang berbeda.',
         ];
     }
 }

@@ -27,7 +27,7 @@ class UpdatePrincipalRequest extends FormRequest
                 'required',
                 'string',
                 'max:55',
-                Rule::unique('main_programs', 'id')->ignore($this->route('id'))
+                'unique:main_programs,id,' . $this->route('id') . ',id',
             ],
             'priority_program' => [
                 'required',
@@ -39,7 +39,8 @@ class UpdatePrincipalRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('main_programs', 'name')->ignore($this->route('id'))
+                'unique:main_programs,name,' . $this->route('id') . ',name',
+                // Rule::unique('main_programs', 'name')->ignore($this->route('id'))
             ],
         ];
     }

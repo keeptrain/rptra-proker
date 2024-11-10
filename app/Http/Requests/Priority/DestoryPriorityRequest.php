@@ -28,7 +28,7 @@ class DestoryPriorityRequest extends FormRequest
         ];
     }
 
-     /**
+    /**
      * Configure the validator instance.
      */
     protected function withValidator($validator)
@@ -36,15 +36,11 @@ class DestoryPriorityRequest extends FormRequest
         $validator->after(function ($validator) {
             $priorityIds = $this->input('priority_ids');
 
-
             // Cek apakah ada ID dalam priority_ids yang sedang digunakan di Main_program
             $inUseCount = Principal_program::whereIn('priority_program_id', $priorityIds)->count();
 
             if ($inUseCount > 0) {
-                $validator->errors()->add(
-                    'priority_ids',
-                    'Beberapa program tidak bisa dihapus karena sedang digunakan dalam Program Pokok.'
-                );
+                $validator->errors()->add('priority_ids', 'Beberapa program tidak bisa dihapus karena sedang digunakan dalam Program Pokok.');
             }
         });
     }

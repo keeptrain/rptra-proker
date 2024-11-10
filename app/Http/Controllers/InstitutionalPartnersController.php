@@ -8,6 +8,7 @@ use App\Http\Requests\InstitutionalPartners\UpdatePartnersRequest;
 use App\Models\Institutional_partners;
 use App\Http\Requests\InstitutionalPartners\StorePartnersRequest;
 use App\Http\Requests\InstitutionalPartners\DestroyPartnersRequest;
+use Illuminate\Validation\ValidationException;
 
 class InstitutionalPartnersController extends Controller
 {
@@ -43,13 +44,17 @@ class InstitutionalPartnersController extends Controller
      */
     public function store(StorePartnersRequest $request)
     {
-        $this->institutionalPartner->storeInstituionalPartner(
-            $request->input('prefix'),
-            $request->input('number'),
-            $request->input('name')
-        );
-        
-        return redirect()->route('prog-mitra.index');
+        try {
+            $this->institutionalPartner->storeInstituionalPartner(
+                $request->input('prefix'),
+                $request->input('number'),
+                $request->input('name')
+            );
+            return redirect()->route('prog-mitra.index')->with('success', 'Mitra berhasil ditambah.');;
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+
     }
 
     /**
@@ -68,10 +73,12 @@ class InstitutionalPartnersController extends Controller
     public function edit( $id)
     {
 
-        $partner = $this->institutionalPartner->editInstitutionalParner($id);
+        $partner = $this->institutionalPartner->editInstitutionalPartner($id);
 
         return view('admin.institutional-partners.index',[
             'selectedProgram' => $partner,
+            'prefix' => $partner->separatedId()['prefix'],
+            'number' => $partner->separatedId()['number'],
             
         ]);
     }
@@ -81,7 +88,17 @@ class InstitutionalPartnersController extends Controller
      */
     public function update(UpdatePartnersRequest $request, $id)
     {
-        //
+        try {
+            $this->institutionalPartner->updateInstitutionalPartner(
+                $id,
+                $request->input('prefix'),
+                $request->input('number'),
+                $request->input('name')
+            );
+            return redirect()->route('prog-mitra.index')->with('success', 'Data mitra berhasil diperbarui.');;;
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
     }
 
     /**
