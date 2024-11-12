@@ -3,10 +3,6 @@
     @method('DELETE')
     <x-admin.table :programs="$institutionalPartners">
         <x-slot name="slotbutton">
-            <button type="button" onclick="window.location.href='{{ route('prog-mitra.create') }}'"
-                class="px-3 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-1 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Tambah
-            </button>
             <button id="delete-button" type="submit"
                 class="ml-2 px-3 py-2 bg-red-600 text-white font-medium text-sm rounded-lg focus:ring-1 focus:ring-red dark:bg-red-500 dark:hover:bg-red-700 dark:focus:ring-red-800 hidden">
                 Hapus
@@ -15,10 +11,8 @@
 
         <!-- Slot untuk thead -->
         <x-slot name="thead">
-           
             <tr>
                 <th scope="col" class="p-4">
-
                 </th>
                 <th scope="col" class="px-6 py-3">Nama Mitra</th>
                 <th scope="col" class="px-6 py-3">ID Mitra</th>
