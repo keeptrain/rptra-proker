@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -16,6 +17,28 @@ return new class extends Migration
             $table->string('name', length: 255);
             $table->timestamps();
         });
+
+        // Insert default records
+        DB::table('institutional_partners')->insert([
+        [
+            'id' => 'MITRA-001',
+            'name' => 'MITRA PERTAMA',
+            'created_at' => now(),
+            'updated_at' => now()
+        ],
+        [
+            'id' => 'MITRA-002',
+            'name' => 'MITRA KE DUA',
+            'created_at' => now(),
+            'updated_at' => now()
+        ],
+        [
+            'id' => 'MITRA-003',
+            'name' => 'MITRA KE TIGA',
+            'created_at' => now(),
+            'updated_at' => now()
+        ],
+    ]);
     }
 
     /**

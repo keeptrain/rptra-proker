@@ -5,13 +5,11 @@
             <label for="label-priority-program" class="block mb-2 text-sm font-medium text-gray-900">
                 Program Pokok
             </label>
-            <select name="priority-program" id="priority-program"
-                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5 "
-                required>
+            <select name="principal_program_id" id="principal_program_id"
+                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5 ">
                 <option value="">-- Pilih Program PKK --</option>
                 @foreach ($principalPrograms as $program)
-                    <option value="{{ $program->priority_program_id }}"
-                        data-priority-name="{{ $program->priorityProgram->name }}">
+                    <option value="{{ $program->id }}" data-priority-name="{{ $program->priorityProgram->name }}">
                         {{ $program->name }}
                     </option>
                 @endforeach
@@ -45,14 +43,10 @@
 @section('formBody2')
     <div class="mb-4">
         <label for="kegiatan" class="block text-sm font-medium text-gray-900 mb-2">Kegiatan</label>
-        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
         <div id="editor-container" style="height: 150px; border: 1px solid #d1d5db; border-radius: 0.5rem;"></div>
-        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-        <script>
-            var quill = new Quill('#editor-container', {
-                theme: 'snow'
-            });
-        </script>
+
+        <!-- Hidden input untuk menyimpan konten Quill -->
+        <input id="activity-input" name="activity" type="hidden">
     </div>
 @endsection
 
@@ -64,9 +58,9 @@
             <label for="tujuan-program" class="block mb-2 text-sm font-medium text-gray-900">
                 Tujuan
             </label>
-            <input type="text" id="tujuan-program" name="tujuan"
+            <input type="text" id="tujuan-program" name="objective"
                 class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
-                placeholder="Masukkan tujuan" required>
+                placeholder="Masukkan tujuan">
         </div>
 
         <!-- Spacer -->
@@ -81,17 +75,19 @@
             </label>
             <input type="text" id="output-program" name="output"
                 class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
-                placeholder="Masukkan output " required>
+                placeholder="Masukkan output ">
         </div>
 
-        <!-- Output Program -->
+
+
+        <!-- Volume Program -->
         <div>
             <label for="output-program" class="block mb-2 text-sm font-medium text-gray-900">
                 Volume
             </label>
-            <input type="text" id="output-program" name="output"
+            <input type="text" id="output-program" name="volume"
                 class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
-                placeholder="Berapa kali diadakan dalam 1 tahun" required>
+                placeholder="Berapa kali diadakan dalam 1 tahun">
         </div>
 
         <!-- Spacer -->
@@ -111,7 +107,7 @@
                         class="flex w-full items-center rounded-lg p-0 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100">
                         <label for="check-vertical-list-group4" class="flex w-full cursor-pointer items-center px-3 py-2">
                             <div class="inline-flex items-center w-full">
-                                <input type="checkbox"
+                                <input type="checkbox" name="information"
                                     class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
                                     id="check-vertical-list-group4" />
                                 <span
@@ -131,6 +127,16 @@
                 </nav>
             </div>
         </div>
+
+        <!-- Output Program -->
+        <div>
+            <label for="output-program" class="block mb-2 text-sm font-medium text-gray-900">
+                Target
+            </label>
+            <input type="text" id="output-program" name="target"
+                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
+                placeholder="Masukkan output ">
+        </div>
     </div>
 @endsection
 
@@ -143,7 +149,7 @@
             </label>
             <input type="text" id="tujuan-program" name="tujuan"
                 class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
-                placeholder="Masukkan tujuan" required>
+                placeholder="Masukkan tujuan">
         </div>
 
         <!-- Spacer -->
@@ -158,7 +164,7 @@
             </label>
             <input type="datetime-local" id="nama-program" name="name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 text-sm p-2.5 "
-                placeholder="Masukkan nama program" required>
+                placeholder="Masukkan nama program">
         </div>
     </div>
 @endsection
@@ -166,40 +172,30 @@
 @section('formBody5')
     <div class="grid grid-cols-[1fr_auto_1fr] gap-4 items-end">
         <!-- Mitra -->
-        <div>
-            <label for="mitra-select" class="block mb-2 text-sm font-medium text-gray-900">
+        <div >
+            <label for="mitra-select-label" class="block mb-2 text-sm font-medium text-gray-900">
                 Mitra
             </label>
-            <select id="mitra-select" name="mitra[]"
-                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5">
-                <option value=""> -- Pilih Mitra -- </option>
+            <select id="multiple-select" name="partner[]"
+                multiple
+                >
                 @foreach ($institutionalPartners as $mitra)
-                    <option value="{{ $mitra->id }}" data-name="{{ $mitra->name }}">{{ $mitra->name }}</option>
+                    <option value="{{ $mitra->id }}" data-name="{{ $mitra->id }}">
+                        {{ $mitra->name }}
+                    </option>
                 @endforeach
             </select>
         </div>
-
-        <!-- Panah -->
-        <div class="flex items-center justify-center pb-2.5">
-            <svg class="feather feather-arrow-right" fill="none" height="24" stroke="currentColor"
-                stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"
-                xmlns="http://www.w3.org/2000/svg">
-                <line x1="5" x2="19" y1="12" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-            </svg>
-        </div>
-
-        <div>
-            <!-- Kontainer untuk menampilkan pilihan terpilih -->
-            <label for="selected-mitra-container" class="block mb-2 text-sm font-medium text-gray-900">
-                Mitra yang terlibat
-            </label>
-            <div id="selected-mitra-container"
-                class="border border-transparent rounded-lg min-h-[42px]  flex flex-wrap w-full content-center">
-                <!-- Pilihan terpilih akan ditampilkan di sini -->
-            </div>
-        </div>
     </div>
+    <script >
+         const choices = new Choices('#multiple-select', {
+    removeItemButton: true, // Menampilkan tombol untuk menghapus item
+    searchEnabled: true, // Mengaktifkan pencarian
+    placeholder: true, // Mengaktifkan placeholder
+    placeholderValue: 'Select multiple options...', // Teks placeholder
+});
+    </script>
+
 @endsection
 
 

@@ -1,8 +1,3 @@
-@props([
-
-]
-)
-
 <form id="deleteForm" action="{{ route('prog-prioritas.destroy') }}" method="POST">
     @csrf
     @method('DELETE')

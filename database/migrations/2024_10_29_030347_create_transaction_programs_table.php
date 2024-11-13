@@ -12,16 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaction_programs', function (Blueprint $table) {
-            $table->string('id', length: 50)->primary();
-            $table->text('activity');
-            $table->text('objective');
-            $table->text('output');
-            $table->text('target');
-            $table->integer('volume');
-            $table->dateTime('schedule_activity');
-            $table->string('main_program_id', length: 50);
-            $table->string('instituional_partner_id', length: 50);
-            $table->enum('information',['belum terlaksana', 'terlaksana', 'tidak terlaksana']);
+            $table->increments('id')->primary();
+            $table->enum('status', ['draft', 'completed'])->default('draft');
+
+            $table->text('activity')->nullable(true);
+            $table->text('objective')->nullable(true);
+            $table->text('output')->nullable(true);
+            $table->text('target')->nullable(true);
+            $table->integer('volume')->nullable(true);
+            $table->text('location')->nullable(true);
+            $table->dateTime('schedule_activity')->nullable(true);
+            $table->string('main_program_id', length: 50)->nullable(true);
+            //$table->string('instituional_partner_id', length: 50)->nullable(true);
+            $table->enum('information',['belum terlaksana', 'terlaksana', 'tidak terlaksana'])->default('belum terlaksana');
             $table->timestamps();
 
             // Foreign key to priority_program (id)
@@ -31,12 +34,34 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            // Foreign key to institutional_partners (id)
+            /* Foreign key to institutional_partners (id)
             $table->foreign('instituional_partner_id')
             ->references('id')
             ->on('institutional_partners')
             ->onUpdate('cascade')
-            ->onDelete('cascade');
+            ->onDelete('cascade');*/
+        });
+
+
+        // Pivot
+        Schema::create('institutional_partner_transaction_program', function (Blueprint $table) {
+            $table->increments('id')->primary();
+            $table->unsignedInteger('transaction_program_id');
+            $table->string('institutional_partner_id', 50);
+            $table->timestamps();
+
+
+            $table->foreign('transaction_program_id', 'fk_transaction_program')
+                ->references('id')
+                ->on('transaction_programs')
+                ->onDelete('cascade');
+           
+                // Menentukan nama constraint secara manual
+            $table->foreign('institutional_partner_id', 'fk_institutional_partner') // Menentukan nama constraint secara manual
+                ->references('id')
+                ->on('institutional_partners')
+                ->onDelete('cascade');
+          
         });
     }
 
@@ -46,5 +71,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('transaction_programs');
+        Schema::dropIfExists('institutional_partner_transaction_program');
     }
 };

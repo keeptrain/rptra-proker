@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaction_program;
-use App\Http\Requests\StoreTransaction_programRequest;
-use App\Http\Requests\UpdateTransaction_programRequest;
-use App\Models\Institutional_partners;
+use Illuminate\Support\Str;
 use App\Models\Principal_program;
+
+use App\Models\Transaction_program;
+use App\Models\Institutional_partners;
+use Illuminate\Validation\ValidationException;
+use App\Http\Requests\UpdateTransaction_programRequest;
+use App\Http\Requests\Transaction\StoreTransactionRequest;
 
 class TransactionProgramController extends Controller
 {
@@ -27,7 +30,10 @@ class TransactionProgramController extends Controller
      */
     public function index()
     {
-        //
+        $paginate = $this->transaction->get();
+        return view('admin.transaction.index', [
+            'transactions' => $paginate,
+        ]);
     }
 
     /**
@@ -48,9 +54,30 @@ class TransactionProgramController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store( $request)
+    public function store(StoreTransactionRequest $request)
     {
-        //
+        try {
+            $this->transaction->storeTransactionProgram(
+                
+                $request->input('activity'),
+                $request->input('objective'),
+                $request->input('output'),
+                $request->input('target'),
+                $request->input('volume'),
+                $request->input('location'),
+                $request->input('schedule_activity'),
+                $request->input('principal_program_id'),
+                $request->input('partner')  
+            );
+            return redirect()->route('prog-transaksi.create')->with('success', 'Program kerja berhasil ditambah.');;
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+    }
+
+    public function storeToDraft()
+    {
+        
     }
 
     /**

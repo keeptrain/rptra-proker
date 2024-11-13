@@ -24,6 +24,10 @@
     @section('content-table')
         @include('admin.principal.show')
     @endsection
+
+    @section('content-form-header')
+        {{ __('Tambah program') }}
+    @endsection
     
     @section('content-form')
         <x-admin.add-form :routeName="'prog-pokok.store'">

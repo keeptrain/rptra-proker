@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Institutional_partners extends Model
 {
+    use HasFactory;
     protected $table = 'institutional_partners';
     protected $primaryKey = 'id';
     public $incrementing = false;
@@ -14,6 +16,11 @@ class Institutional_partners extends Model
     public function get()
     {
         return self::all();
+    }
+
+    public function transactionPrograms()
+    {
+        return $this->belongsToMany(Transaction_program::class, 'institutional_partner_transaction_program',  'transaction_program_id', 'institutional_partner_id');
     }
 
     public function getPaginate()
