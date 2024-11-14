@@ -22,16 +22,16 @@ class StoreTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|string',
+            'status' => 'string|exists:transaction_programs,status',
             'activity' => 'required|string',
             'objective' => 'required|string',
             'output' => 'required|string',
             'target' => 'required|string',
             'volume' => 'required|int', 
             'location' => 'required|string',
-            'schedule_activity' => 'required|date',
-            'main_program_id' => 'required|exists:main_programs,id',
-            'information' => 'required|exists:transaction_programs,information',
+            'schedule_activity' => 'required|date|date_format:Y-m-d\TH:i',
+            'principal_program_id' => 'required|exists:main_programs,id',
+            'information' => 'string|exists:transaction_programs,information',
             'partner' => 'required|array',
             'partner.*' => 'exists:institutional_partners,id'
         

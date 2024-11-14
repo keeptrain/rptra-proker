@@ -48,6 +48,7 @@ class TransactionProgramController extends Controller
         return view('admin.transaction.create', [
             'principalPrograms' => $principalProgram,
             'institutionalPartners' => $institutionalPartner,
+            'transactions' => $this->transaction->getInformationOptions(),
         ]);
     }
 
@@ -58,7 +59,7 @@ class TransactionProgramController extends Controller
     {
         try {
             $this->transaction->storeTransactionProgram(
-                
+              
                 $request->input('activity'),
                 $request->input('objective'),
                 $request->input('output'),
@@ -67,7 +68,8 @@ class TransactionProgramController extends Controller
                 $request->input('location'),
                 $request->input('schedule_activity'),
                 $request->input('principal_program_id'),
-                $request->input('partner')  
+                $request->input('partner'),
+                $request->input('information')
             );
             return redirect()->route('prog-transaksi.create')->with('success', 'Program kerja berhasil ditambah.');;
         } catch (ValidationException $e) {

@@ -38,6 +38,19 @@ class Transaction_program extends Model
     {
         return self::all();
     }
+
+    const INFORMATION_BELUM_TERLAKSANA = 'belum terlaksana';
+    const INFORMATION_TELAKSANA = 'terlaksana';
+    const INFORMATION_TIDAK_TERLAKSANA = 'tidak terlaksana';
+
+    public static function getInformationOptions()
+    {
+        return [
+            self::INFORMATION_BELUM_TERLAKSANA,
+            self::INFORMATION_TELAKSANA,
+            self::INFORMATION_TIDAK_TERLAKSANA,
+        ];
+    }
     
     public function institutionalPartners()
     {
@@ -59,11 +72,13 @@ class Transaction_program extends Model
         $schedule_activity,
         $main_program_id,
         $institutional_partner_ids,
+        $information
         )
     {
     
         // Membuat transaksi baru
         $transaction = self::create([
+            'status' => 'completed',
             'activity' => $activity,
             'objective' => $objective,
             'output' => $output,
@@ -72,6 +87,8 @@ class Transaction_program extends Model
             'location' => $location,
             'schedule_activity' => $schedule_activity,
             'main_program_id' => $main_program_id,
+            'information' => $information,
+
         ]);
 
         if (!empty($institutional_partner_ids)) {
