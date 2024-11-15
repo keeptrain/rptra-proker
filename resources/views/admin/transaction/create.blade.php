@@ -34,10 +34,14 @@
                 @yield('formBody5')
 
             </x-slot>
-
+           
         </x-admin.create-form>
 
+        <x-admin.modal/>
+        
+
         <!-- Script JavaScript -->
+        <script src="{{ asset('js/create-form/modal-draft.js') }}"></script>
         <script src="{{ asset('js/create-form/selected-principal.js') }}"></script>
         <script src="{{ asset('js/create-form/quill-activity-form.js') }}"></script>
        
@@ -49,6 +53,7 @@
                 initSelectedPrincipal();
                 //initSelectedPartners();
             });
+            
         </script>
     @endsection
 @endif

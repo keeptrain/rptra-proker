@@ -59,7 +59,7 @@ class TransactionProgramController extends Controller
     {
         try {
             $this->transaction->storeTransactionProgram(
-              
+                'completed',
                 $request->input('activity'),
                 $request->input('objective'),
                 $request->input('output'),
@@ -79,7 +79,37 @@ class TransactionProgramController extends Controller
 
     public function storeToDraft()
     {
-        
+        try {
+        // Ambil data dari input secara manual
+        $activity = $_POST['activity'] ?? null;
+        $objective = $_POST['objective'] ?? null;
+        $output = $_POST['output'] ?? null;
+        $target = $_POST['target'] ?? null;
+        $volume = $_POST['volume'] ?? null;
+        $location = $_POST['location'] ?? null;
+        $schedule_activity = $_POST['schedule_activity'] ?? null;
+        $principal_program_id = $_POST['principal_program_id'] ?? null;
+        $partner = $_POST['partner'] ?? null;
+        $information = $_POST['information'] ?? null;
+
+        // Simpan data ke dalam draft
+        $this->transaction->storeTransactionProgram(
+            'draft', // Misalnya, Anda ingin menyimpan sebagai draft
+            $activity,
+            $objective,
+            $output,
+            $target,
+            $volume,
+            $location,
+            $schedule_activity,
+            $principal_program_id,
+            $partner,
+            $information
+        );
+            return redirect()->route('prog-transaksi.create')->with('success', 'Program kerja telah di simpan ke dalam draft.');;
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
     }
 
     /**

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('transaction_programs', function (Blueprint $table) {
             $table->increments('id')->primary();
             $table->enum('status', ['draft', 'completed'])->default('draft');
-
             $table->text('activity')->nullable(true);
             $table->text('objective')->nullable(true);
             $table->text('output')->nullable(true);
@@ -24,7 +23,7 @@ return new class extends Migration
             $table->dateTime('schedule_activity')->nullable(true);
             $table->string('main_program_id', length: 50)->nullable(true);
             //$table->string('instituional_partner_id', length: 50)->nullable(true);
-            $table->enum('information',['belum terlaksana', 'terlaksana', 'tidak terlaksana'])->default('belum terlaksana');
+            $table->enum('information',['belum_terlaksana', 'terlaksana', 'tidak_terlaksana'])->default('belum_terlaksana');
             $table->timestamps();
 
             // Foreign key to priority_program (id)
@@ -46,8 +45,10 @@ return new class extends Migration
         // Pivot
         Schema::create('institutional_partner_transaction_program', function (Blueprint $table) {
             $table->increments('id')->primary();
-            $table->unsignedInteger('transaction_program_id');
-            $table->string('institutional_partner_id', 50);
+            $table->unsignedInteger('transaction_program_id')
+                ->nullable(true);
+            $table->string('institutional_partner_id', 50)
+                ->nullable(true);
             $table->timestamps();
 
 

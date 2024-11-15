@@ -67,13 +67,14 @@
     <!-- Submit Button -->
     <div>
         <div class="text-sm mt-6 mb-2  flex ">
-           
         </div>
         <div class="bg-transparent flex justify-end space-x-4">
-            <button type="submit"
-                class="px-8 py-3 bg-white text-black font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-white dark:hover:bg-gray-200 dark:focus:ring-blue-800">
+            <button type="button"
+                class="px-8 py-3 bg-white text-black font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-white dark:hover:bg-gray-200 dark:focus:ring-blue-800"
+                onclick="openModal()">
                 Save to draft
             </button>
+
             <button type="submit"
                 class="px-8 py-3 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Create
@@ -82,16 +83,9 @@
     </div>
 </form>
 
-<script>
-    // Script to auto-fill the Unik ID field based on prefix and number input
-    document.getElementById('prefix-id').addEventListener('input', updateUnikId);
-    document.getElementById('number').addEventListener('input', updateUnikId);
 
-    function updateUnikId() {
-        const prefix = document.getElementById('prefix-id').value;
-        const number = document.getElementById('number').value.padStart(3, '0'); // format number to 3 digits
-        document.getElementById('nama-id').value = `${prefix}-${number}`;
-    }
+<script>
+
 
     function numberOnly(id) {
         // Get element by id which passed as parameter within HTML element event
@@ -99,4 +93,6 @@
         // This removes any other character but numbers as entered by user
         element.value = element.value.replace(/[^0-9]/gi, "");
     }
+
+
 </script>

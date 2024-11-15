@@ -63,6 +63,7 @@ class Transaction_program extends Model
     }
 
     public function storeTransactionProgram(
+        $status,
         $activity,
         $objective,
         $output,
@@ -73,12 +74,12 @@ class Transaction_program extends Model
         $main_program_id,
         $institutional_partner_ids,
         $information
-        )
+    )
     {
     
         // Membuat transaksi baru
         $transaction = self::create([
-            'status' => 'completed',
+            'status' => $status,
             'activity' => $activity,
             'objective' => $objective,
             'output' => $output,
@@ -96,10 +97,34 @@ class Transaction_program extends Model
         }
     }
 
-    public function storeToDraft()
+    public function storeTransactionToDraft(
+        $activity,
+        $objective,
+        $output,
+        $target,
+        $volume,
+        $location,
+        $schedule_activity,
+        $main_program_id,
+        $institutional_partner_ids,
+        $information
+    )
     {
-        return self::create([
+        $transaction = self::create([
             'status' => 'draft',
+            'activity' => $activity,
+            'objective' => $objective,
+            'output' => $output,
+            'target' => $target,
+            'volume' => $volume,
+            'location' => $location,
+            'schedule_activity' => $schedule_activity,
+            'main_program_id' => $main_program_id,
+            'information' => $information,
         ]);
+
+        if (!empty($institutional_partner_ids)) {
+            $transaction->institutionalPartners()->attach($institutional_partner_ids);
+        }
     }
 }
