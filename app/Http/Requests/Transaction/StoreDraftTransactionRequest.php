@@ -4,7 +4,7 @@ namespace App\Http\Requests\Transaction;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTransactionRequest extends FormRequest
+class StoreDraftTransactionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,16 +23,16 @@ class StoreTransactionRequest extends FormRequest
     {
         return [
             'status' => 'string|exists:transaction_programs,status',
-            'activity' => 'required|nullable|string',
-            'objective' => 'required|string',
-            'output' => 'required|string',
-            'target' => 'required|string',
-            'volume' => 'required|int', 
-            'location' => 'required|string',
-            'schedule_activity' => 'required|date|date_format:Y-m-d\TH:i',
-            'principal_program_id' => 'required|exists:main_programs,id',
+            'activity' => 'nullable|nullable|string',
+            'objective' => 'nullable|string',
+            'output' => 'nullable|string',
+            'target' => 'nullable|string',
+            'volume' => 'nullable|int', 
+            'location' => 'nullable|string',
+            'schedule_activity' => 'nullable|date|date_format:Y-m-d\TH:i',
+            'principal_program_id' => 'nullable|exists:main_programs,id',
             'information' => 'string|in:belum_terlaksana,terlaksana,tidak_terlaksana',
-            'partner' => 'required|array',
+            'partner' => 'nullable|array',
             'partner.*' => 'exists:institutional_partners,id'
         ];
     }
@@ -43,6 +43,5 @@ class StoreTransactionRequest extends FormRequest
             'partner.exists' => 'Mitra tidak ada'
         ];
     }
-
  
 }

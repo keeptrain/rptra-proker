@@ -15,7 +15,7 @@
     @endsection
 @else
     @section('content-table-header')
-        Daftar program
+        {{ __('Program kerja') }}
     @endsection
 
     @section('content-table')
@@ -26,7 +26,7 @@
         @if (Route::currentRouteName() === 'prog-transaksi.edit')
             {{ __('Ubah Program') }}
         @elseif (Route::currentRouteName() === 'prog-transaksi.index')
-            {{ __('Tambah Program') }}
+            {{ __('Draft') }}
         @endif
     @endsection
 

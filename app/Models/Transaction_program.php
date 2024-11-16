@@ -29,33 +29,22 @@ class Transaction_program extends Model
         'information',
     ];
 
-    /*protected $fillable = [
-        'status',
-        'information'
-    ];*/
-
+    public function institutionalPartners()
+    {
+        return $this->belongsToMany(Institutional_partners::class,'institutional_partner_transaction_program', 'transaction_program_id', 'institutional_partner_id');
+    }
+    
     public function get()
     {
         return self::all();
     }
 
-    const INFORMATION_BELUM_TERLAKSANA = 'belum terlaksana';
-    const INFORMATION_TELAKSANA = 'terlaksana';
-    const INFORMATION_TIDAK_TERLAKSANA = 'tidak terlaksana';
-
-    public static function getInformationOptions()
+    public function getCompletedStatus()
     {
-        return [
-            self::INFORMATION_BELUM_TERLAKSANA,
-            self::INFORMATION_TELAKSANA,
-            self::INFORMATION_TIDAK_TERLAKSANA,
-        ];
+        return self::where('status', 'completed')->get();
     }
     
-    public function institutionalPartners()
-    {
-        return $this->belongsToMany(Institutional_partners::class,'institutional_partner_transaction_program', 'transaction_program_id', 'institutional_partner_id');
-    }
+    
 
     public function generateId()
     {
@@ -97,34 +86,4 @@ class Transaction_program extends Model
         }
     }
 
-    public function storeTransactionToDraft(
-        $activity,
-        $objective,
-        $output,
-        $target,
-        $volume,
-        $location,
-        $schedule_activity,
-        $main_program_id,
-        $institutional_partner_ids,
-        $information
-    )
-    {
-        $transaction = self::create([
-            'status' => 'draft',
-            'activity' => $activity,
-            'objective' => $objective,
-            'output' => $output,
-            'target' => $target,
-            'volume' => $volume,
-            'location' => $location,
-            'schedule_activity' => $schedule_activity,
-            'main_program_id' => $main_program_id,
-            'information' => $information,
-        ]);
-
-        if (!empty($institutional_partner_ids)) {
-            $transaction->institutionalPartners()->attach($institutional_partner_ids);
-        }
-    }
 }

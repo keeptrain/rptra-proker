@@ -34,17 +34,27 @@
                 @yield('formBody5')
 
             </x-slot>
+
+          
+            @push('modal')
+            <x-admin.modal :saveIdButton="'saveDraftButton'">
+                <x-slot name="nameButton">
+                    Simpan draft
+                </x-slot>
+                
+                
+            </x-admin.modal>
+            @endpush
            
         </x-admin.create-form>
-
-        <x-admin.modal/>
         
 
+    
         <!-- Script JavaScript -->
-        <script src="{{ asset('js/create-form/modal-draft.js') }}"></script>
         <script src="{{ asset('js/create-form/selected-principal.js') }}"></script>
-        <script src="{{ asset('js/create-form/quill-activity-form.js') }}"></script>
-       
+        <script src="{{ asset('js/create-form/form-quill-activity.js') }}"></script>
+        <script src="{{ asset('js/create-form/multiple-select.js') }}"></script>
+        <script src="{{ asset('js/create-form/modal-draft.js') }}"></script>
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {

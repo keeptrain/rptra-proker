@@ -3,6 +3,7 @@ var quill = new Quill("#editor-container", {
     theme: "snow",
 });
 
+
 // Fungsi untuk memperbarui hidden input dengan konten Quill
 function updateHiddenInput() {
     var activityInput = document.getElementById("activity-input");

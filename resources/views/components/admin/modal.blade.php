@@ -1,3 +1,5 @@
+@props(['saveIdButton'])
+
 <!-- Modal -->
 <div id="draftModal" class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden">
     <div class="bg-white rounded-lg shadow-lg w-1/4 mx-auto"
@@ -12,20 +14,19 @@
                 </svg>
             </button>
         </div>
-        <div class="p-4">
-            <form id="draftForm">
-                <div class="mb-4">
-                    <input type="text"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
-                        id="draftName" name="draftName" placeholder="Masukkan nama untuk draft" required>
-                </div>
-            </form>
-        </div>
+        <!--div class="p-4">
+                <form id="draftForm">
+                    <div class="mb-4">
+                        <input type="text"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
+                            id="draftName" name="draftName" placeholder="Masukkan nama untuk draft">
+                    </div>
+                </form>
+            </div-->
         <div class="p-4 border-t flex justify-end">
             <button type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
                 onclick="closeModal()">Batal</button>
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md" id="saveDraftButton">Simpan
-                Draft</button>
+            <button id="{{ $saveIdButton }}" type="button" class="px-4 py-2 bg-blue-600 text-white rounded-md">{{ $nameButton }}</button>
         </div>
     </div>
 </div>

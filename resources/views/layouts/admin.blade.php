@@ -24,11 +24,16 @@
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
         <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
     <body class="font-sans antialiased bg-gray-100">
+
+        <x-admin.alert/>
+
         <div class="min-h-screen bg-gray-100 flex">
             <!-- Sidebar -->
             <div class="bg-white text-white">
@@ -43,7 +48,6 @@
                         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                             <!-- Conditional heading based on route -->
                             @yield('page-heading')
-
                         </h2>
                     </div>
                 </header>
@@ -161,39 +165,10 @@
             </main>
         </div>
 
-        <script type="text/javascript" src="{{ asset('build/assets/js/formSection.js') }}"></script>
-        <!--script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script-->
-       
-
     
-
-        <!-- SweetAlert Error Alert Script -->
-        @if ($errors->any())
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        html: `{!! implode('<br>', $errors->all()) !!}`,
-                        confirmButtonColor: '#d33'
-                    });
-                });
-            </script>
-        @endif
-
-        <!-- Success Alert (optional) -->
-        @if (session('success'))
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil',
-                        text: "{{ session('success') }}",
-                        confirmButtonColor: '#3085d6'
-                    });
-                });
-            </script>
-        @endif
+        <!--script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script-->
+        <!--script type="text/javascript" src="{{ asset('build/assets/js/sidebar.js') }}"></script-->
+    
     </body>
 
 </html>

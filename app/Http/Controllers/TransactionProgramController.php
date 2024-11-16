@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Transaction\StoreDraftTransactionRequest;
 use Illuminate\Support\Str;
-use App\Models\Principal_program;
+use Illuminate\Http\Request;
 
+use App\Models\Principal_program;
 use App\Models\Transaction_program;
 use App\Models\Institutional_partners;
 use Illuminate\Validation\ValidationException;
@@ -30,7 +32,7 @@ class TransactionProgramController extends Controller
      */
     public function index()
     {
-        $paginate = $this->transaction->get();
+        $paginate = $this->transaction->getCompletedStatus();
         return view('admin.transaction.index', [
             'transactions' => $paginate,
         ]);
@@ -48,7 +50,6 @@ class TransactionProgramController extends Controller
         return view('admin.transaction.create', [
             'principalPrograms' => $principalProgram,
             'institutionalPartners' => $institutionalPartner,
-            'transactions' => $this->transaction->getInformationOptions(),
         ]);
     }
 
@@ -71,42 +72,32 @@ class TransactionProgramController extends Controller
                 $request->input('partner'),
                 $request->input('information')
             );
-            return redirect()->route('prog-transaksi.create')->with('success', 'Program kerja berhasil ditambah.');;
+            return redirect()->route('prog-transaksi.create')->with('success', 'Program kerja berhasil ditambah.');
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
     }
 
-    public function storeToDraft()
+    public function storeToDraft(StoreDraftTransactionRequest $request)
     {
         try {
-        // Ambil data dari input secara manual
-        $activity = $_POST['activity'] ?? null;
-        $objective = $_POST['objective'] ?? null;
-        $output = $_POST['output'] ?? null;
-        $target = $_POST['target'] ?? null;
-        $volume = $_POST['volume'] ?? null;
-        $location = $_POST['location'] ?? null;
-        $schedule_activity = $_POST['schedule_activity'] ?? null;
-        $principal_program_id = $_POST['principal_program_id'] ?? null;
-        $partner = $_POST['partner'] ?? null;
-        $information = $_POST['information'] ?? null;
+            // Simpan data ke dalam draft
+             $this->transaction->storeTransactionProgram(
+                'draft',
+                $request->activity,
+                $request->objective,
+                $request->output,
+                $request->target,
+                $request->volume,
+                $request->location,
+                $request->schedule_activity,
+                $request->principal_program_id,
+                $request->partner,
+                $request->information
+            );
 
-        // Simpan data ke dalam draft
-        $this->transaction->storeTransactionProgram(
-            'draft', // Misalnya, Anda ingin menyimpan sebagai draft
-            $activity,
-            $objective,
-            $output,
-            $target,
-            $volume,
-            $location,
-            $schedule_activity,
-            $principal_program_id,
-            $partner,
-            $information
-        );
-            return redirect()->route('prog-transaksi.create')->with('success', 'Program kerja telah di simpan ke dalam draft.');;
+
+            return response()->json(['success' => true, 'message' => 'Program kerja sebagai draft berhasil di simpan.'],200);
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         }

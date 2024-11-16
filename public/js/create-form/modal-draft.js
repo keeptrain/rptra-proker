@@ -1,19 +1,38 @@
 function openModal() {
-    document.getElementById('draftModal').classList.remove('hidden'); // Menampilkan modal
+    document.getElementById("draftModal").classList.remove("hidden"); // Menampilkan modal
 }
 
 function closeModal() {
-    document.getElementById('draftModal').classList.add('hidden'); // Menyembunyikan modal
+    document.getElementById("draftModal").classList.add("hidden"); // Menyembunyikan modal
 }
 
-document.getElementById('saveDraftButton').addEventListener('click', function() {
-    const draftName = document.getElementById('draftName').value;
+function resetForm() {
+    document.getElementById("create-form").reset();
+    quill.setText('');
+} 
+document.getElementById("saveDraftButton").addEventListener("click", function () {
 
-    if (draftName) {
-        // Simpan nama draft (misalnya, kirim ke server)
-        console.log('Draft saved:', draftName);
-        closeModal(); // Menutup modal setelah menyimpan
-    } else {
-        alert('Nama draft tidak boleh kosong.');
-    }
+    const formData = new FormData(document.getElementById("create-form"));
+
+    $.ajax({
+        type: "POST",
+        url: 'tambah/draft', // URL endpoint
+        data: formData, // Data yang akan dikirim
+        processData: false,
+        contentType: false,
+        headers: {
+            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+        },
+        success: function (data) {
+            if (data.success) {
+                showAlert('success', 'Berhasil', data.message);
+                resetForm();
+                closeModal();
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+    
+        }
+    });
 });

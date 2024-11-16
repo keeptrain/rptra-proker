@@ -1,5 +1,5 @@
 @props(['routeName'])
-<form action="{{ route($routeName) }}" method="POST">
+<form id="create-form" action="{{ route($routeName) }}" method="POST">
 
     @csrf
     @method('POST')
@@ -81,6 +81,8 @@
             </button>
         </div>
     </div>
+    @stack('modal')
+    
 </form>
 
 
