@@ -8,7 +8,7 @@ function closeModal() {
 
 function resetForm() {
     document.getElementById("create-form").reset();
-    quill.setText('');
+    resetQuillEditor();
 } 
 document.getElementById("saveDraftButton").addEventListener("click", function () {
 

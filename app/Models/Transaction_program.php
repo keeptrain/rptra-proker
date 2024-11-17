@@ -14,7 +14,7 @@ class Transaction_program extends Model
     protected $table = "transaction_programs";
     protected $primaryKey = 'id';
     public $incrementing = true;
-
+    public $timestamps = true;
 
     protected $fillable = [
         'status',
@@ -28,6 +28,16 @@ class Transaction_program extends Model
         'main_program_id',
         'information',
     ];
+
+    public function priorityPrograms()
+    {
+        return $this->hasOneThrough(Priority_program::class, Principal_program::class, 'id', 'id', 'main_program_id', 'priority_program_id');
+    }
+
+    public function principalPrograms()
+    {
+        return $this->belongsTo(Principal_program::class, 'main_program_id');
+    }
 
     public function institutionalPartners()
     {
@@ -43,7 +53,11 @@ class Transaction_program extends Model
     {
         return self::where('status', 'completed')->get();
     }
-    
+
+    public function getDraftStatus()
+    {
+        return self::where('status', 'draft')->paginate(5);
+    }
     
 
     public function generateId()
@@ -78,12 +92,18 @@ class Transaction_program extends Model
             'schedule_activity' => $schedule_activity,
             'main_program_id' => $main_program_id,
             'information' => $information,
+            'timestamps' => now()
 
         ]);
 
         if (!empty($institutional_partner_ids)) {
             $transaction->institutionalPartners()->attach($institutional_partner_ids);
         }
+    }
+
+    public function editTransactionProgram($id)
+    {
+        return self::findOrFail($id);
     }
 
 }

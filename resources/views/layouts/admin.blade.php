@@ -16,16 +16,18 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <!-- Quilljs -->
-        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-        <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+        
 
-
+        <!-- Datatables -->
         <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+        <!-- Choicesjs -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
         <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -36,8 +38,9 @@
 
         <div class="min-h-screen bg-gray-100 flex">
             <!-- Sidebar -->
-            <div class="bg-white text-white">
-                <x-admin.sidebar />
+        
+            <div class="bg-transparent">
+                @include('layouts.sidebar')
             </div>
 
             <!-- Main Content -->
@@ -105,7 +108,7 @@
                                 </div>
                             </div>
                         @endif
-                    @elseif (Route::currentRouteName() === 'prog-transaksi.create')
+                    @elseif (Route::currentRouteName() === 'prog-transaksi.create' || 'prog-transaksi.edit')
                         <div class="w-3/4 bg-transparent overflow-hidden ">
                             <div class="px-6 py-4 border-b bg-white rounded-md">
                                 <h2 class="font-semibold text-lg bg-w text-gray-800">
@@ -164,10 +167,11 @@
                 </div>
             </main>
         </div>
-
-    
-        <!--script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script-->
+        <script src="{{ asset('js/layouts/sidebar.js') }}"></script>
+        
         <!--script type="text/javascript" src="{{ asset('build/assets/js/sidebar.js') }}"></script-->
+        <!--script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script-->
+      
     
     </body>
 

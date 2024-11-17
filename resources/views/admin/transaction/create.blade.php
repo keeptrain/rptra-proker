@@ -4,66 +4,93 @@
     {{ __('Program Kerja') }}
 @endsection
 
-@if (isset($selectedProgram))
+@section('content-form-header')
+    {{ __('Isi form di bawah ini') }}
+@endsection
 
-@elseif (Route::currentRouteName() === 'prog-transaksi.create')
-    @section('content-form-header')
-        {{ __('Isi form di bawah ini') }}
-    @endsection
-    @section('content-form-transaction')
-        <x-admin.create-form :routeName="'prog-transaksi.create'">
-            @include('admin.transaction.form')
-            <x-slot name="formBody1">
+@section('content-form-transaction')
+    <x-admin.create-form  
+    :routeName="isset($selectedProgram) ? 'prog-transaksi.update': 'prog-transaksi.create'"
+    :routeParam="isset($selectedProgram) ? $selectedProgram->id : null"  
+    :csrfMethod="isset($selectedProgram) ? 'PUT' : 'POST'">
 
-                @yield('formBody1')
-            </x-slot>
-            <x-slot name="formBody2">
-                @yield('formBody2')
+    @include('admin.transaction.form')
+        <x-slot name="formBody1">
+            <div class="grid grid-cols-[1fr_auto_1fr] gap-4 items-end">
+                <!-- Program Pokok -->
+                <div>
+                   @include('admin.transaction.partials.program-principal')
+                </div>
+        
+                <!-- Panah -->
+                <div class="flex items-center justify-center pb-2.5">
+                    <svg class="feather feather-arrow-right" fill="none" height="24" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <line x1="5" x2="19" y1="12" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                </div>
+        
+                <!-- Program Prioritas -->
+                <div>
+                    @include('admin.transaction.partials.program-priority')
+                </div>
+            </div>
+            
+        </x-slot>
+        <x-slot name="formBody2">
+            <div>@include('admin.transaction.partials.information-activity')
+            </div>
+        </x-slot>
+        <x-slot name="formBody3">
+            @yield('formBody3')
 
-            </x-slot>
-            <x-slot name="formBody3">
-                @yield('formBody3')
+        </x-slot>
+        <x-slot name="formBody4">
+            @yield('formBody4')
 
-            </x-slot>
-            <x-slot name="formBody4">
-                @yield('formBody4')
+        </x-slot>
 
-            </x-slot>
+        <x-slot name="formBody5">
+            @yield('formBody5')
 
-            <x-slot name="formBody5">
-                @yield('formBody5')
+        </x-slot>
 
-            </x-slot>
 
-          
-            @push('modal')
+        @push('modal')
             <x-admin.modal :saveIdButton="'saveDraftButton'">
                 <x-slot name="nameButton">
                     Simpan draft
                 </x-slot>
-                
-                
+                @section('content-modal')
+                    <form id="draftForm">
+                        <div class="mb-4">
+                            <input type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
+                                id="draftName" name="draftName" placeholder="Masukkan nama untuk draft">
+                        </div>
+                    </form>
+                @endsection
             </x-admin.modal>
-            @endpush
-           
-        </x-admin.create-form>
-        
+        @endpush
 
-    
-        <!-- Script JavaScript -->
-        <script src="{{ asset('js/create-form/selected-principal.js') }}"></script>
-        <script src="{{ asset('js/create-form/form-quill-activity.js') }}"></script>
-        <script src="{{ asset('js/create-form/multiple-select.js') }}"></script>
-        <script src="{{ asset('js/create-form/modal-draft.js') }}"></script>
+    </x-admin.create-form>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // Kode yang ingin Anda jalankan setelah semua skrip dimuat
-                // Misalnya, Anda bisa memanggil fungsi dari file JavaScript yang telah dimuat
-                initSelectedPrincipal();
-                //initSelectedPartners();
-            });
-            
-        </script>
-    @endsection
-@endif
+    <!-- Script JavaScript -->
+
+    <script src="{{ asset('js/create-form/selected-principal.js') }}"></script>
+    <script src="{{ asset('js/create-form/editor-quill-activity.js') }}"></script>
+    <script src="{{ asset('js/create-form/multiple-select.js') }}"></script>
+    <script src="{{ asset('js/create-form/modal-draft.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Kode yang ingin Anda jalankan setelah semua skrip dimuat
+            initSelectedPrincipal();
+            initQuillEditorActivity();
+            initChoicesMultipleSelect();
+            //initSelectedPartners();
+        });
+    </script>
+@endsection

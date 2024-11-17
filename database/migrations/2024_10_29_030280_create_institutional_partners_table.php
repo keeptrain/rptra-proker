@@ -38,6 +38,24 @@ return new class extends Migration
             'created_at' => now(),
             'updated_at' => now()
         ],
+        [
+            'id' => 'MITRA-004',
+            'name' => 'MITRA KE EMPAT',
+            'created_at' => now(),
+            'updated_at' => now()
+        ],
+        [
+            'id' => 'MITRA-005',
+            'name' => 'MITRA KE LIMA',
+            'created_at' => now(),
+            'updated_at' => now()
+        ],
+        [
+            'id' => 'MITRA-006',
+            'name' => 'MITRA KE ENAM',
+            'created_at' => now(),
+            'updated_at' => now()
+        ],
     ]);
     }
 

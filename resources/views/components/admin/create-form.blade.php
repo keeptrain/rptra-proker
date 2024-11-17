@@ -1,8 +1,12 @@
-@props(['routeName'])
-<form id="create-form" action="{{ route($routeName) }}" method="POST">
+@props([
+    'routeName',
+    'routeParam',
+    'csrfMethod'
+])
+<form id="create-form" action="{{ route($routeName, ['id' => $routeParam]) }}" method="POST">
 
     @csrf
-    @method('POST')
+    @method($csrfMethod)
     <!-- Form Body -->
     <div>
         <div class="text-sm mb-2 flex items-center">
@@ -81,6 +85,7 @@
             </button>
         </div>
     </div>
+
     @stack('modal')
     
 </form>

@@ -19,7 +19,7 @@
     @endsection
 
     @section('content-table')
-        @include('admin.transaction.show')
+        @include('admin.transaction.show-completed')
     @endsection
 
     @section('content-form-header')
@@ -31,6 +31,6 @@
     @endsection
 
     @section('content-form')
-       
+        @include('admin.transaction.show-draft')
     @endsection
 @endif

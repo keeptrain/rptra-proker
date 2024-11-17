@@ -3,7 +3,7 @@
     @method('DELETE')
     <x-admin.table :programs="$institutionalPartners">
         <x-slot name="slotbutton">
-            <button id="delete-button" type="submit"
+            <button id="delete-button" type="button"
                 class="ml-2 px-3 py-2 bg-red-600 text-white font-medium text-sm rounded-lg focus:ring-1 focus:ring-red dark:bg-red-500 dark:hover:bg-red-700 dark:focus:ring-red-800 hidden">
                 Hapus
             </button>
@@ -48,3 +48,8 @@
         
     </x-admin.table>
 </form>
+
+<!-- Menampilkan pagination -->
+<div class="mt-4">
+    {{ $institutionalPartners->links() }}
+</div>

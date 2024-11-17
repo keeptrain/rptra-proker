@@ -32,9 +32,12 @@ class TransactionProgramController extends Controller
      */
     public function index()
     {
-        $paginate = $this->transaction->getCompletedStatus();
+        $completed = $this->transaction->getCompletedStatus();
+        $draft = $this->transaction->getDraftStatus();
         return view('admin.transaction.index', [
-            'transactions' => $paginate,
+            'transactions' => $completed,
+            'draft' => $draft,
+            
         ]);
     }
 
@@ -106,22 +109,26 @@ class TransactionProgramController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
-    {
-        return $this->principalProgram->id;
-    }
-
-    public function showPartners()
-    {
-        return $this->institutionalPartner->id;
-    }
+   
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Transaction_program $transaction_program)
+    public function edit($id)
     {
-        //
+        $transaction = $this->transaction->editTransactionProgram($id);
+
+        $priorityPrograms = $this->transaction->principalPrograms()->get();
+        $principalProgram = $this->principalProgram->get();
+        $institutionalPartner = $this->institutionalPartner->get();
+
+        return view('admin.transaction.create', [
+            'selectedProgram' => $transaction,
+            'priorityPrograms' => $priorityPrograms,
+            'principalPrograms' => $principalProgram,
+        
+            'institutionalPartners' => $institutionalPartner,
+        ]);
     }
 
     /**

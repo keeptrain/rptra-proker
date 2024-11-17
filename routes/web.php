@@ -48,5 +48,7 @@ Route::controller(TransactionProgramController::class)->group(function () {
     Route::get('program-kerja/transaksi/tambah', 'create')->name('prog-transaksi.create');
     Route::post('program-kerja/transaksi/tambah', 'store')->name('prog-transaksi.store');
     Route::post('program-kerja/transaksi/tambah/draft', 'storeToDraft')->name('prog-transaksi.draft');
+    Route::get('program-kerja/transaksi/ubah/{id}', 'edit')->name('prog-transaksi.edit');
+    Route::put('program-kerja/transaksi/ubah/{id}', 'update')->name('prog-transaksi.update');
     Route::delete('program-kerja/transaksi/hapus', 'destroy')->name('prog-transaksi.destroy');
 });
