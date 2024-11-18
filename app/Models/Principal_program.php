@@ -8,7 +8,7 @@ use function PHPUnit\Framework\returnSelf;
 
 class Principal_program extends Model
 {
-    protected $table = "main_programs";
+    protected $table = "principal_programs";
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = ['id','priority_program_id','name'];

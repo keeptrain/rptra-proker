@@ -9,9 +9,9 @@
     </div>
 
     <!-- Submit Button -->
-    <div class="p-6 ">
+    <div class="p-6 flex justify-end">
         <button type="submit"
-            class="px-8 py-3 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            class="px-8 py-3 content-end bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Tambah
         </button>
     </div>

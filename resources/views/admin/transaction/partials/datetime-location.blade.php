@@ -13,7 +13,7 @@
 <div class="flex items-center justify-center pb-2.5 w-6 h-6">
 </div>
 
- <!-- Jadwal kegiatan -->
+<!-- Jadwal kegiatan -->
 <div>
 
     <label for="nama-program" class="block mb-2 text-sm font-medium text-gray-900">

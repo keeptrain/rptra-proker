@@ -44,6 +44,7 @@ Route::controller(InstitutionalPartnersController::class)->group(function () {
 
 Route::controller(TransactionProgramController::class)->group(function () {
     Route::get('program-kerja/transaksi', 'index')->name('prog-transaksi.index');
+    Route::get('/api/transactions','getTransactions');
     Route::get('program-kerja/transaksi/daftar', 'show')->name('prog-transaksi.show');      
     Route::get('program-kerja/transaksi/tambah', 'create')->name('prog-transaksi.create');
     Route::post('program-kerja/transaksi/tambah', 'store')->name('prog-transaksi.store');

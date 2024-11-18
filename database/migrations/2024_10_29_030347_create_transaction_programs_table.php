@@ -21,15 +21,15 @@ return new class extends Migration
             $table->integer('volume')->nullable(true);
             $table->text('location')->nullable(true);
             $table->dateTime('schedule_activity')->nullable(true);
-            $table->string('main_program_id', length: 50)->nullable(true);
+            $table->string('principal_program_id', length: 50)->nullable(true);
             //$table->string('instituional_partner_id', length: 50)->nullable(true);
             $table->enum('information',['belum_terlaksana', 'terlaksana', 'tidak_terlaksana'])->default('belum_terlaksana');
             $table->timestamps();
 
             // Foreign key to priority_program (id)
-            $table->foreign('main_program_id')
+            $table->foreign('principal_program_id')
                 ->references('id')
-                ->on('main_programs')
+                ->on('principal_programs')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

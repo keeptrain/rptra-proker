@@ -46,4 +46,4 @@
 
 </div>
 
-<script src="{{ asset('js/table/check-boxes.js') }}"></script>
+

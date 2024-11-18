@@ -23,7 +23,7 @@ class PriorityProgramController extends Controller
      */
     public function index()
     {
-        $paginate = $this->priorityProgram->getPaginate();
+        $paginate = $this->priorityProgram->get();
         return view('admin.priority.index', [
             'programs' => $paginate,
         ]);

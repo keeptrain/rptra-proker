@@ -25,18 +25,18 @@ class Transaction_program extends Model
         'volume',
         'location',
         'schedule_activity',
-        'main_program_id',
+        'principal_program_id',
         'information',
     ];
 
     public function priorityPrograms()
     {
-        return $this->hasOneThrough(Priority_program::class, Principal_program::class, 'id', 'id', 'main_program_id', 'priority_program_id');
+        return $this->hasOneThrough(Priority_program::class, Principal_program::class, 'id', 'id', 'principal_program_id', 'priority_program_id');
     }
 
     public function principalPrograms()
     {
-        return $this->belongsTo(Principal_program::class, 'main_program_id');
+        return $this->belongsTo(Principal_program::class, 'principal_program_id');
     }
 
     public function institutionalPartners()
@@ -56,7 +56,7 @@ class Transaction_program extends Model
 
     public function getDraftStatus()
     {
-        return self::where('status', 'draft')->paginate(5);
+        return self::where('status', 'draft')->get();
     }
     
 
@@ -74,7 +74,7 @@ class Transaction_program extends Model
         $volume,
         $location,
         $schedule_activity,
-        $main_program_id,
+        $principal_program_id,
         $institutional_partner_ids,
         $information
     )
@@ -90,7 +90,7 @@ class Transaction_program extends Model
             'volume' => $volume,
             'location' => $location,
             'schedule_activity' => $schedule_activity,
-            'main_program_id' => $main_program_id,
+            'principal_program_id' => $principal_program_id,
             'information' => $information,
             'timestamps' => now()
 
@@ -104,6 +104,11 @@ class Transaction_program extends Model
     public function editTransactionProgram($id)
     {
         return self::findOrFail($id);
+    }
+
+    public function destroyTransactionProgram($ids)
+    {
+        return self::whereIn('id', $ids)->delete();
     }
 
 }

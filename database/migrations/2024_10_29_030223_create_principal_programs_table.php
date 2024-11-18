@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('main_programs', function (Blueprint $table) {
+        Schema::create('principal_programs', function (Blueprint $table) {
             $table->string('id', length: 50)->primary();
             $table->string('priority_program_id', length: 50);
             $table->string('name', length: 255);
@@ -27,7 +27,7 @@ return new class extends Migration
         });
         
          // Insert default records
-         DB::table('main_programs')->insert([
+         DB::table('principal_programs')->insert([
             [
                 'id' => 'PPOK-001',
                 'priority_program_id' => 'PPRIO-001',
@@ -113,6 +113,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('main_programs');
+        Schema::dropIfExists('principal_programs');
     }
 };

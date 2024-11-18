@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Transaction\DestoryTransactionRequest;
 use App\Http\Requests\Transaction\StoreDraftTransactionRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -39,6 +40,14 @@ class TransactionProgramController extends Controller
             'draft' => $draft,
             
         ]);
+    }
+
+    public function getTransactions(Request $request)
+    {
+        // Ambil data transaksi dari database
+        $transactions = Transaction_program::all();
+
+        return response()->json($transactions); // Mengembalikan data dalam format JSON
     }
 
     /**
@@ -116,17 +125,16 @@ class TransactionProgramController extends Controller
      */
     public function edit($id)
     {
-        $transaction = $this->transaction->editTransactionProgram($id);
-
-        $priorityPrograms = $this->transaction->principalPrograms()->get();
+        $transaction = $this->transaction::with(['institutionalPartners', 'principalPrograms'])->find($id);
         $principalProgram = $this->principalProgram->get();
+        //$priorityPrograms = $this->transaction->principalPrograms()->get();
         $institutionalPartner = $this->institutionalPartner->get();
+    
 
         return view('admin.transaction.create', [
             'selectedProgram' => $transaction,
-            'priorityPrograms' => $priorityPrograms,
             'principalPrograms' => $principalProgram,
-        
+            //'priorityPrograms' => $priorityPrograms,
             'institutionalPartners' => $institutionalPartner,
         ]);
     }
@@ -142,8 +150,12 @@ class TransactionProgramController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transaction_program $transaction_program)
+    public function destroy(DestoryTransactionRequest $request)
     {
-        //
+        $this->transaction->destroyTransactionProgram(
+            $request->input('transaction_ids'),
+        );
+
+        return redirect()->route('prog-transaksi.index')->with('success', 'Program kerja berhasil dihapus.');
     }
 }

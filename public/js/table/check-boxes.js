@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Seleksi checkbox dengan name "priority_ids[]", "main_ids[]", dan "partner_ids[]"
     const checkboxes = document.querySelectorAll(
-        'input[name="priority_ids[]"], input[name="main_ids[]"], input[name="partner_ids[]"]');
+        'input[name="priority_ids[]"], input[name="main_ids[]"], input[name="partner_ids[]"], input[name="transaction_ids[]"]');
     const deleteButton = document.getElementById('delete-button');
 
     function toggleDeleteButton() {
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     title: "Deleted!",
                     text: "Your selected items have been deleted.",
                     icon: "success"
-                }).then(() => {
+                }).then(() => {p
                     // Lakukan penghapusan atau reload halaman setelah konfirmasi
                     document.getElementById('deleteForm').submit(); // Jika ada form dengan id deleteForm
                 });

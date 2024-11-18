@@ -30,7 +30,5 @@
         @endif
     @endsection
 
-    @section('content-form')
-        @include('admin.transaction.show-draft')
-    @endsection
+   
 @endif

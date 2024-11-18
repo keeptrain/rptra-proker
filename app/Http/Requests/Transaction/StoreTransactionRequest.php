@@ -30,7 +30,7 @@ class StoreTransactionRequest extends FormRequest
             'volume' => 'required|int', 
             'location' => 'required|string',
             'schedule_activity' => 'required|date|date_format:Y-m-d\TH:i',
-            'principal_program_id' => 'required|exists:main_programs,id',
+            'principal_program_id' => 'required|exists:principal_programs,id',
             'information' => 'string|in:belum_terlaksana,terlaksana,tidak_terlaksana',
             'partner' => 'required|array',
             'partner.*' => 'exists:institutional_partners,id'

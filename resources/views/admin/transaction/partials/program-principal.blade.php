@@ -7,7 +7,7 @@
     <option value="">-- Pilih Program PKK --</option>
     @foreach ($principalPrograms as $program)
         <option value="{{ $program->id }}" data-priority-name="{{ $program->priorityProgram->name }}"
-            {{ (isset($selectedProgram) && $selectedProgram->main_program_id == $program->id) || old('principal_program_id') == $program->id ? 'selected' : '' }}>
+            {{ (isset($selectedProgram) && $selectedProgram->principal_program_id == $program->id) || old('principal_program_id') == $program->id ? 'selected' : '' }}>
             {{ $program->name }}
         </option>
     @endforeach

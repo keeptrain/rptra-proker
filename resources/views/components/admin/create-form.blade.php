@@ -42,7 +42,7 @@
             {{ $formBody2 }}
         </div>
         <div class="p-6 bg-gray-50 rounded-b-md shadow-sm">
-            {{ $formBody3 }}
+            @yield('formbody2-section2')
         </div>
     </div>
 
@@ -53,7 +53,7 @@
             <p class="ml-1">Tempat & Waktu</p>
         </div>
         <div class="p-6 bg-white rounded-md shadow-sm">
-            {{ $formBody4 }}
+            {{ $formBody3 }}
         </div>
     </div>
 
@@ -64,7 +64,7 @@
             <p class="ml-1">Mitra / Lembaga</p>
         </div>
         <div class="p-6 bg-white rounded-md shadow-sm">
-            {{ $formBody5 }}
+            {{ $formBody4 }}
         </div>
     </div>
 

@@ -26,7 +26,7 @@ class PrincipalProgramController extends Controller
      */
     public function index()
     {
-        $principalPrograms = $this->principalProgram->getPaginate();
+        $principalPrograms = $this->principalProgram->get();
 
         return view('admin.principal.index', [
             'principalPrograms' => $principalPrograms, 
