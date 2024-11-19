@@ -9,10 +9,19 @@ export default {
         './resources/**/*.js',
         './resources/**/*.vue',
     ],
+    darkMode: ['variant', [
+        '@media (prefers-color-scheme: dark) { &:not(.light *) }',
+        '&:is(.dark *)',
+    ]],
     theme: {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                primary: '#1D4ED8', // Ganti dengan warna utama Anda
+                secondary: '#9333EA', // Ganti dengan warna sekunder Anda
+                // Tambahkan warna lain sesuai kebutuhan
             },
         },
     },

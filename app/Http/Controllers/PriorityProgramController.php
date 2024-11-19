@@ -34,8 +34,7 @@ class PriorityProgramController extends Controller
      */
     public function create()
     {
-        //
-        //return view('admin.priority.priority-program');
+        return view('admin.priority.create');
     }
 
     /**

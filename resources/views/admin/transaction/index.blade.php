@@ -2,7 +2,7 @@
 
 
 @section('page-heading')
-    {{ __('Program Prioritas') }}
+    {{ __('Program Kerja') }}
 @endsection
 
 
@@ -15,7 +15,7 @@
     @endsection
 @else
     @section('content-table-header')
-        {{ __('Program kerja') }}
+        {{ __('Daftar') }}
     @endsection
 
     @section('content-table')

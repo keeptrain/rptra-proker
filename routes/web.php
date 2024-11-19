@@ -10,12 +10,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('program-kerja/dashboard', function() {
+    return view('dashboard');
+});
+
+/*Route::get('program-kerja/prioritas/create', function() {
+    return view('admin.priority.create');
+});*/
+
  // Route::get('program-kerja', 'index')->name('prog-prioritas.index');
 
 Route::controller(PriorityProgramController::class)->group(function () {
     Route::get('program-kerja/prioritas', 'index')->name('prog-prioritas.index');
     Route::get('program-kerja/prioritas/{prioritas}', 'show')->name('prog-prioritas.show');      
-    Route::get('program-kerja/prioritas/create', 'create')->name('prog-prioritas.create');
+    Route::get('program-kerja/prioritas/create', 'create');
     Route::post('program-kerja/prioritas/tambah', 'store')->name('prog-prioritas.store');
     Route::get('program-kerja/prioritas/ubah/{id}', 'edit')->name('prog-prioritas.edit');
     Route::put('program-kerja/prioritas/ubah/{id}', 'update')->name('prog-prioritas.update');

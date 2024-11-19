@@ -16,10 +16,10 @@
             <th >
                 <!--input type="checkbox" id="checkbox-all" class="cursor-pointer"-->
             </th>
-            <th >Kegiatan</th>
-            <th >Lihat</th>
-            <th >Tanggal dibuat</th>
-            <th >Aksi</th>
+            <th>Informasi</th>
+            <th>Detail</th>
+            <th>Jadwal Kegiatan</th>
+            <th>Aksi</th>
         </tr>
     </x-slot>
 
@@ -30,9 +30,11 @@
             <td>
                 <input type="checkbox" name="transaction_ids[]" class="row-checkbox" value="{{ $item->id }}">
             </td>
-            <td>{{ $item->status}}</td>
-            <td>{{ $item->status}}</td>
-            <td>{{ $item->status}}</td>
+            <td>{{ $item->information }}</td>
+            <td >
+                <a href="{{ route('prog-transaksi.edit', $item->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Lihat</a>
+            </td>
+            <td>{{ $item->schedule_activity}}</td>
             <td >
                 <a href="{{ route('prog-transaksi.edit', $item->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
             </td>
@@ -42,4 +44,20 @@
      
     </x-slot>
 </x-datatables>
+<script>
+    
+    $(document).ready(function() {
+        $('#datatables').DataTable({
+           
+           responsive: true, 
+        });
+    });
+    
+    // Event listener untuk checkbox
+    $('#datatables tbody').on('change', '.row-checkbox', function() {
+        toggleDeleteButton();
+    });
+
+    
+</script>
 

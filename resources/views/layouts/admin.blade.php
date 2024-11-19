@@ -21,31 +21,32 @@
         
 
         <!-- Datatables -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.tailwindcss.css">
+    
         <!-- Fomantic UI CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.css">
-
-        <!-- DataTables CSS -->
-        <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.semanticui.css">
+        <!--link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.semanticui.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.semanticui.css"-->
         
 
         <!-- Choicesjs -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
         <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+        
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
-    <body class="font-sans antialiased bg-gray-100">
+    <body class="font-sans antialiase">
 
         <x-admin.alert/>
 
-        <div class="min-h-screen bg-gray-100 flex">
+        <div class="flex min-h-screen bg-gray-100 ">
             <!-- Sidebar -->
 
-            <div class="bg-transparent">
+           
                 @include('layouts.sidebar')
-            </div>
+           
 
             <!-- Main Content -->
             <main class="flex-1 p-6">
@@ -53,31 +54,30 @@
                 <header class="bg-gray-100 shadow mb-4">
                     <div class="p-6">
                         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                            <!-- Conditional heading based on route -->
                             @yield('page-heading')
                         </h2>
                     </div>
                 </header>
                 <!-- Page Content -->
-                <div class="flex space-x-6">
+                <div class="flex flex-col md:flex-row space-x-0 md:space-x-6">
                     @if (Route::currentRouteName() === 'prog-prioritas.index' ||
                             Route::currentRouteName() === 'prog-pokok.index' ||
-                            Route::currentRouteName() === 'prog-mitra.index'||
+                            Route::currentRouteName() === 'prog-mitra.index' ||
                             Route::currentRouteName() === 'prog-transaksi.index')
                         <!-- Table Section -->
-                        <div class="w-3/4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="md:w-4/5 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="px-6 py-4 border-b">
                                 <h2 class="font-semibold text-lg text-gray-800">
                                     @yield('content-table-header')
                                 </h2>
                             </div>
-                            <div class="p-6 bg-white border-gray-200">
+                            <div class="p-6 bg-white dark:bg-slate-900 border-gray-200">
                                 @yield('content-table')
                             </div>
                         </div>
 
                         <!-- Form Section -->
-                        <div class="w-2/4 bg-transparent overflow-y-hidden sm:rounded-lg">
+                        <div class="md:w-1/2 bg-transparent overflow-y-hidden sm:rounded-lg mt-4 md:mt-0">
                             <div class="px-6 py-4 border-b bg-white flex justify-between items-center">
                                 <h2 class="font-semibold text-lg text-gray-800">
                                     @yield('content-form-header')
@@ -101,7 +101,7 @@
                             Route::currentRouteName() === 'prog-pokok.edit' ||
                             Route::currentRouteName() === 'prog-mitra.edit')
                         @if (isset($selectedProgram))
-                            <div class="w-2/4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="w-full md:w-2/4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                                 <div class="px-6 py-4 border-b">
                                     <h2 class="font-semibold text-lg text-gray-800">
                                         @yield('content-form-header')
@@ -113,7 +113,7 @@
                             </div>
                         @endif
                     @elseif (Route::currentRouteName() === 'prog-transaksi.create' || 'prog-transaksi.edit')
-                        <div class="w-3/4 bg-transparent overflow-hidden ">
+                        <div class="w-full md:w-3/4 bg-transparent overflow-hidden ">
                             <div class="px-6 py-4 border-b bg-white rounded-md">
                                 <h2 class="font-semibold text-lg bg-w text-gray-800">
                                     @yield('content-form-header')
@@ -122,7 +122,6 @@
                             <div class="p-6 bg-transparent border-gray-200">
                                 @yield('content-form-transaction')
                             </div>
-
                         </div>
                     @endif
                 </div>
