@@ -1,45 +1,60 @@
 <x-app-layout>
 
     @section('name-content')
-        PROGRAM PRIORITAS LIST
+        {{ __('TAMBAH PROGRAM PRIORITAS') }}
+
+        <x-button onclick="window.history.back();"  class="bg-zinc-600 dark:hover:bg-zinc-700">Kembali</x-button>
     @endsection
 
-    <x-slot name="mainTable">
-        <!-- Nama Program -->
-        <div class="flex items-center mb-4">
-            <label for="nama-program" class="w-1/4 text-sm font-medium text-gray-900 mr-2">Nama Program</label>
-            <input type="text" id="nama-program" name="name"
-                class="flex-1 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block text-sm p-2.5 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Masukkan nama program" value="{{ old('name') }}" required>
+    <x-slot name="main">
+        <x-admin.add-form :routeName="'prog-prioritas.store'">
 
-        </div>
+            <x-slot name="formBody">
+                @csrf
+                @method('POST')
+                <!-- Nama Program -->
+                <div class="flex items-center mb-4">
+                    <x-admin.input-label class="w-1/4">
+                        Nama Program
+                    </x-admin.input-label>
 
-        <!-- Prefix ID -->
-        <div class="flex items-center mb-4">
-            <label for="prefix-id" class="w-1/4 text-sm font-medium text-gray-900 mr-2">Prefix ID</label>
-            <div class="flex flex-1 gap-2">
-                <input type="text" id="prefix-id" name="prefix"
-                    class="flex-1 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block text-sm p-2.5 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Masukkan prefix ID, misal: PPRIO" value="{{ old('prefix') }}" required>
-                <input type="text" id="number" name="number"
-                    class="w-1/4 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block text-sm p-2.5 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Nomor" oninput="numberOnly(this.id);" maxlength="3" value="{{ old('number') }}"
-                    required>
-            </div>
-        </div>
+                    <x-admin.text-input class="flex-1 p-2.5" type="text" name="name"
+                        placeholder="Masukkan nama program" value="{{ old('name') }}" required />
+                </div>
 
-        <!-- Program ID -->
-        <div class="flex items-center ">
-            <label for="nama-id" class="w-1/4 text-sm font-medium text-gray-900 mr-2 mb-4">Program ID</label>
-            <div class="flex-1">
-                <input type="text" id="nama-id" name="id"
-                    class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block text-sm p-2.5 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Program ID akan terbentuk ..." value="{{ old('id') }}" readonly>
-                <span
-                    class="text-gray-600 text-xs mt-1 block">{{ __('* Tidak bisa di edit, hanya sebagai contoh') }}</span>
-            </div>
+                <!-- Prefix ID -->
+                <div class="flex items-center mb-4">
+                    <x-admin.input-label class="w-1/4">
+                        ID Program
+                    </x-admin.input-label>
 
-        </div>
+                    <div class="flex flex-1 gap-2">
+                        <x-admin.text-input id="prefix-id" class="flex-1 p-2.5" type="text" name="prefix"
+                            placeholder="Masukkan prefix ID, misal: PPRIO" value="{{ old('prefix') }}" required />
+                        <x-admin.text-input id="number" class="w-1/5 p-2.5" type="text" name="number"
+                            placeholder="Nomor" value="{{ old('number') }}" oninput="numberOnly(this.id);"
+                            maxlength="3" required />
+
+                        <!-- Panah -->
+                        <div class="flex items-center justify-center ">
+                            <svg class="feather feather-arrow-right" fill="none" height="24" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                width="24" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="5" x2="19" y1="12" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </div>
+
+                        <x-admin.text-input type="text" id="nama-id" name="id" class="flex-1 p-2.5 "
+                            placeholder="Program ID akan terbentuk ..." value="{{ old('id') }}" readonly />
+                    </div>
+
+                    
+                </div>
+                
+            </x-slot>
+            
+        </x-admin.add-form>
     </x-slot>
 
 </x-app-layout>

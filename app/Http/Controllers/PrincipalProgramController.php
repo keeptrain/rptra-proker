@@ -39,7 +39,10 @@ class PrincipalProgramController extends Controller
      */
     public function create()
     {
-        
+        return view('admin.principal.create', [
+         
+            'priorityPrograms' => $this->priorityProgram->get(),
+        ]);
     }
 
     /**
@@ -100,7 +103,7 @@ class PrincipalProgramController extends Controller
                 $request->input('number'),
                 $request->input('name'),
             );
-            return redirect()->route('prog-pokok.index')->with('success', 'Program pokok berhasil ditambah');;;
+            return redirect()->route('prog-pokok.index')->with('success', 'Program pokok berhasil ditambah');
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         };
@@ -113,9 +116,9 @@ class PrincipalProgramController extends Controller
     {
 
         $this->principalProgram->destroyPrincipalPrograms(
-            $request->input('main_ids'),
+            $request->input('principal_ids'),
         );
 
-        return redirect()->route('prog-pokok.index');
+        return redirect()->route('prog-pokok.index')->with('success', 'Program pokok berhasil di hapus');;
     }
 }

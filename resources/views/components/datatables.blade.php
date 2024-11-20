@@ -1,13 +1,6 @@
 @props(['routeName', 'datatablesId', 'nameInputId'])
 <form action="{{ route($routeName) }}" class="w-full dark:text-white ">
-    <div class="relative overflow-x-auto sm:rounded-lg">
-        <div
-            class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 ">
-            <div>
-                {{ $slotbutton }}
-            </div>
-        </div>
-    </div>
+ 
     <table id="{{ $datatablesId }}" class="display min-w-full" style="width:100%">
         <thead class="text-sm font-semibold text-black dark:text-black dark:bg-zinc-900">
             {{ $thead }}
@@ -36,15 +29,12 @@
 <script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.js"></script>
 <script src="https://cdn.datatables.net/responsive/3.0.3/js/responsive.semanticui.js"></script-->
 <script>
-  
 
     // Toggle delete button
     function toggleDeleteButton() {
         const anyChecked = $('.row-checkbox:checked').length > 0;
         $('#delete-selected-button').toggleClass('hidden', !anyChecked);
     }
-
-    
 
     // Fungsi untuk menampilkan konfirmasi SweetAlert
     function confirmDelete() {
@@ -107,7 +97,7 @@
         }
     });
 
-    // Event listener untuk tombol hapus di setiap baris
+    /* Event listener untuk tombol hapus di setiap baris
     $('#datatables').on('click', '.delete-button', function() {
         const id = $(this).data('id');
         confirmDelete().then((result) => {
@@ -127,6 +117,6 @@
                 });
             }
         });
-    });
+    });*/
 
 </script>

@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use function PHPUnit\Framework\returnSelf;
-
 class Principal_program extends Model
 {
     protected $table = "principal_programs";

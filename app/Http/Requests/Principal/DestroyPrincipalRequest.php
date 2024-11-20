@@ -23,8 +23,8 @@ class DestroyPrincipalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'main_ids' => 'required|array',
-            'main_ids.*' => 'exists:main_programs,id',
+            'principal_ids' => 'required|array',
+            'principal_ids.*' => 'exists:principal_programs,id',
         ];
     }
 }

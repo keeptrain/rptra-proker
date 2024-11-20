@@ -1,41 +1,18 @@
-@extends('layouts.admin')
+<x-app-layout>
+    @section('name-content')
+        {{ __('LIST MITRA') }}
 
-@section('page-heading')
-    {{ __('Mitra Lembaga') }}
-@endsection
+        <div>
+            <x-button id="delete-selected-button" type="button" color="red" class="hidden">Hapus</x-button>
+
+            <x-button onclick="window.location.href='{{ route('prog-mitra.create') }}'">Tambah Mitra</x-button>
+        </div>
 
 
-@if (isset($selectedProgram))
-
-    @section('content-form-header')
-        {{ __('Ubah Mitra') }}
-    @endsection
-    @section('content-form-edit')
-        <x-admin.edit-form :routeName="'prog-mitra.update'" :routeParam="$selectedProgram->id" :routeBack="'prog-mitra.index'">
-            <x-slot name="formBody">
-                @include('admin.institutional-partners.edit')
-            </x-slot>
-        </x-admin.edit-form>
-    @endsection
-@else
-    @section('content-table-header')
-        Daftar program
     @endsection
 
-    @section('content-table')
+    <x-slot name="main">
         @include('admin.institutional-partners.show')
-    @endsection
+    </x-slot>
+</x-app-layout>
 
-    @section('content-form-header')
-        {{ __('Tambah Mitra') }}
-    @endsection
-
-    @section('content-form')
-        <x-admin.add-form :routeName="'prog-mitra.store'">
-            <x-slot name="formBody">
-                <!-- Konten form edit di sini -->
-                @include('admin.institutional-partners.create')
-            </x-slot>
-        </x-admin.add-form>
-    @endsection
-@endif

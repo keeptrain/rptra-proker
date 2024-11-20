@@ -25,7 +25,7 @@ class StorePrincipalRequest extends FormRequest
             'prefix' => 'required|string|max:10',
             'number' => 'required|numeric|digits:3',
             'priority_program' => 'required|exists:priority_programs,id',
-            'name' => 'required|string|max:255|unique:main_programs,name',
+            'name' => 'required|string|max:255|unique:principal_programs,name',
         ];
     }
 

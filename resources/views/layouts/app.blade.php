@@ -7,26 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Perencanaan Program ') }}</title>
-        <style>
-            @media (max-width: 768px) {
-                .search-input {
-                    display: none;
-                    /* Sembunyikan input pada layar kecil */
-                }
-
-                .search-icon {
-                    display: block;
-                    /* Tampilkan ikon pada layar kecil */
-                }
-            }
-
-            @media (min-width: 768px) {
-                .search-icon {
-                    display: none;
-                    /* Sembunyikan ikon pada layar besar */
-                }
-            }
-        </style>
+     
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -58,6 +39,8 @@
     </head>
 
     <body class="font-sans antialiase">
+
+        <x-admin.alert/>
 
         <!-- Main container -->
         <div class="w-full flex h-svh max-h-svh">
@@ -93,7 +76,7 @@
 
                         <!-- Content -->
                         <div
-                            class="bg-white dark:bg-zinc-900 text-black  dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 p-4 overflow-auto">
+                            class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 p-6 overflow-auto">
                             <div class="w-full">
                                 <h1 class="text-sm font-semibold text-zinc-300">
                                     <div class="flex justify-between items-center ">
@@ -103,7 +86,10 @@
                                 </h1>
                             </div>
 
-                            {{ $mainTable }}
+                            <div class="mt-4">
+                                {{ $main }}
+                            </div>
+                            
 
 
                         </div>

@@ -23,9 +23,9 @@ class PriorityProgramController extends Controller
      */
     public function index()
     {
-        $paginate = $this->priorityProgram->get();
+        $programs = $this->show();
         return view('admin.priority.index', [
-            'programs' => $paginate,
+            'programs' => $programs,
         ]);
     }
 
@@ -59,11 +59,9 @@ class PriorityProgramController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Priority_program $priority_program)
+    public function show()
     {
-        /*$programs = $priority_program::paginate(8);
-        return view('admin.priority.index', ['programs' => $programs]);*/
-        // Memanggil method index untuk mendapatkan data program
+        return $this->priorityProgram->get();
     }
 
     /**
@@ -109,7 +107,7 @@ class PriorityProgramController extends Controller
             $request->input('priority_ids')
         );
 
-        return redirect()->route('prog-prioritas.index');
+        return redirect()->route('prog-prioritas.index')->with('success', 'Data berhasil dihapus');
     }
 
 }
