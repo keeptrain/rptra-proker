@@ -3,6 +3,7 @@
     'routeParam',
     'csrfMethod'
 ])
+
 <form id="create-form" action="{{ route($routeName, ['id' => $routeParam]) }}" method="POST">
 
     @csrf
@@ -11,16 +12,16 @@
     <div>
         <div class="text-sm mb-2 flex items-center">
             <img src="{{ asset('icons/type-program.svg') }}" alt="Icon" width="20" height="20">
-            <p class="ml-1">Tipe Program</p>
+            <p class="ml-1 text-black dark:text-zinc-400">Tipe Program</p>
         </div>
-        <div class="p-6 bg-white dark:bg-zinc-800 rounded-md shadow-sm">
+        <div class="p-6 bg-white dark:bg-zinc-900 rounded-md shadow-sm">
             {{ $formBody1 }}
         </div>
     </div>
 
     <!-- Form Body -->
 
-    <div class="">
+    <div>
         <div class="text-sm mt-6 mb-2 flex items-center">
             <svg width="20" height="20" viewBox="0 0 80 80" style="enable-background:new 0 0 80 80;"
                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -36,23 +37,23 @@
                     </g>
                 </g>
             </svg>
-            <p class="ml-1">Informasi kegiatan</p>
+            <p class="ml-1 text-black dark:text-zinc-400">Informasi kegiatan</p>
         </div>
-        <div class="p-6 bg-white  dark:bg-zinc-800 rounded-t-md border-b">
+        <div class="p-6 bg-white  dark:bg-zinc-900 rounded-t-md border-b">
             {{ $formBody2 }}
         </div>
-        <div class="p-6 bg-gray-50 dark:bg-zinc-800  rounded-b-md shadow-sm">
+        <div class="p-6 bg-gray-50 dark:bg-zinc-900  rounded-b-md shadow-sm">
             @yield('formbody2-section2')
         </div>
     </div>
 
     <!-- Form Body -->
     <div>
-        <div class="text-sm mt-6 mb-2  flex items-center">
+        <div class="text-sm mt-6 mb-2 flex items-center">
             <img src="{{ asset('icons/calendar_date_time.svg') }}" alt="Icon" width="20" height="20">
-            <p class="ml-1">Tempat & Waktu</p>
+            <p class="ml-1 text-black dark:text-zinc-400">Tempat & Waktu</p>
         </div>
-        <div class="p-6 bg-white dark:bg-zinc-800 rounded-md shadow-sm">
+        <div class="p-6 bg-white dark:bg-zinc-900 rounded-md shadow-sm">
             {{ $formBody3 }}
         </div>
     </div>
@@ -61,28 +62,21 @@
     <div>
         <div class="text-sm mt-6 mb-2  flex items-center">
             <img src="{{ asset('icons/partner.svg') }}" alt="Icon" width="20" height="20">
-            <p class="ml-1">Mitra / Lembaga</p>
+            <p class="ml-1 text-black dark:text-zinc-400">Mitra / Lembaga</p>
         </div>
-        <div class="p-6 bg-white dark:bg-zinc-800 rounded-md shadow-sm">
+        <div class="p-6 bg-white dark:bg-zinc-900 rounded-md shadow-sm">
             {{ $formBody4 }}
         </div>
     </div>
 
     <!-- Submit Button -->
     <div>
-        <div class="text-sm mt-6 mb-2  flex ">
+        <div class="text-sm mt-6 mb-2 flex">
         </div>
         <div class="bg-transparent flex justify-end space-x-4">
-            <button type="button"
-                class="px-8 py-3 bg-white text-black font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-white dark:hover:bg-gray-200 dark:focus:ring-blue-800"
-                onclick="openModal()">
-                Save to draft
-            </button>
-
-            <button type="submit"
-                class="px-8 py-3 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Create
-            </button>
+            @yield('button-content')
+            
+           
         </div>
     </div>
 
@@ -90,16 +84,11 @@
     
 </form>
 
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
 <script>
 
-document.addEventListener('DOMContentLoaded', () => {
-                        
-                   
-            });
-
-            
-
+    
 
     function numberOnly(id) {
         // Get element by id which passed as parameter within HTML element event

@@ -14,15 +14,12 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Figtree'],
             },
-            colors: {
-                primary: '#1D4ED8', // Ganti dengan warna utama Anda
-                secondary: '#9333EA', // Ganti dengan warna sekunder Anda
-                // Tambahkan warna lain sesuai kebutuhan
-            },
+         
         },
     },
     plugins: [],
+  
   
 };

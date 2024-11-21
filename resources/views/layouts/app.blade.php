@@ -7,7 +7,9 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Perencanaan Program ') }}</title>
-
+        <!-- Alpine Plugins -->
+        <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.14.3/dist/cdn.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"></script>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -22,6 +24,7 @@
 
 
         <!-- Datatables -->
+        <link rel="stylesheet" href=" https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 
 
         <!-- Fomantic UI CSS -->
@@ -38,7 +41,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
-    <body class="font-sans antialiase" :class="{'dark': darkMode === true }">
+    <body x-cloak x-data="{ darkMode: $persist(false) }" :class="{ 'dark': darkMode === true }" class="antialiased">
 
         <x-admin.alert />
 
@@ -49,11 +52,12 @@
             <div id="sidebar"
                 class=" h-full top-0 left-0 text-white dark:text-zinc-200 bg-white dark:bg-zinc-900 w-60">
                 <div class="h-full place-content-start border-r-2 border-slate-100 dark:border-zinc-950 overflow-auto">
-                    <div class="text-center py-6 border-b border-slate-100 dark:border-gray-600">
+                    <div
+                        class="text-center text-black dark:text-white py-6 border-b border-slate-100 dark:border-gray-600">
                         RPTRA
                     </div>
                     <div class="p-4">
-                        @include('layouts.sidebar-new')
+                        @include('layouts.sidebar')
                     </div>
                 </div>
             </div>
@@ -64,45 +68,32 @@
                     <div id="main-header" class="sticky top-0 xl:ml-20 xl:mr-20 z-10">
                         <!-- Header -->
                         <div class="flex items-center  bg-gray-50 dark:bg-zinc-800 p-6 py-6 border-b">
+                            <!-- Header -->
                             @include('layouts.header')
                         </div>
                     </div>
 
-                    <div class="p-6 flex flex-1 flex-col xl:ml-20 xl:mr-20">
+                    <div class="p-6 flex flex-1 flex-col xl:ml-20 xl:mr-20 ">
+
                         <!-- Page header (Breadcrumb) -->
-                        <div class="bg-gray-50 dark:bg-zinc-800 text-black dark:text-neutral-100 mb-4">
-                            @include('components.breadcrumb')
-                        </div>
-
-                        <!-- Content -->
-                        <div
-                            class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 p-6 overflow-auto">
-                            <div class="w-full">
-                                <h1 class="text-sm font-semibold text-zinc-300">
-                                    <div class="flex justify-between items-center ">
-                                        @yield('name-content')
-                                    </div>
-
-                                </h1>
+                        <div class="breadcrumb">
+                            <div class="bg-gray-50 dark:bg-zinc-800 text-black dark:text-neutral-100 mb-4">
+                                @include('components.breadcrumb')
                             </div>
-
-                            <div class="mt-4">
-                                {{ $main }}
-                            </div>
-
-
-
                         </div>
+      
+                        @yield('main-content')
 
-
-
+                       
+  
 
                     </div>
 
-                    <div class="w-full">
+
+                    <div class="hidden w-full lg:block ">
                         <!-- Footer -->
-                        <div class="bg-white dark:bg-zinc-900 py-2">
-                            <h1 class="text-black dark:text-white text-center text-xl">Footer</h1>
+                        <div class="bg-white dark:bg-zinc-900 py-2 ">
+                            <h1 class="text-black dark:text-white text-center text-sm">Kelompok Rencana Program Kerja 2024</h1>
                         </div>
                     </div>
                 </div>
@@ -113,6 +104,8 @@
             </div-->
         </div>
 
+
+        
     </body>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -151,9 +144,9 @@
             });
 
 
-         
+
         });
     </script>
 
-   
+
 </html>

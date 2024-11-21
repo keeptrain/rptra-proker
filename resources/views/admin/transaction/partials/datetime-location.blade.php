@@ -20,7 +20,7 @@
         Jadwal kegiatan
     </x-admin.input-label>
     <x-admin.text-input type="datetime-local" id="nama-program" name="schedule_activity"
-        class=" w-3/4 p-2.5 text-white"
+        class=" w-3/4 p-2.5 "
         value="{{ isset($selectedProgram) ? $selectedProgram->schedule_activity : old('schedule_activity') }}"
         />
 

@@ -6,9 +6,9 @@ use App\Http\Controllers\PriorityProgramController;
 use App\Http\Controllers\TransactionProgramController;
 use App\Http\Controllers\InstitutionalPartnersController;
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 Route::get('program-kerja/dashboard', function() {
     return view('dashboard');
@@ -25,7 +25,7 @@ Route::controller(PriorityProgramController::class)->group(function () {
     Route::get('program-kerja/prioritas', 'index')->name('prog-prioritas.index');
     //Route::get('program-kerja/prioritas/{prioritas}', 'show')->name('prog-prioritas.show');      
     Route::get('program-kerja/prioritas/create', 'create')->name('prog-prioritas.create');
-    Route::post('program-kerja/prioritas/tambah', 'store')->name('prog-prioritas.store');
+    Route::post('program-kerja/prioritas/create', 'store')->name('prog-prioritas.store');
     Route::get('program-kerja/prioritas/ubah/{id}', 'edit')->name('prog-prioritas.edit');
     Route::put('program-kerja/prioritas/ubah/{id}', 'update')->name('prog-prioritas.update');
     Route::delete('program-kerja/prioritas/hapus', 'destroy')->name('prog-prioritas.destroy');
@@ -53,8 +53,7 @@ Route::controller(InstitutionalPartnersController::class)->group(function () {
 
 Route::controller(TransactionProgramController::class)->group(function () {
     Route::get('program-kerja/transaksi', 'index')->name('prog-transaksi.index');
-    Route::get('/api/transactions','getTransactions');
-    Route::get('program-kerja/transaksi/daftar', 'show')->name('prog-transaksi.show');      
+    //Route::get('program-kerja/transaksi/daftar', 'show')->name('prog-transaksi.show');      
     Route::get('program-kerja/transaksi/tambah', 'create')->name('prog-transaksi.create');
     Route::post('program-kerja/transaksi/tambah', 'store')->name('prog-transaksi.store');
     Route::post('program-kerja/transaksi/tambah/draft', 'storeToDraft')->name('prog-transaksi.draft');

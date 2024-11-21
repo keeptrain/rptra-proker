@@ -71,7 +71,8 @@ class PriorityProgramController extends Controller
     {
         $priorityProgram = $this->priorityProgram->editPriorityProgram($id);
 
-        return view('admin.priority.index', [
+        return view('admin.priority.edit', [
+            'programs' => $this->priorityProgram->get(),
             'selectedProgram' => $priorityProgram,
             'prefix' => $priorityProgram->separatedId()['prefix'],
             'number' => $priorityProgram->separatedId()['number'],

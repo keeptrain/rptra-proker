@@ -30,7 +30,7 @@ class StoreDraftTransactionRequest extends FormRequest
             'volume' => 'nullable|int', 
             'location' => 'nullable|string',
             'schedule_activity' => 'nullable|date|date_format:Y-m-d\TH:i',
-            'principal_program_id' => 'nullable|exists:main_programs,id',
+            'principal_program_id' => 'nullable|exists:principal_programs,id',
             'information' => 'string|in:belum_terlaksana,terlaksana,tidak_terlaksana',
             'partner' => 'nullable|array',
             'partner.*' => 'exists:institutional_partners,id'

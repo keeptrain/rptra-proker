@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Requests\Transaction\StoreTransactionRequest;
+
 
 class Transaction_program extends Model
 {

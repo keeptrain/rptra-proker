@@ -11,11 +11,8 @@
     </svg>
 </button>
 
-
-
-
 <form class="ml-4 w-1/7">
-    <div class="flex rounded-md border border-zinc-700 overflow-hidden font-[sans-serif]">
+    <div class="hidden rounded-md border border-gray-200 dark:border-zinc-600 overflow-hidden font-[sans-serif] lg:flex">
         <input type="email" placeholder="Search Something..."
             class="w-full outline-none bg-white dark:bg-zinc-900 text-gray-400 text-sm px-2 py-0.5" />
         <button type='button' class="flex items-center justify-center bg-blue-700 px-4"> <svg
@@ -25,26 +22,56 @@
                 </path>
             </svg>
         </button>
-
-
     </div>
-
-
 </form>
 
-<div class="justify-end flex flex-1">
+<div x-data="{
+    darkMode: $persist(localStorage.getItem('theme') === 'dark'),
+    isFullscreen: false
+}" class="justify-end flex flex-1">
     <!-- Button to toggle dark/light mode -->
-    <button id="theme-toggle" type="button"
-        class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
-        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+    <button
+        @click="darkMode = !darkMode; 
+                    document.body.classList.toggle('dark', darkMode);
+                    localStorage.setItem('theme', darkMode ? 'dark' : 'light');"
+        type="button"
+        class="mr-4 text-gray-500 bg-white dark:bg-zinc-900  border-b border-gray-200 dark:border-zinc-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-full text-sm p-2"
+        aria-checked="false">
+        <svg x-show="!darkMode" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
         </svg>
-        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+        <svg x-show="darkMode" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
                 fill-rule="evenodd" clip-rule="evenodd"></path>
         </svg>
     </button>
+
+    <button
+        @click="isFullscreen = !isFullscreen; 
+                    if (isFullscreen) { 
+                        document.documentElement.requestFullscreen(); 
+                    } else { 
+                        document.exitFullscreen(); 
+                    }"
+        type="button"
+        class="text-gray-500 bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-full text-sm p-2">
+        <svg x-show="!isFullscreen" class="w-5 h-5 text-gray-800 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" class="bi bi-arrows-fullscreen" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707m4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707m0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707m-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707" />
+        </svg>
+
+
+
+        <svg x-show="isFullscreen" class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M16 4h4m0 0v4m0-4-5 5M8 20H4m0 0v-4m0 4 5-5" />
+        </svg>
+
+    </button>
+
 </div>

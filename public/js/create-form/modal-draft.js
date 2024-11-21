@@ -8,7 +8,7 @@ function closeModal() {
 
 function resetForm() {
     document.getElementById("create-form").reset();
-    resetQuillEditor();
+    
 } 
 document.getElementById("saveDraftButton").addEventListener("click", function () {
 
@@ -26,8 +26,9 @@ document.getElementById("saveDraftButton").addEventListener("click", function ()
         success: function (data) {
             if (data.success) {
                 showAlert('success', 'Berhasil', data.message);
-                resetForm();
                 closeModal();
+                resetForm();
+                
             }
         },
         error: function (xhr, status, error) {

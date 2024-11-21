@@ -42,6 +42,11 @@ class TransactionProgramController extends Controller
         ]);
     }
 
+    public function showDetailActivity()
+    {
+        
+    }
+
     public function getTransactions(Request $request)
     {
         // Ambil data transaksi dari database
@@ -84,7 +89,7 @@ class TransactionProgramController extends Controller
                 $request->input('partner'),
                 $request->input('information')
             );
-            return redirect()->route('prog-transaksi.create')->with('success', 'Program kerja berhasil ditambah.');
+            return redirect()->route('prog-transaksi.index')->with('success', 'Program kerja berhasil ditambah.');
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         }

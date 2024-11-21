@@ -1,8 +1,8 @@
 @props(['routeName', 'datatablesId', 'nameInputId'])
-<form action="{{ route($routeName) }}" class="w-full dark:text-white ">
+<form action="{{ route($routeName) }}" class="w-full bg-white dark:bg-zinc-900 dark:text-white ">
  
-    <table id="{{ $datatablesId }}" class="display min-w-full" style="width:100%">
-        <thead class="text-sm font-semibold text-black dark:text-black dark:bg-zinc-900">
+    <table id="{{ $datatablesId }}" class="display cell-border min-w-full" style="width:100%">
+        <thead class="text-sm font-semibold text-black dark:text-white dark:bg-zinc-900">
             {{ $thead }}
         </thead>
         <tbody class="text-sm font-normal bg-white dark:bg-zinc-800 dark:text-gray-300">
@@ -20,8 +20,6 @@
 
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.tailwindcss.js"></script>
-<script src="https://cdn.tailwindcss.com/"></script>
 
 <!-- DataTables JS Semantic -->
 <!--script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.js"></script>

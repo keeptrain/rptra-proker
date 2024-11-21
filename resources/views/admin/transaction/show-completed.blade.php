@@ -34,7 +34,10 @@
             <td>{{ $item->schedule_activity }}</td>
             <td>{{ $item->information}}</td>
             <td >
-                <a href="{{ route('prog-transaksi.edit', $item->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Lihat</a>
+                <button x-on:click="openModal = !openModal" type="button"
+                        class="px-8 py-3 bg-white text-black font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-white dark:hover:bg-gray-200 dark:focus:ring-blue-800">
+                        Save to draft
+                    </button>
             </td>
             
             <td>{{ $item->location}}</td>
@@ -45,8 +48,18 @@
         @endforeach
        
      
+        
     </x-slot>
+
+    
+<x-admin.modal :saveIdButton="'test'">
+    <x-slot name="nameButton">test</x-slot>
+</x-admin.modal>
+    
 </x-datatables>
+
+
+
 <script>
     
     $(document).ready(function() {

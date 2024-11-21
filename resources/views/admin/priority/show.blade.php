@@ -1,3 +1,4 @@
+
 <x-datatables :routeName="'prog-prioritas.destroy'" :datatablesId="'datatables-priority'" :nameInputId="'priority_ids[]'">
       
         
@@ -26,7 +27,7 @@
             <td>{{ $item->id}}</td>
             <td>{{ $item->created_at}}</td>
             <td >
-                <a href="{{ route('prog-pokok.edit', $item->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                <a href="{{ route('prog-prioritas.edit', $item->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
             </td>
         </tr>     
         @endforeach
@@ -34,6 +35,7 @@
      
     </x-slot>
 </x-datatables>
+
 
 <script>
     

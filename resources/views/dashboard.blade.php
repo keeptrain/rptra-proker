@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="mainTable">
+    <x-slot name="main">
        
             <!-- Nama Program -->
             <div class="flex items-center mb-4">
