@@ -43,8 +43,8 @@ Route::controller(PrincipalProgramController::class)->group(function () {
 
 Route::controller(InstitutionalPartnersController::class)->group(function () {
     Route::get('program-kerja/mitra', 'index')->name('prog-mitra.index');
-    Route::get('program-kerja/mitra/{mitra}', 'show')->name('prog-mitra.show');      
-    Route::get('program-kerja/mitra/tambah', 'create')->name('prog-mitra.create');
+    //Route::get('program-kerja/mitra/{mitra}', 'show')->name('prog-mitra.show');      
+    Route::get('program-kerja/mitra/buat', 'create')->name('prog-mitra.create');
     Route::post('program-kerja/mitra/tambah', 'store')->name('prog-mitra.store');
     Route::get('program-kerja/mitra/ubah/{id}', 'edit')->name('prog-mitra.edit');
     Route::put('program-kerja/mitra/ubah/{id}', 'update')->name('prog-mitra.update');

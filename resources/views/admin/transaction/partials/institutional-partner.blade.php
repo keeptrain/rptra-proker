@@ -1,7 +1,7 @@
 <!-- Mitra -->
-<label for="mitra-select-label" class="block mb-2 text-sm font-medium text-gray-900">
+<x-admin.input-label for="mitra-program" class="mb-2">
     Mitra
-</label>
+</x-admin.input-label>
 <select id="multiple-select" name="partner[]" multiple
     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5">
     @foreach ($institutionalPartners as $mitra)

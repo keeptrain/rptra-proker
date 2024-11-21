@@ -3,7 +3,13 @@
     @section('name-content')
         {{ __('TAMBAH PROGRAM PRIORITAS') }}
 
-        <x-button onclick="window.history.back();"  class="bg-zinc-600 dark:hover:bg-zinc-700">Kembali</x-button>
+        <x-button onclick="window.history.back();" class="bg-zinc-600 dark:hover:bg-zinc-700 flex items-center">
+            <!-- Ikon Kembali -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m0 0l6-6m-6 6l6 6" />
+            </svg>
+            Kembali
+        </x-button>
     @endsection
 
     <x-slot name="main">

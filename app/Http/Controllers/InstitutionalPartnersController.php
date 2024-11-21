@@ -36,7 +36,7 @@ class InstitutionalPartnersController extends Controller
      */
     public function create()
     {
-        return view('admin.institutional-partners.index');
+        return view('admin.institutional-partners.create');
     }
 
     /**
@@ -95,7 +95,7 @@ class InstitutionalPartnersController extends Controller
                 $request->input('number'),
                 $request->input('name')
             );
-            return redirect()->route('prog-mitra.index')->with('success', 'Data mitra berhasil diperbarui.');;;
+            return redirect()->route('prog-mitra.index')->with('success', 'Data mitra berhasil diperbarui.');
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
@@ -111,6 +111,6 @@ class InstitutionalPartnersController extends Controller
             $request->input('partner_ids'),
         );
 
-        return redirect()->route('prog-mitra.index');
+        return redirect()->route('prog-mitra.index')->with('success', 'Data mitra berhasil dihapus.');
     }
 }

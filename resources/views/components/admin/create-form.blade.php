@@ -13,7 +13,7 @@
             <img src="{{ asset('icons/type-program.svg') }}" alt="Icon" width="20" height="20">
             <p class="ml-1">Tipe Program</p>
         </div>
-        <div class="p-6 bg-white rounded-md shadow-sm">
+        <div class="p-6 bg-white dark:bg-zinc-800 rounded-md shadow-sm">
             {{ $formBody1 }}
         </div>
     </div>
@@ -38,10 +38,10 @@
             </svg>
             <p class="ml-1">Informasi kegiatan</p>
         </div>
-        <div class="p-6 bg-white rounded-t-md border-b">
+        <div class="p-6 bg-white  dark:bg-zinc-800 rounded-t-md border-b">
             {{ $formBody2 }}
         </div>
-        <div class="p-6 bg-gray-50 rounded-b-md shadow-sm">
+        <div class="p-6 bg-gray-50 dark:bg-zinc-800  rounded-b-md shadow-sm">
             @yield('formbody2-section2')
         </div>
     </div>
@@ -52,7 +52,7 @@
             <img src="{{ asset('icons/calendar_date_time.svg') }}" alt="Icon" width="20" height="20">
             <p class="ml-1">Tempat & Waktu</p>
         </div>
-        <div class="p-6 bg-white rounded-md shadow-sm">
+        <div class="p-6 bg-white dark:bg-zinc-800 rounded-md shadow-sm">
             {{ $formBody3 }}
         </div>
     </div>
@@ -63,7 +63,7 @@
             <img src="{{ asset('icons/partner.svg') }}" alt="Icon" width="20" height="20">
             <p class="ml-1">Mitra / Lembaga</p>
         </div>
-        <div class="p-6 bg-white rounded-md shadow-sm">
+        <div class="p-6 bg-white dark:bg-zinc-800 rounded-md shadow-sm">
             {{ $formBody4 }}
         </div>
     </div>
@@ -92,6 +92,13 @@
 
 
 <script>
+
+document.addEventListener('DOMContentLoaded', () => {
+                        
+                   
+            });
+
+            
 
 
     function numberOnly(id) {

@@ -1,28 +1,66 @@
-<div class="flex items-center mb-4">
-    <label for="nama-program" class="w-1/4 text-sm font-medium text-gray-900 mr-2">Nama Mitra / Lembaga</label>
-    <input type="text" id="nama-program" name="name"
-        class="flex-1 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block text-sm p-2.5 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Masukkan nama mitra" value="{{ old('name') }}" required>
+<x-app-layout>
 
-</div>
+    @section('name-content')
+        {{ __('TAMBAH PROGRAM PRIORITAS') }}
 
-<!-- Prefix ID -->
-<div class="flex items-center mb-4">
-    <label for="prefix-id" class="w-1/4 text-sm font-medium text-gray-900 mr-2">Mitra ID</label>
-    <div class="flex flex-1 gap-2">
-        <input type="text" id="prefix-id" name="prefix"
-            class="flex-1 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block text-sm p-2.5 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Masukkan mitra ID" value="{{ old('prefix') }}" required>
-        <input type="text" id="number" name="number"
-            class="w-1/4 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block text-sm p-2.5 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Nomor" oninput="numberOnly(this.id);" maxlength="3" value="{{ old('number') }}" required>
-    </div>
-</div>
+        <x-button onclick="window.history.back();" class="bg-zinc-600 dark:hover:bg-zinc-700 flex items-center">
+            <!-- Ikon Kembali -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m0 0l6-6m-6 6l6 6" />
+            </svg>
+            Kembali
+        </x-button>
+    @endsection
 
-<!-- Program ID -->
-<div class="flex items-center">
-    <label for="nama-id" class="w-1/4 text-sm font-medium text-gray-900 mr-2">Mitra ID menjadi </label>
-    <input type="text" id="nama-id" name="id"
-        class="flex-1 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block text-sm p-2.5 dark:bg-gray-50 dark:border-gray-300 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Mitra ID akan terbentuk ..." value="{{ old('id') }}" readonly>
-</div>
+    <x-slot name="main">
+        <x-admin.add-form :routeName="'prog-mitra.store'">
+
+            <x-slot name="formBody">
+                @csrf
+                @method('POST')
+                <!-- Nama Program -->
+                <div class="flex items-center mb-4">
+                    <x-admin.input-label class="w-1/4">
+                        Nama Mitra
+                    </x-admin.input-label>
+
+                    <x-admin.text-input class="flex-1 p-2.5" type="text" name="name"
+                        placeholder="Masukkan nama mitra" value="{{ old('name') }}" required />
+                </div>
+
+                <!-- Prefix ID -->
+                <div class="flex items-center mb-4">
+                    <x-admin.input-label class="w-1/4">
+                        ID Mitra
+                    </x-admin.input-label>
+
+                    <div class="flex flex-1 gap-2">
+                        <x-admin.text-input id="prefix-id" class="flex-1 p-2.5" type="text" name="prefix"
+                            placeholder="Masukkan prefix ID, misal: MITRA" value="{{ old('prefix') }}" required />
+                        <x-admin.text-input id="number" class="w-1/5 p-2.5" type="text" name="number"
+                            placeholder="Nomor" value="{{ old('number') }}" oninput="numberOnly(this.id);"
+                            maxlength="3" required />
+
+                        <!-- Panah -->
+                        <div class="flex items-center justify-center ">
+                            <svg class="feather feather-arrow-right" fill="none" height="24" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                width="24" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="5" x2="19" y1="12" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </div>
+
+                        <x-admin.text-input type="text" id="nama-id" name="id" class="flex-1 p-2.5 "
+                            placeholder="Mitra ID akan terbentuk ..." value="{{ old('id') }}" readonly />
+                    </div>
+
+                    
+                </div>
+                
+            </x-slot>
+            
+        </x-admin.add-form>
+    </x-slot>
+
+</x-app-layout>

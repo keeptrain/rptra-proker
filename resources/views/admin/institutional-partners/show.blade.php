@@ -8,8 +8,8 @@
             <th >
                 <!--input type="checkbox" id="checkbox-all" class="cursor-pointer"-->
             </th>
-            <th >Kegiatan</th>
-            <th >Lihat</th>
+            <th >Nama Mitra</th>
+            <th >ID Mitra</th>
             <th >Tanggal dibuat</th>
             <th >Aksi</th>
         </tr>

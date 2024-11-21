@@ -1,4 +1,4 @@
-<x-datatables :routeName="'prog-transaksi.destroy'" :datatablesId="'datatables'" :nameInputId="'transaction_ids[]'" >
+<x-datatables :routeName="'prog-transaksi.destroy'" :datatablesId="'datatables-transaction'" :nameInputId="'transaction_ids[]'" >
     @csrf
     @method('DELETE')
 
@@ -16,9 +16,10 @@
             <th >
                 <!--input type="checkbox" id="checkbox-all" class="cursor-pointer"-->
             </th>
+            <th>Jadwal Kegiatan</th>
             <th>Informasi</th>
             <th>Detail</th>
-            <th>Jadwal Kegiatan</th>
+            <th>Lokasi</th>
             <th>Aksi</th>
         </tr>
     </x-slot>
@@ -30,11 +31,13 @@
             <td>
                 <input type="checkbox" name="transaction_ids[]" class="row-checkbox" value="{{ $item->id }}">
             </td>
-            <td>{{ $item->information }}</td>
+            <td>{{ $item->schedule_activity }}</td>
+            <td>{{ $item->information}}</td>
             <td >
                 <a href="{{ route('prog-transaksi.edit', $item->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Lihat</a>
             </td>
-            <td>{{ $item->schedule_activity}}</td>
+            
+            <td>{{ $item->location}}</td>
             <td >
                 <a href="{{ route('prog-transaksi.edit', $item->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
             </td>
@@ -47,14 +50,14 @@
 <script>
     
     $(document).ready(function() {
-        $('#datatables').DataTable({
+        $('#datatables-transaction').DataTable({
            
            responsive: true, 
         });
     });
     
     // Event listener untuk checkbox
-    $('#datatables tbody').on('change', '.row-checkbox', function() {
+    $('#datatables-transaction tbody').on('change', '.row-checkbox', function() {
         toggleDeleteButton();
     });
 
