@@ -104,8 +104,8 @@
             <x-admin.input-label for="information-program" class="mb-2">
                 Keterangan
             </x-admin.input-label>
-            <div class="w-full max-w-2xl flex flex-col rounded-xl bg-white dark:bg-zinc-900 shadow p-2.5">
-                <nav class="flex w-full flex-row justify-between">
+            <div class="w-full max-w-2xl flex flex-col rounded-lg bg-white dark:bg-zinc-900 shadow p-3">
+                <nav class="flex flex-row justify-between">
                     <div class="flex items-center flex-1 justify-center">
                         <input type="radio" name="information" value="belum_terlaksana"
                             class="h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-blue-800 checked:border-slate-800"

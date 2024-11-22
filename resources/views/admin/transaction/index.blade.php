@@ -4,7 +4,7 @@
     @section('main-content')
         <div
             class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 overflow-auto">
-            <div class="border-b pl-6 pr-6 pt-4 pb-4">
+            <div class="border-b dark:border-zinc-700 pl-6 pr-6 pt-4 pb-4">
 
                 <div class="flex justify-between items-center ">
                     <x-admin.input-label>
@@ -39,7 +39,20 @@
 
             </div>
             <div class="p-6">
-                @include('admin.transaction.show-completed')
+                @if ($transactions && $transactions->count() > 0)
+
+        @include('admin.transaction.show-completed')
+
+    @elseif ($draft && $draft->count() > 0)
+
+        @include('admin.transaction.show-draft')
+
+    @else
+
+        <p>Tidak ada transaksi yang ditemukan.</p>
+
+    @endif
+                
             </div>
 
 

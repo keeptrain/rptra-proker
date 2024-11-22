@@ -37,6 +37,16 @@ class TransactionProgramController extends Controller
         $draft = $this->transaction->getDraftStatus();
         return view('admin.transaction.index', [
             'transactions' => $completed,
+            'draft' => $draft
+           
+            
+        ]);
+    }
+
+    public function showDraft()
+    {
+        $draft = $this->transaction->getDraftStatus();
+        return view('admin.transaction.index', [
             'draft' => $draft,
             
         ]);

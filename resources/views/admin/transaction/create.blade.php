@@ -31,7 +31,7 @@
                         </div>
 
                         <!-- Panah -->
-                        <div class="flex items-center justify-center pb-2.5">
+                        <div class="flex items-center justify-center pb-2.5 text-gray-600 dark:text-zinc-300">
                             <svg class="feather feather-arrow-right" fill="none" height="24" stroke="currentColor"
                                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
                                 width="24" xmlns="http://www.w3.org/2000/svg">
@@ -71,18 +71,19 @@
 
                 @push('modal')
                     <x-admin.modal :saveIdButton="'saveDraftButton'">
-                        <x-slot name="nameButton">
-                            Simpan draft
-                        </x-slot>
                         @section('content-modal')
-                            <form id="draftForm">
+                            <p>Apakah kamu yakin untuk menyimpan draft ini?</p>
+                            <!--form id="draftForm">
                                 <div class="mb-4">
                                     <input type="text"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
                                         id="draftName" name="draftName" placeholder="Masukkan nama untuk draft">
                                 </div>
-                            </form>
+                            </form-->
                         @endsection
+                        <x-slot name="nameButton">
+                            Simpan draft
+                        </x-slot>
                     </x-admin.modal>
                 @endpush
 
@@ -99,7 +100,7 @@
                         class="px-8 py-3 bg-white text-black font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-white dark:hover:bg-gray-200 dark:focus:ring-blue-800">
                         Save to draft
                     </button>
-                    <button x-on:click="submitForm()" type="button"
+                    <button type="submit"
                         class="px-8 py-3 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Create
                     </button>
@@ -115,10 +116,14 @@
 
 
     <!-- Script JavaScript -->
+    
     <script src="{{ asset('js/create-form/selected-principal.js') }}"></script>
     <script src="{{ asset('js/create-form/multiple-select.js') }}"></script>
     <!--script src="{{ asset('js/create-form/modal-draft.js') }}"></script-->
     <script>
+
+
+
         document.addEventListener('DOMContentLoaded', () => {
             const options = {
                 placeholder: 'Masukkan teks disini...',
@@ -153,10 +158,16 @@
                 editor.setText("");
             }
 
+            
+
             initSelectedPrincipal();
-            initChoicesMultipleSelect();
+            //initChoicesMultipleSelect();
+
+            
 
         });
+
+        
 
       
     </script>

@@ -23,6 +23,7 @@ Route::get('program-kerja/dashboard', function() {
 
 Route::controller(PriorityProgramController::class)->group(function () {
     Route::get('program-kerja/prioritas', 'index')->name('prog-prioritas.index');
+    Route::get('program-kerja/prioritas', 'showDraft')->name('prog-prioritas.index');
     //Route::get('program-kerja/prioritas/{prioritas}', 'show')->name('prog-prioritas.show');      
     Route::get('program-kerja/prioritas/create', 'create')->name('prog-prioritas.create');
     Route::post('program-kerja/prioritas/create', 'store')->name('prog-prioritas.store');

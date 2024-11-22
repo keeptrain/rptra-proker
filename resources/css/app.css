@@ -3,3 +3,19 @@
 @tailwind utilities;
 
 [x-cloak] { display: none !important; }
+
+
+.choices__inner {
+
+    border-radius: 0.5rem;
+
+}
+
+
+.choices__list--multiple .choices__item {
+    background-color: #0071BC;
+    border: 1px solid #0071BC;
+    border-radius: 20px;
+    color: white;
+}
+

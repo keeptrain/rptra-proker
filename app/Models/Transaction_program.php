@@ -48,6 +48,8 @@ class Transaction_program extends Model
         return self::all();
     }
 
+  
+
     public function getCompletedStatus()
     {
         return self::where('status', 'completed')->get();
@@ -95,6 +97,13 @@ class Transaction_program extends Model
 
         ]);
 
+        // Decode JSON dari Tagify
+        // $decodedPartners = json_decode($institutional_partner_ids, true);
+
+        // Ambil hanya nilai `value`
+        // $partnerIds = collect($decodedPartners)->pluck('value')->toArray();
+
+        // Attach ke tabel pivot
         if (!empty($institutional_partner_ids)) {
             $transaction->institutionalPartners()->attach($institutional_partner_ids);
         }

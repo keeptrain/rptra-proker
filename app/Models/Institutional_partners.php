@@ -18,6 +18,11 @@ class Institutional_partners extends Model
         return self::all();
     }
 
+    public function getNamePartner()
+    {
+        return self::select('id', 'name')->get();
+    }
+
     public function transactionPrograms()
     {
         return $this->belongsToMany(Transaction_program::class, 'institutional_partner_transaction_program',  'transaction_program_id', 'institutional_partner_id');
