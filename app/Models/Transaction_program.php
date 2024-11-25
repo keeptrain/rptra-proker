@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Request;
 
 class Transaction_program extends Model
 {
@@ -47,8 +48,6 @@ class Transaction_program extends Model
     {
         return self::all();
     }
-
-  
 
     public function getCompletedStatus()
     {
@@ -93,7 +92,7 @@ class Transaction_program extends Model
             'schedule_activity' => $schedule_activity,
             'principal_program_id' => $principal_program_id,
             'information' => $information,
-            'timestamps' => now()
+            'timestamps' => Carbon::now()
 
         ]);
 
@@ -112,6 +111,17 @@ class Transaction_program extends Model
     public function editTransactionProgram($id)
     {
         return self::findOrFail($id);
+    }
+
+    public function updateTransactionProgram($data)
+    {
+        //$data = $this->editTransactionProgram($id);
+
+        $this->update([
+            $data]
+            );
+    
+        return $data;
     }
 
     public function destroyTransactionProgram($ids)

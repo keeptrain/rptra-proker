@@ -34,7 +34,7 @@ class PriorityProgramController extends Controller
      */
     public function create()
     {
-        return view('admin.priority.create');
+        return view('admin.priority.create-edit');
     }
 
     /**
@@ -71,7 +71,7 @@ class PriorityProgramController extends Controller
     {
         $priorityProgram = $this->priorityProgram->editPriorityProgram($id);
 
-        return view('admin.priority.edit', [
+        return view('admin.priority.create-edit', [
             'programs' => $this->priorityProgram->get(),
             'selectedProgram' => $priorityProgram,
             'prefix' => $priorityProgram->separatedId()['prefix'],

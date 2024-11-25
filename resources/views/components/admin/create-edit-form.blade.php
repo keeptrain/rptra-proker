@@ -1,5 +1,5 @@
 @props(['routeName'])
-<form action="{{ route($routeName) }}" method="POST">
+<form action="{{ $routeName }}" method="POST">
 
     <!-- Form Body -->
     <div class="mt-6 text-black dark:text-white">
@@ -16,8 +16,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
             </div>
-
-            Tambah
+            {{ $nameButton }}
         </x-button>
     </div>
 </form>

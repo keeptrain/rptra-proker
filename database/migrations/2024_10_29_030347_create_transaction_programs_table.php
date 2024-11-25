@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('target')->nullable(true);
             $table->integer('volume')->nullable(true);
             $table->text('location')->nullable(true);
-            $table->dateTime('schedule_activity')->nullable(true);
+            $table->date('schedule_activity')->nullable(true);
             $table->string('principal_program_id', length: 50)->nullable(true);
             //$table->string('instituional_partner_id', length: 50)->nullable(true);
             $table->enum('information',['belum_terlaksana', 'terlaksana', 'tidak_terlaksana'])->default('belum_terlaksana');

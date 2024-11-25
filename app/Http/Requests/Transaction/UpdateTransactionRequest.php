@@ -11,7 +11,7 @@ class UpdateTransactionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,28 @@ class UpdateTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'activity' => [
+                'required',
+                'string', 
+            ],
+            'objective' => [
+                'required',
+                'string', 
+            ],
+            'output' => [
+                'required',
+                'string', 
+            ],
+            'target' => [
+                'required',
+                'string', 
+            ],
+            'volume' => [
+                'required',
+                'integer', 
+            ],
+    
         ];
+        
     }
 }

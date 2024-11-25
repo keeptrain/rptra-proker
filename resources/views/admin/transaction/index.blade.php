@@ -1,6 +1,4 @@
 <x-app-layout>
-
-
     @section('main-content')
         <div
             class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 overflow-auto">
@@ -8,7 +6,11 @@
 
                 <div class="flex justify-between items-center ">
                     <x-admin.input-label>
-                        {{ __('LIST PROGRAM KERJA ') }}
+                        @if (isset($transactions))
+                            {{ __('LIST PROGRAM KERJA ') }}
+                        @elseif (isset($draft))
+                            {{ __('LIST DRAFT PROGRAM KERJA ') }}
+                        @endif
                     </x-admin.input-label>
 
                     <div>
@@ -39,23 +41,15 @@
 
             </div>
             <div class="p-6">
-                @if ($transactions && $transactions->count() > 0)
+                @if (isset($transactions))
+                    @include('admin.transaction.show-completed')
+                @elseif (isset($draft))
+                    @include('admin.transaction.show-draft')
+                @else
+                    <p>Tidak ada transaksi yang ditemukan.</p>
+                @endif
 
-        @include('admin.transaction.show-completed')
-
-    @elseif ($draft && $draft->count() > 0)
-
-        @include('admin.transaction.show-draft')
-
-    @else
-
-        <p>Tidak ada transaksi yang ditemukan.</p>
-
-    @endif
-                
             </div>
-
-
         </div>
     @endsection
 

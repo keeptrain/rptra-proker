@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Transaction\DestoryTransactionRequest;
-use App\Http\Requests\Transaction\StoreDraftTransactionRequest;
+use App\Http\Requests\Transaction\UpdateTransactionRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-
 use App\Models\Principal_program;
 use App\Models\Transaction_program;
+use Illuminate\Support\Facades\Route;
 use App\Models\Institutional_partners;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\UpdateTransaction_programRequest;
 use App\Http\Requests\Transaction\StoreTransactionRequest;
+use App\Http\Requests\Transaction\DestoryTransactionRequest;
+use App\Http\Requests\Transaction\StoreDraftTransactionRequest;
 
 class TransactionProgramController extends Controller
 {
@@ -38,8 +39,6 @@ class TransactionProgramController extends Controller
         return view('admin.transaction.index', [
             'transactions' => $completed,
             'draft' => $draft
-           
-            
         ]);
     }
 
@@ -157,9 +156,17 @@ class TransactionProgramController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update($request, Transaction_program $transaction_program)
+    public function update(UpdateTransactionRequest $request, $id)
     {
-        //
+        try {
+            $this->transaction->updateTransactionProgram(
+             
+                $request->all(),
+            );
+            return redirect()->route('prog-transaksi.index')->with('success', 'Data berhasil diperbarui.');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
     }
 
     /**
@@ -171,6 +178,29 @@ class TransactionProgramController extends Controller
             $request->input('transaction_ids'),
         );
 
-        return redirect()->route('prog-transaksi.index')->with('success', 'Program kerja berhasil dihapus.');
+
+        return redirect()->route('prog-transaksi.index')->with('success', 'Data transaksi berhasil di hapus');
+       
+    }
+
+    public function checkDestroyRoute()
+    {
+        $currentRoute = Route::currentRouteName();
+
+        // Melakukan redirect sesuai dengan nama rute saat ini
+
+        if ($currentRoute === 'prog-transaksi.index') {
+
+            // Logika khusus untuk route1
+
+            return redirect()->route('prog-transaksi.index')->with('message', 'Redirected from route1');
+
+        } elseif ($currentRoute === 'prog-transaksi.show.draft') {
+
+            // Logika khusus untuk route2
+
+            return redirect()->route('prog-transaksi.index2')->with('message', 'Redirected from route2');
+
+        }
     }
 }
