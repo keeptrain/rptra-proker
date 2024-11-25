@@ -26,10 +26,13 @@
             </div>
 
             <div class="p-6">
-                <x-admin.add-form :routeName="'prog-pokok.store'">
+                <x-admin.create-edit-form :routeName="route('prog-pokok.' . (isset($selectedProgram) ? 'update' : 'store'), $selectedProgram->id ?? null)">
                     <x-slot name="formBody">
                         @csrf
                         @method('POST')
+                        @if (isset($selectedProgram))
+                            @method('PUT')
+                        @endif
 
                         <!-- Nama program prioritas-->
                         <div class="flex items-center mb-4">
@@ -43,7 +46,7 @@
                                 <option value="">-- Pilih Program Prioritas --</option>
                                 @foreach ($priorityPrograms as $program)
                                     <option value="{{ $program->id }}"
-                                        {{ old('priority_program') == $program->id ? 'selected' : '' }}>
+                                        {{ (isset($selectedProgram) && $selectedProgram->priority_program_id == $program->id) || old('priority_program') == $program->id ? 'selected' : '' }}>
                                         {{ $program->name }}
                                     </option>
                                 @endforeach
@@ -56,8 +59,8 @@
                                 Nama Program
                             </x-admin.input-label>
 
-                            <x-admin.text-input class="flex-1 p-2.5" type="text" name="name"
-                                placeholder="Masukkan nama program" value="{{ old('name') }}" required />
+                            <x-admin.text-input class="flex-1 p-2.5 {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300' }}" type="text" name="name"
+                                placeholder="Masukkan nama program" value="{{ isset($selectedProgram) ? $selectedProgram->name : old('name') }}" required />
                         </div>
 
                         <!-- Prefix ID -->
@@ -67,10 +70,10 @@
                             </x-admin.input-label>
 
                             <div class="flex flex-1 gap-2">
-                                <x-admin.text-input id="prefix-id" class="flex-1 p-2.5" type="text" name="prefix"
-                                    placeholder="Masukkan prefix ID, misal: PPRIO" value="{{ old('prefix') }}" required />
-                                <x-admin.text-input id="number" class="w-1/5 p-2.5" type="text" name="number"
-                                    placeholder="Nomor" value="{{ old('number') }}" oninput="numberOnly(this.id);"
+                                <x-admin.text-input id="prefix-id" class="flex-1 p-2.5 {{ $errors->has('id') ? 'border-red-500' : 'border-gray-300' }}" type="text" name="prefix"
+                                    placeholder="Masukkan prefix ID, misal: PPRIO" value="{{ isset($selectedProgram) ? $prefix : old('prefix') }}" required />
+                                <x-admin.text-input id="number" class="w-1/5 p-2.5 {{ $errors->has('id') ? 'border-red-500' : 'border-gray-300' }}" type="text" name="number"
+                                    placeholder="Nomor" value="{{ isset($selectedProgram) ? $number : old('number') }}" oninput="numberOnly(this.id);"
                                     maxlength="3" required />
 
                                 <!-- Panah -->
@@ -85,7 +88,7 @@
                                 </div>
 
                                 <x-admin.text-input type="text" id="nama-id" name="id" class="flex-1 p-2.5 "
-                                    placeholder="Program ID akan terbentuk ..." value="{{ old('id') }}" readonly />
+                                    placeholder="Program ID akan terbentuk ..." value="{{ isset($selectedProgram) ? $selectedProgram->id : old('id') }}" readonly />
                             </div>
 
 
@@ -93,7 +96,17 @@
 
                     </x-slot>
 
-                </x-admin.add-form>
+                    <x-slot name="nameButton">
+                        @isset($selectedProgram)
+                            Ubah
+                        @endisset
+                        
+                        @empty($selectedProgram)
+                            Tambah
+                        @endisset
+                    </x-slot>
+
+                </x-admin.create-edit-form>
 
             </div>
 

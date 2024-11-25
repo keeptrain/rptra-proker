@@ -39,7 +39,7 @@ class PrincipalProgramController extends Controller
      */
     public function create()
     {
-        return view('admin.principal.create', [
+        return view('admin.principal.create-edit', [
          
             'priorityPrograms' => $this->priorityProgram->get(),
         ]);
@@ -82,7 +82,7 @@ class PrincipalProgramController extends Controller
 
         $principalProgram = $this->principalProgram->editPrincipalProgram($id);
 
-        return view('admin.principal.index',[
+        return view('admin.principal.create-edit',[
             'selectedProgram' =>  $principalProgram,
             'priorityPrograms' => $this->priorityProgram->get(),
             'prefix' => $principalProgram->separatedId()['prefix'],
