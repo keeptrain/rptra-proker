@@ -36,7 +36,7 @@ class InstitutionalPartnersController extends Controller
      */
     public function create()
     {
-        return view('admin.institutional-partners.create');
+        return view('admin.institutional-partners.create-edit');
     }
 
     /**
@@ -75,7 +75,7 @@ class InstitutionalPartnersController extends Controller
 
         $partner = $this->institutionalPartner->editInstitutionalPartner($id);
 
-        return view('admin.institutional-partners.index',[
+        return view('admin.institutional-partners.create-edit',[
             'selectedProgram' => $partner,
             'prefix' => $partner->separatedId()['prefix'],
             'number' => $partner->separatedId()['number'],

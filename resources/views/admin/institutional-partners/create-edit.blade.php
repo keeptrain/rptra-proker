@@ -7,7 +7,7 @@
                 <div class="flex justify-between items-center ">
 
                     <x-admin.input-label>
-                        {{ __('TAMBAH MITRA') }}
+                        {{ __('TAMBAH PROGRAM PRIORITAS') }}
                     </x-admin.input-label>
 
 
@@ -24,10 +24,14 @@
             </div>
 
             <div class="p-6">
-                <x-admin.add-form :routeName="'prog-mitra.store'">
+                <x-admin.create-edit-form :routeName="route('prog-mitra.' . (isset($selectedProgram) ? 'update' : 'store'), $selectedProgram->id ?? null)">
                     <x-slot name="formBody">
                         @csrf
                         @method('POST')
+                        @if (isset($selectedProgram))
+                            @method('PUT')
+                        @endif
+                        
                         <!-- Nama Program -->
                         <div class="flex items-center mb-4">
                             <x-admin.input-label class="w-1/4">
@@ -35,7 +39,7 @@
                             </x-admin.input-label>
 
                             <x-admin.text-input class="flex-1 p-2.5" type="text" name="name"
-                                placeholder="Masukkan nama mitra" value="{{ old('name') }}" required />
+                                placeholder="Masukkan nama mitra" value="{{ isset($selectedProgram) ? $selectedProgram->name : old('name') }}" required />
                         </div>
 
                         <!-- Prefix ID -->
@@ -46,9 +50,9 @@
 
                             <div class="flex flex-1 gap-2">
                                 <x-admin.text-input id="prefix-id" class="flex-1 p-2.5" type="text" name="prefix"
-                                    placeholder="Masukkan prefix ID, misal: MITRA" value="{{ old('prefix') }}" required />
+                                    placeholder="Masukkan prefix ID, misal: MITRA" value="{{ isset($selectedProgram) ? $prefix : old('prefix') }}" required />
                                 <x-admin.text-input id="number" class="w-1/5 p-2.5" type="text" name="number"
-                                    placeholder="Nomor" value="{{ old('number') }}" oninput="numberOnly(this.id);"
+                                    placeholder="Nomor" value="{{ isset($selectedProgram) ? $number : old('number') }}" oninput="numberOnly(this.id);"
                                     maxlength="3" required />
 
                                 <!-- Panah -->
@@ -63,7 +67,7 @@
                                 </div>
 
                                 <x-admin.text-input type="text" id="nama-id" name="id" class="flex-1 p-2.5 "
-                                    placeholder="Mitra ID akan terbentuk ..." value="{{ old('id') }}" readonly />
+                                    placeholder="Mitra ID akan terbentuk ..." value="{{ isset($selectedProgram) ? $selectedProgram->id : old('id') }}" readonly />
                             </div>
 
 
@@ -71,7 +75,17 @@
 
                     </x-slot>
 
-                </x-admin.add-form>
+                    <x-slot name="nameButton">
+                        @isset($selectedProgram)
+                            Ubah
+                        @endisset
+                        
+                        @empty($selectedProgram)
+                            Tambah
+                        @endisset
+                    </x-slot>
+
+                </x-admin.create-edit-form>
 
             </div>
 
