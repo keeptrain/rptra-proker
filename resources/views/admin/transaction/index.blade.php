@@ -1,5 +1,6 @@
 <x-app-layout>
     @section('main-content')
+    <div x-data="{ openModals: false }">
         <div
             class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 overflow-auto">
             <div class="border-b dark:border-zinc-700 pl-6 pr-6 pt-4 pb-4">
@@ -26,7 +27,7 @@
                         </x-button>
 
                         <x-button onclick="window.location.href='{{ route('prog-transaksi.create') }}'" color="blue"
-                            class=" dark:hover:bg-blue-800 ">
+                            class="px-3 py-2 dark:hover:bg-blue-800 ">
                             <!-- Ikon Tambah di Dalam Lingkaran -->
                             <svg class="w-5 h-5 mr-1 text-white dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -50,8 +51,22 @@
                 @endif
 
             </div>
+            
         </div>
-    @endsection
+   
+       
 
+    </div>
+
+    
+    
+    @endsection
+    
+    
+   
 
 </x-app-layout>
+
+
+
+

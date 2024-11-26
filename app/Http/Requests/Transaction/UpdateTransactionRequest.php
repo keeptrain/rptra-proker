@@ -22,6 +22,10 @@ class UpdateTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'status' => [
+                'string',
+                'exists:transaction_programs,status'
+            ],
             'activity' => [
                 'required',
                 'string', 
@@ -42,8 +46,27 @@ class UpdateTransactionRequest extends FormRequest
                 'required',
                 'integer', 
             ],
-    
+            'location' => [
+                'required',
+                'string',
+            ],
+            'schedule_activity' => [
+                'required',
+                'date',
+                'date_format:Y-m-d\TH:i'   
+            ],
+            'principal_program_id' => [
+                'required',
+                'string',
+                'exists:principal_programs,id', 
+            ],
+            'information' => [
+                'required',
+                'string',
+                'in:belum_terlaksana,terlaksana,tidak_terlaksana'   
+            ],
+            'partner' => 'required|array',
+            'partner.*' => 'exists:institutional_partners,id'
         ];
-        
     }
 }

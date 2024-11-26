@@ -113,15 +113,51 @@ class Transaction_program extends Model
         return self::findOrFail($id);
     }
 
-    public function updateTransactionProgram($data)
-    {
-        //$data = $this->editTransactionProgram($id);
-
-        $this->update([
-            $data]
-            );
+    public function updateTransactionProgram(
+        $id,
+        $status,
+        $activity,
+        $objective,
+        $output,
+        $target,
+        $volume,
+        $location,
+        $schedule_activity,
+        $principal_program_id,
+        $institutional_partner_ids,
+        $information
+    ) {
     
-        return $data;
+        // Mengambil program yang ingin diupdate
+        $program = $this->editTransactionProgram($id);
+
+
+
+        
+    
+        // Melakukan update pada instance model
+        $program->update([
+            'status' => $status,
+            'activity' => $activity,
+            'objective' => $objective,
+            'output' => $output,
+            'target' => $target,
+            'volume' => $volume,
+            'location' => $location,
+            'schedule_activity' => $schedule_activity,
+            'principal_program_id' => $principal_program_id,
+            'institutional_partner_ids' => $institutional_partner_ids,
+            'information' => $information
+    
+        ]);
+
+        // Mengupdate relasi pivot
+        $program->institutionalPartners()->sync($institutional_partner_ids);
+    
+    
+        // Mengembalikan objek yang telah diperbarui
+        return $program;
+    
     }
 
     public function destroyTransactionProgram($ids)

@@ -73,7 +73,7 @@ class TransactionProgramController extends Controller
         $principalProgram = $this->principalProgram->get();
         $institutionalPartner = $this->institutionalPartner->get();
 
-        return view('admin.transaction.create', [
+        return view('admin.transaction.create-edit', [
             'principalPrograms' => $principalProgram,
             'institutionalPartners' => $institutionalPartner,
         ]);
@@ -145,7 +145,7 @@ class TransactionProgramController extends Controller
         $institutionalPartner = $this->institutionalPartner->get();
     
 
-        return view('admin.transaction.create', [
+        return view('admin.transaction.create-edit', [
             'selectedProgram' => $transaction,
             'principalPrograms' => $principalProgram,
             //'priorityPrograms' => $priorityPrograms,
@@ -160,8 +160,18 @@ class TransactionProgramController extends Controller
     {
         try {
             $this->transaction->updateTransactionProgram(
-             
-                $request->all(),
+                $id,
+                'completed',
+                $request->input('activity'),
+                $request->input('objective'),
+                $request->input('output'),
+                $request->input('target'),
+                $request->input('volume'),
+                $request->input('location'),
+                $request->input('schedule_activity'),
+                $request->input('principal_program_id'),
+                $request->input('partner'),
+                $request->input('information')
             );
             return redirect()->route('prog-transaksi.index')->with('success', 'Data berhasil diperbarui.');
         } catch (ValidationException $e) {

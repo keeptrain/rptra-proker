@@ -1,8 +1,8 @@
 @props(['saveIdButton'])
 
 <!-- Modal -->
-<div x-show="openModal" id="openModals"
-x-on:click.away="openModal=false"
+<div x-show="openModals" id="openModals"
+x-on:click.away="openModals=false"
         x-transition:enter="transition transform ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-[-20%] scale-90"
         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
@@ -14,7 +14,7 @@ x-on:click.away="openModal=false"
             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
             <div class="p-4 border-b">
                 <h5 class="text-lg font-semibold" id="draftModalLabel">Simpan sebagai Draft</h5>
-                <button x-on:click="openModal = false" type="button" class="absolute top-0 right-0 p-2" >
+                <button x-on:click="openModals = false" type="button" class="absolute top-0 right-0 p-2" >
                     <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
@@ -28,7 +28,7 @@ x-on:click.away="openModal=false"
 
             </div>
             <div class="p-4 border-t flex justify-end">
-                <button x-on:click="openModal = false" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Batal</button>
+                <button x-on:click="openModals = false" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Batal</button>
                 <button x-on:click="submitForm()" id="{{ $saveIdButton }}" type="button"
                     class="px-4 py-2 bg-blue-600 text-white rounded-md">{{ $nameButton }}</button>
             </div>

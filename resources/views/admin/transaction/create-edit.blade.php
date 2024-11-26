@@ -21,9 +21,17 @@
 
 
         <div x-data="{ openModal: false }">
-            <x-admin.transaction-form :routeName="isset($selectedProgram) ? 'prog-transaksi.update' : 'prog-transaksi.create'" :routeParam="isset($selectedProgram) ? $selectedProgram->id : null" :csrfMethod="isset($selectedProgram) ? 'PUT' : 'POST'">
-
+            <x-admin.transaction-form :routeName="route(
+                'prog-transaksi.' . (isset($selectedProgram) ? 'update' : 'store'),
+                $selectedProgram->id ?? null,
+            )">
                 <x-slot name="formBody1">
+                    @csrf
+                    @method('POST')
+                    @if (isset($selectedProgram))
+                        @method('PUT')
+                    @endif
+
                     <div class="grid grid-cols-[1fr_auto_1fr] gap-4 items-end">
                         <!-- Program Pokok -->
                         <div>
@@ -74,12 +82,12 @@
                         @section('content-modal')
                             <p>Apakah kamu yakin untuk menyimpan draft ini?</p>
                             <!--form id="draftForm">
-                                <div class="mb-4">
-                                    <input type="text"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
-                                        id="draftName" name="draftName" placeholder="Masukkan nama untuk draft">
-                                </div>
-                            </form-->
+                                            <div class="mb-4">
+                                                <input type="text"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
+                                                    id="draftName" name="draftName" placeholder="Masukkan nama untuk draft">
+                                            </div>
+                                        </form-->
                         @endsection
                         <x-slot name="nameButton">
                             Simpan draft
@@ -116,14 +124,11 @@
 
 
     <!-- Script JavaScript -->
-    
+
     <script src="{{ asset('js/create-form/selected-principal.js') }}"></script>
     <script src="{{ asset('js/create-form/multiple-select.js') }}"></script>
     <!--script src="{{ asset('js/create-form/modal-draft.js') }}"></script-->
     <script>
-
-
-
         document.addEventListener('DOMContentLoaded', () => {
             const options = {
                 placeholder: 'Masukkan teks disini...',
@@ -158,18 +163,14 @@
                 editor.setText("");
             }
 
-            
+
 
             initSelectedPrincipal();
             //initChoicesMultipleSelect();
 
-            
+
 
         });
-
-        
-
-      
     </script>
 @endsection
 </x-app-layout>

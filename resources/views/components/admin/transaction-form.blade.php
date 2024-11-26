@@ -1,13 +1,11 @@
 @props([
     'routeName',
-    'routeParam',
     'csrfMethod'
 ])
 
-<form id="create-form" action="{{ route($routeName, ['id' => $routeParam]) }}" method="POST">
+<form id="create-form" action="{{ $routeName }}" method="POST" >
 
-    @csrf
-    @method($csrfMethod)
+
     <!-- Form Body -->
     <div>
         <div class="text-sm mb-2 flex items-center">

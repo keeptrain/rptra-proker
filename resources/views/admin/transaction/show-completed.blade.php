@@ -1,3 +1,4 @@
+
 <x-datatables :routeName="'prog-transaksi.destroy'" :datatablesId="'datatables-transaction'" :nameInputId="'transaction_ids[]'" >
     @csrf
     @method('DELETE')
@@ -18,7 +19,7 @@
             </th>
             <th>Jadwal Kegiatan</th>
             <th>Informasi</th>
-            <th>Detail</th>
+        
             <th>Lokasi</th>
             <th>Aksi</th>
         </tr>
@@ -26,6 +27,7 @@
 
     <!-- Slot untuk tbody -->
     <x-slot name="tbody">
+    
         @foreach ($transactions as $item)
         <tr>
             <td>
@@ -33,30 +35,31 @@
             </td>
             <td>{{ $item->schedule_activity }}</td>
             <td>{{ $item->information}}</td>
-            <td >
-                <button x-on:click="openModal = !openModal" type="button"
-                        class="px-8 py-3 bg-white text-black font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-white dark:hover:bg-gray-200 dark:focus:ring-blue-800">
-                        Save to draft
-                    </button>
-            </td>
+          
             
             <td>{{ $item->location}}</td>
             <td >
-                <a href="{{ route('prog-transaksi.edit', $item->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+
+                <x-button x-on:click="openModal = !openModal" class="px-1 py-1 bg-pink-200 text-pink-600" type="button">Detail</x-button>
+             
+                <button onclick="window.location.href='{{ route('prog-transaksi.edit', $item->id) }}'" type="button"
+                class="px-1 py-1 bg-blue-200 text-blue-600 font-light text-sm rounded-lg focus:ring-1 focus:ring-blue-300 dark:bg-white dark:hover:bg-gray-200 dark:focus:ring-blue-800">
+                    Edit
+                </button>
+                    
             </td>
         </tr>     
         @endforeach
+ 
        
-     
-        
     </x-slot>
 
     
-<x-admin.modal :saveIdButton="'test'">
-    <x-slot name="nameButton">test</x-slot>
-</x-admin.modal>
+
     
 </x-datatables>
+
+
 
 
 
