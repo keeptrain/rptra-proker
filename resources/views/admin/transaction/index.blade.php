@@ -49,22 +49,12 @@
                 @else
                     <p>Tidak ada transaksi yang ditemukan.</p>
                 @endif
-
             </div>
-            
         </div>
-   
-       
-
     </div>
-
-    
-    
     @endsection
     
     
-   
-
 </x-app-layout>
 
 
