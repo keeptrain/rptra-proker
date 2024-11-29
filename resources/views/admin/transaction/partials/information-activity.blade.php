@@ -29,14 +29,6 @@
     
 </div>
 
-
-
-
-
- 
-
-
-
 @section('formbody2-section2')
     <div class="grid grid-cols-[1fr_auto_1fr] gap-4 items-end">
         <!-- Tujuan Program -->

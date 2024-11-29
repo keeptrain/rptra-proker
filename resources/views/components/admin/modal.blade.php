@@ -1,8 +1,8 @@
 @props(['saveIdButton'])
 
 <!-- Modal -->
-<div x-show="openModals" id="openModals"
-x-on:click.away="openModals=false"
+<div x-show="openModal" id="openModal"
+x-on:click.away="openModal=false"
         x-transition:enter="transition transform ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-[-20%] scale-90"
         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
@@ -28,7 +28,7 @@ x-on:click.away="openModals=false"
 
             </div>
             <div class="p-4 border-t flex justify-end">
-                <button x-on:click="openModals = false" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Batal</button>
+                <button x-on:click="openModal = false" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Batal</button>
                 <button x-on:click="submitForm()" id="{{ $saveIdButton }}" type="button"
                     class="px-4 py-2 bg-blue-600 text-white rounded-md">{{ $nameButton }}</button>
             </div>

@@ -5,6 +5,7 @@
 [x-cloak] { display: none !important; }
 
 
+
 .choices__inner {
 
     border-radius: 0.5rem;
@@ -18,4 +19,6 @@
     border-radius: 20px;
     color: white;
 }
+
+
 

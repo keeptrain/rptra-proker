@@ -4,7 +4,7 @@
 
  
  // Ambil data mitra dari PHP dan ubah menjadi format yang sesuai
- var partners = ['TEST','TESTS']
+var partners = ['TEST','TESTS']
 var input = document.getElementById('tagify-input');
 var tagify = new Tagify(input, {
     dropdown: {

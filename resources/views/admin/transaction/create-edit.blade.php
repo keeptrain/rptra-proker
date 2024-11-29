@@ -7,7 +7,7 @@
                     {{ __('ISI FORM UNTUK PROGRAM KERJA ') }}
                 </x-admin.input-label>
 
-                <x-button onclick="window.history.back();" class="bg-zinc-600 dark:hover:bg-zinc-700 flex items-center">
+                <x-button onclick="window.history.back();" color="zinc" class="p-1 bg-zinc-600 dark:hover:bg-zinc-700 flex items-center">
                     <!-- Ikon Kembali -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -18,7 +18,6 @@
                 </x-button>
             </div>
         </div>
-
 
         <div x-data="{ openModal: false }">
             <x-admin.transaction-form :routeName="route(
@@ -60,7 +59,6 @@
                 </x-slot>
 
 
-
                 <x-slot name="formBody3">
                     <div class="grid grid-cols-[1fr_auto_1fr] gap-4 items-end">
                         <!-- Jadwal dan lokasi kegiatan -->
@@ -82,12 +80,12 @@
                         @section('content-modal')
                             <p>Apakah kamu yakin untuk menyimpan draft ini?</p>
                             <!--form id="draftForm">
-                                            <div class="mb-4">
-                                                <input type="text"
-                                                    class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
-                                                    id="draftName" name="draftName" placeholder="Masukkan nama untuk draft">
-                                            </div>
-                                        </form-->
+                                                        <div class="mb-4">
+                                                            <input type="text"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
+                                                                id="draftName" name="draftName" placeholder="Masukkan nama untuk draft">
+                                                        </div>
+                                                    </form-->
                         @endsection
                         <x-slot name="nameButton">
                             Simpan draft
@@ -97,18 +95,18 @@
 
             @section('button-content')
                 @if (isset($selectedProgram))
-                    <button type="submit"
+                    <button type="submit" id="submitButton"
                         class="px-8 py-3 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Ubah
                     </button>
                 @endif
 
                 @if (Route::currentRouteName() === 'prog-transaksi.create')
-                    <button x-on:click="openModal = !openModal" type="button"
+                    <button x-on:click="openModal = !openModal" type="button" id="submitButton"
                         class="px-8 py-3 bg-white text-black font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-white dark:hover:bg-gray-200 dark:focus:ring-blue-800">
                         Save to draft
                     </button>
-                    <button type="submit"
+                    <button type="submit" id="submitButton"
                         class="px-8 py-3 bg-blue-600 text-white font-medium text-sm rounded-lg focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Create
                     </button>
@@ -117,29 +115,36 @@
 
 
         </x-admin.transaction-form>
-
-
-
     </div>
 
 
     <!-- Script JavaScript -->
-
     <script src="{{ asset('js/create-form/selected-principal.js') }}"></script>
     <script src="{{ asset('js/create-form/multiple-select.js') }}"></script>
     <!--script src="{{ asset('js/create-form/modal-draft.js') }}"></script-->
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const options = {
                 placeholder: 'Masukkan teks disini...',
                 modules: {
-                    toolbar: true
+                    toolbar: [
+                        [{
+                            header: [1, 2, false]
+                        }],
+                        ['bold', 'italic', 'underline'],
+                        [{
+                            list: 'ordered'
+                        }, {
+                            list: 'bullet'
+                        }],
+                        ['link']
+                    ]
                 },
                 theme: 'snow'
             };
 
             var editor = new Quill('#quill-editor', options);
-
 
             if (document.getElementById("quill-editor-area")) {
                 var quillEditor = document.getElementById("quill-editor-area");
@@ -149,7 +154,19 @@
 
                 // Update textarea saat konten di Quill editor berubah
                 editor.on("text-change", function() {
-                    quillEditor.value = editor.root.innerHTML;
+                    let rawHtml = editor.root.innerHTML;
+
+                    // Modifikasi HTML untuk menambahkan TailwindCSS classes
+                    rawHtml = rawHtml
+                        .replace(/<h1>/g, '<h1 class="text-3xl font-bold mb-4">')
+                        .replace(/<h2>/g, '<h2 class="text-2xl font-semibold mb-4">')
+                        .replace(/<ol>/g, '<ol class="list-decimal list-inside mb-4">')
+                        .replace(/<ul>/g, '<ul class="list-disc list-inside mb-4">')
+                        .replace(/<p>/g, '<p class="mb-4 text-gray-700 leading-relaxed">')
+                        .replace(/<a /g, '<a class="text-blue-500 underline" ');
+
+                    // Update hidden textarea dengan konten yang sudah dimodifikasi
+                    quillEditor.value = rawHtml;
                 });
 
                 // Update Quill editor saat textarea diubah
@@ -158,18 +175,11 @@
                 });
             }
 
-
             function resetQuillEditor() {
                 editor.setText("");
             }
 
-
-
             initSelectedPrincipal();
-            //initChoicesMultipleSelect();
-
-
-
         });
     </script>
 @endsection

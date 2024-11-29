@@ -47,20 +47,26 @@ class TransactionProgramController extends Controller
         $draft = $this->transaction->getDraftStatus();
         return view('admin.transaction.index', [
             'draft' => $draft,
-            
         ]);
     }
 
-    public function showDetailActivity()
+    public function showDetailTransaction($id)
     {
         
+        $transaction = $this->transaction::with(['institutionalPartners', 'principalPrograms'])->find($id);
+        $principalProgram = $this->principalProgram->get();
+        $institutionalPartner = $this->institutionalPartner->get();
+        return view('admin.transaction.detail',[
+            'selectedProgram' => $transaction,
+            'principalProgram' => $principalProgram,
+            'institutionalPartners' => $institutionalPartner
+        ]);
     }
 
     public function getTransactions(Request $request)
     {
         // Ambil data transaksi dari database
         $transactions = Transaction_program::all();
-
         return response()->json($transactions); // Mengembalikan data dalam format JSON
     }
 

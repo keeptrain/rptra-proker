@@ -10,6 +10,11 @@ export default {
         './resources/**/*.js',
         './resources/**/*.vue',
     ],
+    safelist : [
+        'rounded-md',
+        {pattern: /bg-(red|green|blue)-(100|200|300)/},
+        {pattern: /text-(red|green|blue)-(500|600|700)/},
+    ],
    
     theme: {
         extend: {

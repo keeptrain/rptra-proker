@@ -54,7 +54,8 @@ Route::controller(InstitutionalPartnersController::class)->group(function () {
 Route::controller(TransactionProgramController::class)->group(function () {
     Route::get('program-kerja/transaksi', 'index')->name('prog-transaksi.index');
     //Route::get('program-kerja/transaksi/data', 'show')->name('prog-transaksi.show');
-    Route::get('program-kerja/transaksi/draft', 'showDraft')->name('prog-transaksi.show.draft');      
+    Route::get('program-kerja/transaksi/draft', 'showDraft')->name('prog-transaksi.show.draft');
+    Route::get('program-kerja/transaksi/detail/{id}', 'showDetailTransaction')->name('prog-transaksi.show.detail');        
     Route::get('program-kerja/transaksi/buat', 'create')->name('prog-transaksi.create');
     Route::post('program-kerja/transaksi/tambah', 'store')->name('prog-transaksi.store');
     Route::post('program-kerja/transaksi/tambah/draft', 'storeToDraft')->name('prog-transaksi.draft');
