@@ -93,10 +93,10 @@
 
 
 
-        <div class="h-full flex-1 bg-gray-50 dark:bg-zinc-800 overflow-auto ">
+        <div class="h-full flex-1 bg-gray-50 dark:bg-zinc-800 overflow-auto  ">
             <!-- Main Content Area -->
             <div class="flex h-full flex-col justify-between overflow-y ">
-                <div id="main-header" class="sticky top-0 xl:ml-20 xl:mr-20 z-10">
+                <div id="main-header" class="sticky top-0 xl:ml-32 xl:mr-32 z-10">
                     <!-- Header -->
                     <div class="flex items-center  bg-gray-50 dark:bg-zinc-800 p-6 py-6">
                         <!-- Header -->
@@ -105,21 +105,24 @@
                     </div>
                 </div>
 
-                <div class="p-6 flex flex-1 flex-col xl:ml-20 xl:mr-20 ">
+                <div class="p-6 flex flex-1 flex-col xl:ml-32 xl:mr-32  ">
 
                     <!-- Page header (Breadcrumb) -->
                     <div class="breadcrumb">
                         <div class="bg-gray-50 dark:bg-zinc-800 text-black dark:text-neutral-100 mb-4">
-                            @include('components.breadcrumb')
+                            @yield('breadcrumb')
                         </div>
                     </div>
 
                     @yield('main-content')
 
-
-
+                    
+                    
 
                 </div>
+
+                
+                
 
 
                 <div class="hidden w-full lg:block ">

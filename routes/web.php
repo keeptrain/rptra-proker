@@ -12,14 +12,7 @@ use App\Http\Controllers\InstitutionalPartnersController;
 
 Route::get('program-kerja/dashboard', function() {
     return view('dashboard');
-});
-
-/*Route::get('program-kerja/prioritas/create', function() {
-    return view('admin.priority.create');
-});*/
-
- // Route::get('program-kerja', 'index')->name('prog-prioritas.index');
-
+})->name('dashboard');
 
 Route::controller(PriorityProgramController::class)->group(function () {
     Route::get('program-kerja/prioritas', 'index')->name('prog-prioritas.index');

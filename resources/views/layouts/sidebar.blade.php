@@ -9,7 +9,7 @@
             <div class="flex-grow md:block md:overflow-y-auto overflow-x-hidden"
                 :class="{ 'opacity-1': sidebarOpen, 'opacity-0': !sidebarOpen }">
                 <a class="flex justify-start items-center px-4 py-3 hover:bg-zinc-700 focus:bg-gray-200 hover:text-white focus:outline-none focus:ring"
-                    href="#">
+                    href="{{ route('dashboard') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
                         role="img" class="w-5 h-5 fill-current" preserveAspectRatio="xMidYMid meet"
                         viewBox="0 0 1200 1200">

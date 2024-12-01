@@ -7,7 +7,7 @@
                 <div class="flex justify-between items-center ">
 
                     <x-admin.input-label>
-                        DETAIL PROGRAM KERJA ID
+                        DETAIL PROGRAM KERJA
                     </x-admin.input-label>
 
 
@@ -97,7 +97,7 @@
 
                         <div class="font-semibold text-gray-400 dark:text-gray-500 mt-8">
                             {{ __('VOLUME') }}
-                            <span class="font-mono text-gray-600 dark:text-gray-200 block">{{ $selectedProgram->volume }}</span>
+                            <span class="font-semibold text-gray-600 dark:text-gray-200 block">{{ $selectedProgram->volume ?? 'kosong' }}</span>
                         </div>
 
                         <div class="font-semibold text-gray-400 dark:text-gray-500 mt-8">
