@@ -55,4 +55,5 @@ Route::controller(TransactionProgramController::class)->group(function () {
     Route::get('program-kerja/transaksi/ubah/{id}', 'edit')->name('prog-transaksi.edit');
     Route::put('program-kerja/transaksi/ubah/{id}', 'update')->name('prog-transaksi.update');
     Route::delete('program-kerja/transaksi/hapus', 'destroy')->name('prog-transaksi.destroy');
+    Route::get('program-kerja/transaksi/export/', 'export')->name('prog-transaksi.export');
 });

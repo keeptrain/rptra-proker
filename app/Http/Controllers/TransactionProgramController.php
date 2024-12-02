@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TransactionsExport;
 use App\Http\Requests\Transaction\UpdateTransactionRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -14,6 +15,8 @@ use App\Http\Requests\UpdateTransaction_programRequest;
 use App\Http\Requests\Transaction\StoreTransactionRequest;
 use App\Http\Requests\Transaction\DestoryTransactionRequest;
 use App\Http\Requests\Transaction\StoreDraftTransactionRequest;
+use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionProgramController extends Controller
 {
@@ -193,6 +196,14 @@ class TransactionProgramController extends Controller
 
         return redirect()->route('prog-transaksi.index')->with('success', 'Data transaksi berhasil di hapus');
        
+    }
+
+    public function export()
+    {
+        $date = Carbon::now()->format('H.i_d-m-Y');
+        $fileName = "transaksi-{$date}.xlsx";
+    
+        return Excel::download(new TransactionsExport, $fileName);
     }
 
     public function checkDestroyRoute()
