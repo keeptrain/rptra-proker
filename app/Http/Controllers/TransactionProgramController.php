@@ -35,39 +35,20 @@ class TransactionProgramController extends Controller
     public function index()
     {
         $completed = $this->transaction->getCompletedStatus();
-        $draft = $this->transaction->getDraftStatus();
+        //$draft = $this->transaction->getDraftStatus();
         return view('admin.transaction.index', [
             'transactions' => $completed,
-            'draft' => $draft
         ]);
     }
 
-    public function showDraft()
-    {
-        $draft = $this->transaction->getDraftStatus();
-        return view('admin.transaction.index', [
-            'draft' => $draft,
-        ]);
-    }
-
-    public function showDetailTransaction($id)
-    {
-        
-        $transaction = $this->transaction::with(['institutionalPartners', 'principalPrograms'])->find($id);
-        $principalProgram = $this->principalProgram->get();
-        $institutionalPartner = $this->institutionalPartner->get();
-        return view('admin.transaction.detail',[
-            'selectedProgram' => $transaction,
-            'principalProgram' => $principalProgram,
-            'institutionalPartners' => $institutionalPartner
-        ]);
-    }
 
     public function getTransactions(Request $request)
     {
         // Ambil data transaksi dari database
         $transactions = Transaction_program::all();
-        return response()->json($transactions); // Mengembalikan data dalam format JSON
+
+        // Mengembalikan data dalam format JSON
+        return response()->json($transactions);
     }
 
     /**
@@ -75,7 +56,6 @@ class TransactionProgramController extends Controller
      */
     public function create()
     {
-
         $principalProgram = $this->principalProgram->get();
         $institutionalPartner = $this->institutionalPartner->get();
 
@@ -138,7 +118,26 @@ class TransactionProgramController extends Controller
     /**
      * Display the specified resource.
      */
-   
+     public function showDraft()
+     {
+         $draft = $this->transaction->getDraftStatus();
+         return view('admin.transaction.index', [
+             'draft' => $draft,
+         ]);
+     }
+ 
+     public function showDetailTransaction($id)
+     {
+         $transaction = $this->transaction::with(['institutionalPartners', 'principalPrograms'])->find($id);
+         $principalProgram = $this->principalProgram->get();
+         $institutionalPartner = $this->institutionalPartner->get();
+         return view('admin.transaction.detail',[
+             'selectedProgram' => $transaction,
+             'principalProgram' => $principalProgram,
+             'institutionalPartners' => $institutionalPartner
+         ]);
+     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -147,14 +146,11 @@ class TransactionProgramController extends Controller
     {
         $transaction = $this->transaction::with(['institutionalPartners', 'principalPrograms'])->find($id);
         $principalProgram = $this->principalProgram->get();
-        //$priorityPrograms = $this->transaction->principalPrograms()->get();
         $institutionalPartner = $this->institutionalPartner->get();
     
-
         return view('admin.transaction.create-edit', [
             'selectedProgram' => $transaction,
             'principalPrograms' => $principalProgram,
-            //'priorityPrograms' => $priorityPrograms,
             'institutionalPartners' => $institutionalPartner,
         ]);
     }
@@ -204,17 +200,14 @@ class TransactionProgramController extends Controller
         $currentRoute = Route::currentRouteName();
 
         // Melakukan redirect sesuai dengan nama rute saat ini
-
         if ($currentRoute === 'prog-transaksi.index') {
 
             // Logika khusus untuk route1
-
             return redirect()->route('prog-transaksi.index')->with('message', 'Redirected from route1');
 
         } elseif ($currentRoute === 'prog-transaksi.show.draft') {
 
             // Logika khusus untuk route2
-
             return redirect()->route('prog-transaksi.index2')->with('message', 'Redirected from route2');
 
         }

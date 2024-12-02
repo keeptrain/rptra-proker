@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -49,7 +50,7 @@ return new class extends Migration
                 ->nullable(true);
             $table->string('institutional_partner_id', 50)
                 ->nullable(true);
-            $table->timestamps();
+            //$table->timestamps();
 
 
             $table->foreign('transaction_program_id', 'fk_transaction_program')
@@ -64,6 +65,14 @@ return new class extends Migration
                 ->onDelete('cascade');
           
         });
+
+        DB::table('transaction_programs')->insert([
+            [
+                'id' => '1',
+                'status' => 'completed',
+                
+            ],
+        ]);
     }
 
     /**

@@ -2,15 +2,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Seleksi checkbox dengan name "priority_ids[]", "main_ids[]", dan "partner_ids[]"
     const checkboxes = document.querySelectorAll(
         'input[name="priority_ids[]"], input[name="main_ids[]"], input[name="partner_ids[]"], input[name="transaction_ids[]"]');
-    const deleteButton = document.getElementById('delete-button');
+    const deleteButton = document.getElementById('delete-selected-button');
 
     function toggleDeleteButton() {
         // Cek apakah ada checkbox yang dipilih
         const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
         if (anyChecked) {
-            deleteButton.classList.remove('hidden');
+            deleteButton.disabled = false;
+            deleteButton.classList.remove('bg-gray-400');
+            deleteButton.classList.add('bg-red-500');
         } else {
-            deleteButton.classList.add('hidden');
+            deleteButton.disabled = true;
+            deleteButton.classList.remove('bg-red-500');
+            deleteButton.classList.add('bg-gray-400');
         }
     }
 

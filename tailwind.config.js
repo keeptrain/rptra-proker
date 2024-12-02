@@ -13,6 +13,7 @@ export default {
     safelist : [
         'rounded-md',
         {pattern: /bg-(red|green|blue)-(100|200|300)/},
+        {pattern: /dark:bg-(red|green|blue)-(600)/,},
         {pattern: /text-(red|green|blue)-(500|600|700)/},
     ],
    

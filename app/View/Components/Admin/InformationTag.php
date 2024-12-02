@@ -21,9 +21,9 @@ class InformationTag extends Component
     public function getColorClass()
     {
         $colorMap = [
-            'Belum Terlaksana' => 'text-blue-500 bg-blue-100',
-            'Terlaksana' => 'text-green-600 bg-green-100',
-            'Tidak Terlaksana' => 'text-red-500 bg-red-100',
+            'Belum Terlaksana' => 'text-blue-500 bg-blue-100 dark:bg-blue-600',
+            'Terlaksana' => 'text-green-600 bg-green-100 dark:bg-green-600',
+            'Tidak Terlaksana' => 'text-red-500 bg-red-100 dark:bg-red-600',
         ];
 
         return $colorMap[$this->information] ?? 'text-gray-600 ';

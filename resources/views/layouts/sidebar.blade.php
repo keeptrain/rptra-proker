@@ -4,11 +4,10 @@
             <a href="#" class="text-lg leading-normal text-gray-600 dark:text-gray-300 focus:outline-none focus:ring">
                 RPTRA</a>
         </div>
-
         <nav>
             <div class="flex-grow md:block md:overflow-y-auto overflow-x-hidden"
                 :class="{ 'opacity-1': sidebarOpen, 'opacity-0': !sidebarOpen }">
-                <a class="flex justify-start items-center px-4 py-3 hover:bg-zinc-700 focus:bg-gray-200 hover:text-white focus:outline-none focus:ring"
+                <a class="flex justify-start items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white"
                     href="{{ route('dashboard') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
                         role="img" class="w-5 h-5 fill-current" preserveAspectRatio="xMidYMid meet"
@@ -20,7 +19,7 @@
                     <span class="mx-4">Dashboard</span>
                 </a>
 
-                <a class="flex items-center px-4 py-3 hover:bg-zinc-700 focus:bg-gray-200 hover:text-white focus:outline-none focus:ring {{ request()->is('program-kerja/prioritas*') ? 'bg-gray-200 dark:bg-blue-900 dark:text-white' : '' }}"
+                <a class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white {{ request()->is('program-kerja/prioritas*') ? 'bg-gray-200 dark:bg-blue-900 dark:text-white' : '' }}"
                     href="{{ route('prog-prioritas.index') }}">
                     <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
                         viewBox="0 0 24 24">
@@ -31,7 +30,7 @@
 
                 </a>
 
-                <a class="flex items-center px-4 py-3 hover:bg-zinc-700 focus:bg-gray-200 hover:text-white focus:outline-none focus:ring {{ request()->is('program-kerja/pokok*') ? 'bg-gray-200 dark:bg-blue-900 dark:text-white' : '' }}"
+                <a class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white {{ request()->is('program-kerja/pokok*') ? 'bg-gray-200 dark:bg-blue-900 dark:text-white' : '' }}"
                     href="{{ route('prog-pokok.index') }}">
                     <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
                         viewBox="0 0 24 24">
@@ -42,7 +41,7 @@
 
                 </a>
                 
-                <a class="flex items-center px-4 py-3 hover:bg-zinc-700 focus:bg-gray-200 hover:text-white focus:outline-none focus:ring {{ request()->is('program-kerja/mitra*') ? 'bg-gray-200 dark dark:bg-blue-900 dark:text-white' : '' }}"
+                <a class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white  {{ request()->is('program-kerja/mitra*') ? 'bg-gray-200 dark dark:bg-blue-900 dark:text-white' : '' }}"
                     href="{{ route('prog-mitra.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5 fill-current" viewBox="0 0 16 16">
                         <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z"/>
@@ -53,7 +52,7 @@
                 </a>
 
                 <div x-data="{ open: false }">
-                    <a @click="open = !open" class="flex items-center px-4 py-3 hover:bg-zinc-700 focus:bg-gray-200 hover:text-white focus:outline-none focus:ring">
+                    <a @click="open = !open" class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5 fill-current" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
                           </svg>
@@ -65,10 +64,10 @@
                 
                     <!-- Dropdown Menu -->
                     <div x-show="open" class="pl-3">
-                        <a href="{{ route('prog-transaksi.index') }}" class="flex items-center px-4 py-2 text-sm  hover:bg-zinc-700 focus:bg-gray-200 hover:text-white">
+                        <a href="{{ route('prog-transaksi.index') }}" class="flex items-center px-4 py-2 text-sm  hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white">
                             <span class="flex-grow mx-4">- Data</span>
                         </a>
-                        <a href="{{ route('prog-transaksi.show.draft') }}" class="flex items-center  px-4 py-2 text-sm  hover:bg-zinc-700 focus:bg-gray-200 hover:text-white">
+                        <a href="{{ route('prog-transaksi.show.draft') }}" class="flex items-center  px-4 py-2 text-sm  hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white">
                             <span class="flex-grow mx-4">- Draft</span>
                         </a>
                       

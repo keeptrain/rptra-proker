@@ -51,15 +51,30 @@ class Transaction_program extends Model
 
     public function getCompletedStatus()
     {
-        return self::where('status', 'completed')->get();
+        // Ambil data dengan status 'completed'
+        $completedRecords = self::where('status', 'completed')->get();
+
+        // Format tanggal di 'schedule_activity' menjadi nama hari, tanggal
+        $completedRecords->map(function ($record) {
+            $record->day_name = Carbon::parse($record->schedule_activity)->translatedFormat('l, d F Y');
+            return $record;
+        });
+
+        return $completedRecords;
     }
 
     public function getDraftStatus()
     {
-        return self::where('status', 'draft')->get();
+        $draftRecords = self::where('status', 'draft')->get();
+
+        $draftRecords->map(function ($record) {
+            $record->day_name = Carbon::parse($record->created_at)->translatedFormat('l, d F Y');
+            return $record;
+        });
+
+        return $draftRecords;
     }
     
-
     public function generateId()
     {
         
@@ -131,10 +146,6 @@ class Transaction_program extends Model
         // Mengambil program yang ingin diupdate
         $program = $this->editTransactionProgram($id);
 
-
-
-        
-    
         // Melakukan update pada instance model
         $program->update([
             'status' => $status,
@@ -153,7 +164,6 @@ class Transaction_program extends Model
 
         // Mengupdate relasi pivot
         $program->institutionalPartners()->sync($institutional_partner_ids);
-    
     
         // Mengembalikan objek yang telah diperbarui
         return $program;
