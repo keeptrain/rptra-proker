@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('target')->nullable(true);
             $table->integer('volume')->nullable(true);
             $table->text('location')->nullable(true);
-            $table->date('schedule_activity')->nullable(true);
+            $table->dateTime('schedule_activity')->nullable(true);
             $table->string('principal_program_id', length: 50)->nullable(true);
             //$table->string('instituional_partner_id', length: 50)->nullable(true);
             $table->enum('information',['belum_terlaksana', 'terlaksana', 'tidak_terlaksana'])->default('belum_terlaksana');
@@ -59,7 +59,7 @@ return new class extends Migration
                 ->onDelete('cascade');
            
                 // Menentukan nama constraint secara manual
-            $table->foreign('institutional_partner_id', 'fk_institutional_partner') // Menentukan nama constraint secara manual
+            $table->foreign('institutional_partner_id', 'fk_institutional_partner')
                 ->references('id')
                 ->on('institutional_partners')
                 ->onDelete('cascade');
@@ -70,7 +70,145 @@ return new class extends Migration
             [
                 'id' => '1',
                 'status' => 'completed',
-                
+                'activity' => '',
+                'objective' => 'Tujuan pertama',
+                'output' => 'Output pertama',
+                'target' => 'Sasaran pertama',
+                'volume' => '1',
+                'location' => 'Duren Sawit, Jakarta Timur',
+                'schedule_activity' => '2024-11-01T02:02',
+                'principal_program_id' => 'PPOK-001',
+                'information' => 'belum_terlaksana',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => '2',
+                'status' => 'completed',
+                'activity' => '',
+                'objective' => 'Tujuan kedua',
+                'output' => 'Output kedua',
+                'target' => 'Sasaran kedua',
+                'volume' => '2',
+                'location' => 'Kampung Melayu, Jakarta Timur',
+                'schedule_activity' => '2024-11-02T02:02',
+                'principal_program_id' => 'PPOK-002',
+                'information' => 'terlaksana',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => '3',
+                'status' => 'completed',
+                'activity' => '',
+                'objective' => 'Tujuan ketiga',
+                'output' => 'Output ketiga',
+                'target' => 'Sasaran ketiga',
+                'volume' => '3',
+                'location' => 'Tebet, Jakarta Timur',
+                'schedule_activity' => '2024-11-03T02:02',
+                'principal_program_id' => 'PPOK-003',
+                'information' => 'tidak_terlaksana',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => '4',
+                'status' => 'draft',
+                'activity' => '',
+                'objective' => 'Tujuan draft',
+                'output' => 'Output draft',
+                'target' => null,
+                'volume' => '4',
+                'location' => 'Jakarta Barat',
+                'schedule_activity' => null,
+                'principal_program_id' => 'PPOK-004',
+                'information' => 'belum_terlaksana',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => '5',
+                'status' => 'draft',
+                'activity' => null,
+                'objective' => 'Tujuan draft kedua',
+                'output' => 'Output draft kedua',
+                'target' => null,
+                'volume' => '5',
+                'location' => 'Jakarta Utara',
+                'schedule_activity' => null,
+                'principal_program_id' => 'PPOK-005',
+                'information' => 'terlaksana',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => '6',
+                'status' => 'draft',
+                'activity' => null,
+                'objective' => 'Tujuan draft kedua',
+                'output' => 'Output draft kedua',
+                'target' => null,
+                'volume' => '6',
+                'location' => 'Jakarta Selatan',
+                'schedule_activity' => null,
+                'principal_program_id' => 'PPOK-006',
+                'information' => 'tidak_terlaksana',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => '7',
+                'status' => 'draft',
+                'activity' => null,
+                'objective' => 'Tujuan draft ketiga',
+                'output' => 'Output draft ketiga',
+                'target' => null,
+                'volume' => '7',
+                'location' => 'Jakarta Selatan',
+                'schedule_activity' => null,
+                'principal_program_id' => 'PPOK-007',
+                'information' => 'belum_terlaksana',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+        ]);
+
+        DB::table('institutional_partner_transaction_program')->insert([
+            [
+               'id' => '1',
+               'transaction_program_id' => '1',
+               'institutional_partner_id' => 'MITRA-001', 
+            ],
+            [
+                'id' => '2',
+                'transaction_program_id' => '2',
+                'institutional_partner_id' => 'MITRA-001', 
+            ],
+            [
+                'id' => '3',
+                'transaction_program_id' => '2',
+                'institutional_partner_id' => 'MITRA-002', 
+            ],
+            [
+                'id' => '4',
+                'transaction_program_id' => '3',
+                'institutional_partner_id' => 'MITRA-001',
+            ],
+            [
+                'id' => '5',
+                'transaction_program_id' => '3',
+                'institutional_partner_id' => 'MITRA-002', 
+            ],
+            [
+                'id' => '6',
+                'transaction_program_id' => '3',
+                'institutional_partner_id' => 'MITRA-003', 
+            ],
+            [
+                'id' => '7',
+                'transaction_program_id' => '7',
+                'institutional_partner_id' => 'MITRA-003', 
             ],
         ]);
     }
