@@ -23,7 +23,6 @@ class TransactionProgramController extends Controller
 
     protected $transaction;
     protected $principalProgram;
-
     protected $institutionalPartner;
 
     public function __construct(Transaction_program $transaction, Principal_program $principalProgram, Institutional_partners $institutionalPartner) {
@@ -132,12 +131,13 @@ class TransactionProgramController extends Controller
      public function showDetailTransaction($id)
      {
          $transaction = $this->transaction::with(['institutionalPartners', 'principalPrograms'])->find($id);
-         $principalProgram = $this->principalProgram->get();
-         $institutionalPartner = $this->institutionalPartner->get();
+         //$principalProgram = $this->principalProgram->get();
+         //$institutionalPartner = $this->institutionalPartner->get();
          return view('admin.transaction.detail',[
              'selectedProgram' => $transaction,
-             'principalProgram' => $principalProgram,
-             'institutionalPartners' => $institutionalPartner
+             //'principalProgram' => $principalProgram,
+             //'institutionalPartners' => $institutionalPartner,
+             //'activity'=> $this->formatHtmlToTailwind($transaction->getAttribute('activity'))
          ]);
      }
 
@@ -206,21 +206,27 @@ class TransactionProgramController extends Controller
         return Excel::download(new TransactionsExport, $fileName);
     }
 
-    public function checkDestroyRoute()
+    function formatHtmlToTailwind($html)
     {
-        $currentRoute = Route::currentRouteName();
+        $dom = new \DOMDocument();
+        @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
-        // Melakukan redirect sesuai dengan nama rute saat ini
-        if ($currentRoute === 'prog-transaksi.index') {
+        // Tangani elemen <ol> atau <ul>
+        foreach ($dom->getElementsByTagName('ol') as $ol) {
+            foreach ($ol->getElementsByTagName('li') as $li) {
+                // Periksa atribut 'data-list'
+                $dataList = $li->getAttribute('data-list');
 
-            // Logika khusus untuk route1
-            return redirect()->route('prog-transaksi.index')->with('message', 'Redirected from route1');
-
-        } elseif ($currentRoute === 'prog-transaksi.show.draft') {
-
-            // Logika khusus untuk route2
-            return redirect()->route('prog-transaksi.index2')->with('message', 'Redirected from route2');
-
+                if ($dataList === 'ordered') {
+                    $ol->setAttribute('class', 'list-decimal list-inside mb-4');
+                    $li->setAttribute('class', 'text-gray-700 leading-relaxed');
+                } elseif ($dataList === 'bullet') {
+                    $ol->setAttribute('class', 'list-disc list-inside mb-4');
+                    $li->setAttribute('class', 'text-gray-700 leading-relaxed');
+                }
+            }
         }
+
+        return $dom->saveHTML();
     }
 }

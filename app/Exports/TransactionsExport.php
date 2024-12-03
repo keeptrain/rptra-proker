@@ -14,11 +14,10 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Sheet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
 
-class TransactionsExport implements FromCollection,WithCustomStartCell,WithHeadings,WithEvents,WithStyles
+class TransactionsExport implements FromCollection,WithCustomStartCell,WithHeadings,WithEvents
 {
 
-    private $underlineCells = [];
-    private $boldCells = [];
+    private $formattedCells = [];
 
     /**
     * @return \Illuminate\Support\Collection
@@ -28,24 +27,19 @@ class TransactionsExport implements FromCollection,WithCustomStartCell,WithHeadi
         $transactions = Transaction_program::where('status', 'completed')->with(['principalPrograms', 'priorityPrograms', 'institutionalPartners'])->get();
 
         return $transactions->map(function ($transaction,$index){
-            // Membuat nomor
-            $transaction->sequence_number = $index + 1;
-
-            // Membersihkan html format
-            $transaction->activity = $this->convertHtmlToText($transaction->activity, $index + 3);
-            
+        
             // Mengubah format dateTime
             $transaction->day_name = Carbon::parse($transaction->schedule_activity)
-                ->translatedFormat('l, d F Y H:m');
+                ->translatedFormat('l, d F Y , H:m');
 
             // Mengambil data mitra/unit/lembaga pada table pivot insitutional_partner_transaction_program    
             $transaction->partner_names = $transaction->institutionalPartners->pluck('name')->join(', ');
 
             return [
-                'NO' => $transaction->sequence_number,
+                'NO' => $index + 1,
                 'PROGRAM POKOK PKK' => $transaction->principalPrograms->name,
                 'PROGRAM' => $transaction->priorityPrograms->name,
-                'KEGIATAN' => $transaction->activity['text'],
+                'KEGIATAN' => $this->convertHtmlToPlainText($transaction->activity),
                 'TUJUAN'=> $transaction->objective,
                 'OUTPUT' => $transaction->output,
                 'SASARAN' => $transaction->target,
@@ -64,65 +58,83 @@ class TransactionsExport implements FromCollection,WithCustomStartCell,WithHeadi
             AfterSheet::class => function (AfterSheet $event) {
                 $sheet = $event->sheet;
 
-                // Terapkan underline untuk cell yang tersimpan dalam $underlineCells
-                foreach ($this->underlineCells as $cell) {
-                    $sheet->getStyle($cell)->getFont()->setUnderline(Font::UNDERLINE_SINGLE);
-                }
+                // Ambil jumlah baris dan kolom yang digunakan
+                $highestRow = $sheet->getHighestRow(); // Baris terakhir
+                $highestColumn = $sheet->getHighestColumn(); // Kolom terakhir
+    
+                // Tentukan range untuk seluruh tabel
+                $tableRange = "B2:{$highestColumn}{$highestRow}";
+    
+                // Terapkan border ke seluruh tabel
+                $sheet->getStyle($tableRange)->applyFromArray([
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '000000'], // Warna border hitam
+                        ],
+                    ],
+                ]);
 
-                // Terapkan bold untuk cell yang tersimpan dalam $boldCells
-                foreach ($this->boldCells as $cell) {
-                    $sheet->getStyle($cell)->getFont()->setBold(true);
-                }
+              
         }];
-    }
-
-
-    public function styles($sheet)
-    {
-
     }
 
     /**
      * Fungsi untuk mengubah HTML menjadi teks plain.
      */
-    private function convertHtmlToText($html, $row)
+    private function convertHtmlToPlainText($html)
     {
         if (empty($html)) {
-            return ['text' => '', 'underline' => [], 'bold' => []];
+            return '';
         }
 
         $dom = new \DOMDocument();
+
+        // Supress warnings saat memproses HTML
         @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
-        $text = '';
-        $underline = [];
-        $bold = []; // Menyimpan teks yang harus di-underline
+        $result = [];
 
-        foreach ($dom->getElementsByTagName('strong') as $strong) {
-            $text .= $strong->nodeValue . PHP_EOL;
-            $bold[] = $strong->nodeValue;
+        // Tangani elemen daftar tidak terurut <ul>
+        foreach ($dom->getElementsByTagName('ol') as $ol) {
+            $index = 1;
+            foreach ($ol->getElementsByTagName('li') as $li) {
+                $class = $li->getAttribute('data-list'); 
+                if ($class === 'bullet') {
+                    // Jika class <ul> mengandung 'bullet', gunakan format khusus
+                    $result[] = '• ' . trim($li->nodeValue); // Format: "• item"
+                } else {
+                    // Format default untuk <ul>
+                    $result[] = $index . '. ' . trim($li->nodeValue);
+                    $index++; // Format: "- item"
+                }
+            }
         }
 
-        // Proses elemen HTML
+        foreach ($dom->getElementsByTagName('p') as $p) {
+            foreach ($p->getElementsByTagName('strong') as $strong) {
+                $result[] = trim($strong->nodeValue);
+            }
+        }
+
+        foreach ($dom->getElementsByTagName('em') as $em) {
+            $result[] = trim($em->nodeValue);
+        }
+
         foreach ($dom->getElementsByTagName('u') as $u) {
-            $text .= $u->nodeValue . PHP_EOL;
-            $underline[] = $u->nodeValue;
+            $result[] = trim($u->nodeValue);
         }
 
-        // Simpan posisi cell yang perlu underline
-        foreach ($underline as $value) {
-            $column = 'E'; // Misalnya kolom "KEGIATAN" ada di kolom D
-            $this->underlineCells[] = "{$column}{$row}";
+    
+        // Jika elemen tidak dikenali, ambil teks langsung tanpa tag
+        if (empty($result)) {
+            $result[] = strip_tags($html); // Default, hapus semua tag
         }
 
-        // Simpan posisi cell untuk bold
-        foreach ($bold as $value) {
-            $column = 'E'; // Kolom "KEGIATAN"
-            $this->boldCells[] = "{$column}{$row}";
-        }
-
-        return ['text' => trim($text), 'underline' => $underline, 'bold' => $bold];
+        // Gabungkan teks dengan spasi antar elemen
+        return implode(PHP_EOL, $result);
     }
+
 
   
 
@@ -149,11 +161,6 @@ class TransactionsExport implements FromCollection,WithCustomStartCell,WithHeadi
     {
         return 'B2';
     }
-
-
-   
- 
-
-    
+  
 }
 
