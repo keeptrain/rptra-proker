@@ -70,7 +70,7 @@ return new class extends Migration
             [
                 'id' => '1',
                 'status' => 'completed',
-                'activity' => '',
+                'activity' => '1. Satu',
                 'objective' => 'Tujuan pertama',
                 'output' => 'Output pertama',
                 'target' => 'Sasaran pertama',
@@ -85,7 +85,7 @@ return new class extends Migration
             [
                 'id' => '2',
                 'status' => 'completed',
-                'activity' => '',
+                'activity' => '2. Satu',
                 'objective' => 'Tujuan kedua',
                 'output' => 'Output kedua',
                 'target' => 'Sasaran kedua',
@@ -100,7 +100,7 @@ return new class extends Migration
             [
                 'id' => '3',
                 'status' => 'completed',
-                'activity' => '',
+                'activity' => '1.Satu 2.Dua 3.Tiga',
                 'objective' => 'Tujuan ketiga',
                 'output' => 'Output ketiga',
                 'target' => 'Sasaran ketiga',
