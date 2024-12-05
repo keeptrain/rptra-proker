@@ -129,9 +129,6 @@
                 placeholder: 'Masukkan teks disini...',
                 modules: {
                     toolbar: [
-                        [{
-                            header: [1, 2, false]
-                        }],
                         ['bold', 'italic', 'underline'],
                         [{
                             list: 'ordered'
@@ -141,8 +138,10 @@
                         ['link']
                     ]
                 },
-                theme: 'snow'
+                theme: 'snow',
             };
+            
+            
 
             var editor = new Quill('#quill-editor', options);
 
@@ -155,15 +154,6 @@
                 // Update textarea saat konten di Quill editor berubah
                 editor.on("text-change", function() {
                     let rawHtml = editor.root.innerHTML;
-
-                    // Modifikasi HTML untuk menambahkan TailwindCSS classes
-                    rawHtml = rawHtml
-                        .replace(/<h1>/g, '<h1 class="text-3xl font-bold mb-4">')
-                        .replace(/<h2>/g, '<h2 class="text-2xl font-semibold mb-4">')
-                        .replace(/<ol>/g, '<ol class="list-decimal list-inside mb-4">')
-                        .replace(/<ul>/g, '<ul class="list-disc list-inside mb-4">')
-                        .replace(/<p>/g, '<p class="mb-4 text-gray-700 leading-relaxed">')
-                        .replace(/<a /g, '<a class="text-blue-500 underline" ');
 
                     // Update hidden textarea dengan konten yang sudah dimodifikasi
                     quillEditor.value = rawHtml;

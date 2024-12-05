@@ -18,7 +18,7 @@
 
         @if (Route::currentRouteName() === 'prog-transaksi.index')
             <!-- Tombol Export -->
-            <button id="export-selected-button"
+            <button id="export-selected-button" onclick="window.location.href='{{ route('prog-transaksi.export') }}';"
                 class="flex items-center p-2 text-black dark:text-white bg-white hover:bg-zinc-300 dark:bg-transparent border-l dark:border-l-zinc-800 focus:outline-none disabled:cursor-not-allowed">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 mr-2" fill="currentColor"
                     viewBox="0 0 16 16">

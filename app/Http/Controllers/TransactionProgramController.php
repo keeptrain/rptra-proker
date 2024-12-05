@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TransactionsExport;
 use App\Http\Requests\Transaction\UpdateTransactionRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -14,13 +15,14 @@ use App\Http\Requests\UpdateTransaction_programRequest;
 use App\Http\Requests\Transaction\StoreTransactionRequest;
 use App\Http\Requests\Transaction\DestoryTransactionRequest;
 use App\Http\Requests\Transaction\StoreDraftTransactionRequest;
+use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionProgramController extends Controller
 {
 
     protected $transaction;
     protected $principalProgram;
-
     protected $institutionalPartner;
 
     public function __construct(Transaction_program $transaction, Principal_program $principalProgram, Institutional_partners $institutionalPartner) {
@@ -129,12 +131,13 @@ class TransactionProgramController extends Controller
      public function showDetailTransaction($id)
      {
          $transaction = $this->transaction::with(['institutionalPartners', 'principalPrograms'])->find($id);
-         $principalProgram = $this->principalProgram->get();
-         $institutionalPartner = $this->institutionalPartner->get();
+         //$principalProgram = $this->principalProgram->get();
+         //$institutionalPartner = $this->institutionalPartner->get();
          return view('admin.transaction.detail',[
              'selectedProgram' => $transaction,
-             'principalProgram' => $principalProgram,
-             'institutionalPartners' => $institutionalPartner
+             //'principalProgram' => $principalProgram,
+             //'institutionalPartners' => $institutionalPartner,
+             //'activity'=> $this->formatHtmlToTailwind($transaction->getAttribute('activity'))
          ]);
      }
 
@@ -195,21 +198,35 @@ class TransactionProgramController extends Controller
        
     }
 
-    public function checkDestroyRoute()
+    public function export()
     {
-        $currentRoute = Route::currentRouteName();
+        $date = Carbon::now()->format('H.i_d-m-Y');
+        $fileName = "transaksi-{$date}.xlsx";
+    
+        return Excel::download(new TransactionsExport, $fileName);
+    }
 
-        // Melakukan redirect sesuai dengan nama rute saat ini
-        if ($currentRoute === 'prog-transaksi.index') {
+    function formatHtmlToTailwind($html)
+    {
+        $dom = new \DOMDocument();
+        @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
-            // Logika khusus untuk route1
-            return redirect()->route('prog-transaksi.index')->with('message', 'Redirected from route1');
+        // Tangani elemen <ol> atau <ul>
+        foreach ($dom->getElementsByTagName('ol') as $ol) {
+            foreach ($ol->getElementsByTagName('li') as $li) {
+                // Periksa atribut 'data-list'
+                $dataList = $li->getAttribute('data-list');
 
-        } elseif ($currentRoute === 'prog-transaksi.show.draft') {
-
-            // Logika khusus untuk route2
-            return redirect()->route('prog-transaksi.index2')->with('message', 'Redirected from route2');
-
+                if ($dataList === 'ordered') {
+                    $ol->setAttribute('class', 'list-decimal list-inside mb-4');
+                    $li->setAttribute('class', 'text-gray-700 leading-relaxed');
+                } elseif ($dataList === 'bullet') {
+                    $ol->setAttribute('class', 'list-disc list-inside mb-4');
+                    $li->setAttribute('class', 'text-gray-700 leading-relaxed');
+                }
+            }
         }
+
+        return $dom->saveHTML();
     }
 }

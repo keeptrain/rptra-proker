@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
-
 use App\Http\Requests\InstitutionalPartners\UpdatePartnersRequest;
 use App\Models\Institutional_partners;
 use App\Http\Requests\InstitutionalPartners\StorePartnersRequest;

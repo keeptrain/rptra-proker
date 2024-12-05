@@ -115,3 +115,25 @@
         @endsection
 
 </x-app-layout>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const olElements = document.querySelectorAll('ol');
+
+    olElements.forEach(ol => {
+        const liElements = ol.querySelectorAll('li');
+
+        liElements.forEach(li => {
+            const dataList = li.getAttribute('data-list');
+
+            if (dataList === 'ordered') {
+                ol.classList.add('list-decimal', 'list-inside', 'mb-2');
+                li.classList.add('text-gray-700', 'leading-relaxed');
+            } else if (dataList === 'bullet') {
+                ol.classList.add('list-disc', 'list-inside', 'mb-2');
+                li.classList.add('text-gray-700', 'leading-relaxed');
+            }
+        });
+    });
+});
+</script>
