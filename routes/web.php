@@ -1,18 +1,22 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PrincipalProgramController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PriorityProgramController;
+use App\Http\Controllers\PrincipalProgramController;
 use App\Http\Controllers\TransactionProgramController;
 use App\Http\Controllers\InstitutionalPartnersController;
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
 
-Route::get('program-kerja/dashboard', function() {
-    return view('dashboard');
-})->name('dashboard');
+//Route::get('program-kerja/dashboard',[DashboardController::class])->name('dashboard.index');
+
+
+Route::resource('dashboard', DashboardController::class);
+Route::controller(DashboardController::class)->group(function () {
+    Route::get('program-kerja/dashboard', 'index')->name('dashboard.index');
+
+});
 
 Route::controller(PriorityProgramController::class)->group(function () {
     Route::get('program-kerja/prioritas', 'index')->name('prog-prioritas.index');
