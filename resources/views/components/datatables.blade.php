@@ -37,7 +37,7 @@
         } else {
             deleteButton.addClass('disabled bg-zinc-100').removeClass('bg-white').prop('disabled', true);
             //exportButton.addClass('disabled bg-zinc-100').removeClass('bg-white').prop('disabled', true);
-         }
+        }
     }
  
     function confirmDelete() {
@@ -47,7 +47,7 @@
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "Ya, hapus ini!",
+            confirmButtonText: "Ya, hapus",
         }).then((result) => {
             if (result.isConfirmed) {
                 // Lakukan penghapusan data
@@ -71,41 +71,4 @@
             }
         });
     }
-
-    
-/*function deleteData() {
-        // Kirim permintaan DELETE menggunakan fetch atau Axios
-        const selectedIds = Array.from(document.querySelectorAll('.row-checkbox:checked'))
-            .map((checkbox) => checkbox.value);
-
-        if (selectedIds.length === 0) {
-            Swal.fire('Gagal', 'Tidak ada data yang dipilih.', 'error');
-            return;
-        }
-
-        fetch('{{ route($routeName) }}', {
-            method: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ '{{ $nameInputId }}': selectedIds })
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.success) {
-                    Swal.fire('Berhasil', data.message , 'success').then(() => {
-                        location.reload();
-                    });
-                } else {
-                    Swal.fire('Gagal', data.message, 'error');
-                }
-            })
-            .catch((error) => {
-                Swal.fire('Gagal', `{!! implode('<br>', $errors->all()) !!}` , 'error');
-            });
-    }*/
-
-
-
 </script>

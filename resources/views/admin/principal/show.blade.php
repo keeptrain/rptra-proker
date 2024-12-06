@@ -1,7 +1,5 @@
 <x-datatables :routeName="'prog-pokok.destroy'" :datatablesId="'datatables-principal'" :nameInputId="'principal_ids[]'">
     @csrf
-    @method('DELETE')
-
 
     <!-- Slot untuk thead -->
     <x-slot name="thead">
@@ -13,7 +11,6 @@
             <th>Program Prioritas</th>
             <th>ID Program</th>
             <th>Tanggal dibuat</th>
-            <th>Aksi</th>
         </tr>
     </x-slot>
 
@@ -22,7 +19,7 @@
         @foreach ($principalPrograms as $item)
             <tr>
                 <td>
-                    <input type="checkbox" class="row-checkbox" value="{{ $item->id }}">
+                    <input type="checkbox" name="principal_ids[]" class="row-checkbox" value="{{ $item->id }}">
                 </td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->priorityProgram->name }}</td>
@@ -49,7 +46,28 @@
 <script>
     $(document).ready(function() {
         $('#datatables-principal').DataTable({
-
+            columnDefs: [
+                { orderable: false, targets: [0,5] }
+            ],
+            layout: {
+                topStart: function () {
+                 
+                    return topStartTemplate;
+                },
+                topEnd: {
+                    search: {
+                        placeholder: 'Search',
+                    }
+                },
+                bottomStart: {
+                    pageLength: {
+                        menu: [5,10,25]
+                    }
+                }
+            },
+            language: {
+                search: '',
+            },
             responsive: true,
         });
     });

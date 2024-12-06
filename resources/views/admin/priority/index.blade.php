@@ -26,13 +26,10 @@
 
             </div>
             <div class="p-6">
-                <x-datatables-toolbar />
                 @include('admin.priority.show')
             </div>
 
 
         </div>
     @endsection
-
-
 </x-app-layout>

@@ -43,16 +43,6 @@ class TransactionProgramController extends Controller
         ]);
     }
 
-
-    public function getTransactions(Request $request)
-    {
-        // Ambil data transaksi dari database
-        $transactions = Transaction_program::all();
-
-        // Mengembalikan data dalam format JSON
-        return response()->json($transactions);
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -109,8 +99,6 @@ class TransactionProgramController extends Controller
                 $request->partner,
                 $request->information
             );
-
-
             return response()->json(['success' => true, 'message' => 'Program kerja sebagai draft berhasil di simpan.'],200);
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
@@ -131,16 +119,10 @@ class TransactionProgramController extends Controller
      public function showDetailTransaction($id)
      {
          $transaction = $this->transaction::with(['institutionalPartners', 'principalPrograms'])->find($id);
-         //$principalProgram = $this->principalProgram->get();
-         //$institutionalPartner = $this->institutionalPartner->get();
          return view('admin.transaction.detail',[
              'selectedProgram' => $transaction,
-             //'principalProgram' => $principalProgram,
-             //'institutionalPartners' => $institutionalPartner,
-             //'activity'=> $this->formatHtmlToTailwind($transaction->getAttribute('activity'))
          ]);
      }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -193,14 +175,10 @@ class TransactionProgramController extends Controller
             $this->transaction->destroyTransactionProgram(
                 $request->input('transaction_ids'),
             );
-
-            return response()->json(['success' => true, 'message' => 'Data berhasil dihapus.'], 200);
-
-        } catch (ValidationException $e)
-        {
+            return redirect()->route('prog-transaksi.index')->with('success', 'Data transaksi berhasil dihapus.');
+        } catch (ValidationException $e){
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
-       
        
     }
 
@@ -210,29 +188,5 @@ class TransactionProgramController extends Controller
         $fileName = "transaksi-{$date}.xlsx";
     
         return Excel::download(new TransactionsExport, $fileName);
-    }
-
-    function formatHtmlToTailwind($html)
-    {
-        $dom = new \DOMDocument();
-        @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-        // Tangani elemen <ol> atau <ul>
-        foreach ($dom->getElementsByTagName('ol') as $ol) {
-            foreach ($ol->getElementsByTagName('li') as $li) {
-                // Periksa atribut 'data-list'
-                $dataList = $li->getAttribute('data-list');
-
-                if ($dataList === 'ordered') {
-                    $ol->setAttribute('class', 'list-decimal list-inside mb-4');
-                    $li->setAttribute('class', 'text-gray-700 leading-relaxed');
-                } elseif ($dataList === 'bullet') {
-                    $ol->setAttribute('class', 'list-disc list-inside mb-4');
-                    $li->setAttribute('class', 'text-gray-700 leading-relaxed');
-                }
-            }
-        }
-
-        return $dom->saveHTML();
     }
 }

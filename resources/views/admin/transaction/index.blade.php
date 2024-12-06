@@ -29,13 +29,6 @@
 
             </div>
             <div class="p-6">
-                
-                <script>
-                    const topStartTemplate = `<x-datatables-toolbar />`;
-                </script>
-             
-              
-                
                 @if (isset($transactions))
                     @include('admin.transaction.show-completed')
                 @elseif (isset($draft))

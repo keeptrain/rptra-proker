@@ -1,5 +1,5 @@
-<x-datatables :routeName="'prog-transaksi.destroy'" :datatablesId="'datatables-transaction-draft'" :nameInputId="'transaction_ids'">
-    @csrf
+<x-datatables :routeName="'prog-transaksi.destroy'" :datatablesId="'datatables-transaction-draft'" :nameInputId="'transaction_ids[]'">
+
 
     <x-slot name="slotbutton">
         <button id="delete-selected-button" type="button"
@@ -25,7 +25,7 @@
         @foreach ($draft as $item)
             <tr>
                 <td>
-                    <input type="checkbox" name="transaction_ids" class="row-checkbox" value="{{ $item->id }}">
+                    <input type="checkbox" name="transaction_ids[]" class="row-checkbox" value="{{ $item->id }}">
                 </td>
                 <td class="datetime">{{ $item->day_name }}</td>
                 <td>
@@ -75,6 +75,9 @@
                         menu: [5,10,25]
                     }
                 }
+            },
+            language: {
+                search: '',
             },
             responsive: true,
         });

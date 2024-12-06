@@ -1,5 +1,4 @@
-<x-datatables :routeName="'prog-transaksi.destroy'" :datatablesId="'datatables-transaction'" :nameInputId="'transaction_ids'">
-    @csrf
+<x-datatables :routeName="'prog-transaksi.destroy'" :datatablesId="'datatables-transaction'" :nameInputId="'transaction_ids[]'">
 
     <!-- Slot untuk thead -->
     <x-slot name="thead">
@@ -20,7 +19,7 @@
         @foreach ($transactions as $item)
         <tr>
             <td>
-                <input name="transaction_ids" type="checkbox" class="row-checkbox" value="{{ $item->id }}">
+                <input name="transaction_ids[]" type="checkbox" class="row-checkbox" value="{{ $item->id }}">
             </td>
             <td>{{ $item->location}}</td>
             
@@ -64,7 +63,7 @@
                 },
                 topEnd: {
                     search: {
-                        placeholder: 'Search',
+                        placeholder: 'Search...',
                     }
                 },
                 bottomStart: {
@@ -72,6 +71,9 @@
                         menu: [5,10,25]
                     }
                 }
+            },
+            language: {
+                search: '',
             },
            responsive: true, 
         });
