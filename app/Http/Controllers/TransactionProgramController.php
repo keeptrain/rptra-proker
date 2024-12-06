@@ -189,12 +189,18 @@ class TransactionProgramController extends Controller
      */
     public function destroy(DestoryTransactionRequest $request)
     {
-        $this->transaction->destroyTransactionProgram(
-            $request->input('transaction_ids'),
-        );
+        try{
+            $this->transaction->destroyTransactionProgram(
+                $request->input('transaction_ids'),
+            );
 
+            return response()->json(['success' => true, 'message' => 'Data berhasil dihapus.'], 200);
 
-        return redirect()->route('prog-transaksi.index')->with('success', 'Data transaksi berhasil di hapus');
+        } catch (ValidationException $e)
+        {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+       
        
     }
 

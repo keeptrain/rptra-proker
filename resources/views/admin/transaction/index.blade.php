@@ -29,8 +29,13 @@
 
             </div>
             <div class="p-6">
-                <x-datatables-toolbar/>
-
+                
+                <script>
+                    const topStartTemplate = `<x-datatables-toolbar />`;
+                </script>
+             
+              
+                
                 @if (isset($transactions))
                     @include('admin.transaction.show-completed')
                 @elseif (isset($draft))
@@ -45,6 +50,8 @@
     
     
 </x-app-layout>
+
+
 
 
 
