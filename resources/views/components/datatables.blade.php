@@ -1,5 +1,12 @@
 @props(['routeName', 'datatablesId', 'nameInputId'])
-<form action="{{ route($routeName) }}" class="w-full bg-white dark:bg-zinc-900 dark:text-white">
+<form id="delete-form" action="{{ route($routeName) }}" method="POST" class="w-full bg-white dark:bg-zinc-900 dark:text-white">
+
+    @csrf
+    @method('DELETE')
+
+    <script>
+        const topStartTemplate = `<x-datatables-toolbar />`;
+    </script>
  
     <table id="{{ $datatablesId }}" class="display cell-border min-w-full" style="width:100%">
         <thead class="text-sm font-semibold text-black dark:text-white dark:bg-zinc-900">
@@ -44,12 +51,29 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // Lakukan penghapusan data
-                deleteData();
+                document.getElementById('delete-form').submit();
             }
         });
     }
 
-    function deleteData() {
+    function exportData() {
+        Swal.fire({
+            title: 'Konfirmasi Ekspor',
+            text: 'Apakah Anda yakin ingin mengekspor data?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Ekspor',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect ke rute ekspor
+                window.location.href = '{{ route('prog-transaksi.export') }}';
+            }
+        });
+    }
+
+    
+/*function deleteData() {
         // Kirim permintaan DELETE menggunakan fetch atau Axios
         const selectedIds = Array.from(document.querySelectorAll('.row-checkbox:checked'))
             .map((checkbox) => checkbox.value);
@@ -70,35 +94,18 @@
             .then((response) => response.json())
             .then((data) => {
                 if (data.success) {
-                    Swal.fire('Berhasil', 'Data berhasil dihapus.', 'success').then(() => {
+                    Swal.fire('Berhasil', data.message , 'success').then(() => {
                         location.reload();
                     });
                 } else {
-                    Swal.fire('Gagal', 'Terjadi kesalahan saat menghapus data.', 'error');
+                    Swal.fire('Gagal', data.message, 'error');
                 }
             })
             .catch((error) => {
-                Swal.fire('Gagal', 'Terjadi kesalahan jaringan.', 'error');
+                Swal.fire('Gagal', `{!! implode('<br>', $errors->all()) !!}` , 'error');
             });
-    }
-
-    function exportData() {
-    Swal.fire({
-        title: 'Konfirmasi Ekspor',
-        text: 'Apakah Anda yakin ingin mengekspor data?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Ya, Ekspor',
-        cancelButtonText: 'Batal',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Redirect ke rute ekspor
-            window.location.href = '{{ route('prog-transaksi.export') }}';
-        }
-    });
-}
+    }*/
 
 
-   
 
 </script>
