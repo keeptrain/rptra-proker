@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Institutional_partners;
-use App\Models\Principal_program;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use App\Models\Priority_program;
+use App\Models\Principal_program;
 use App\Models\Transaction_program;
+use App\Models\Institutional_partners;
 
 class DashboardController extends Controller
 {
@@ -17,6 +19,7 @@ class DashboardController extends Controller
             'totalPrincipals' => $this->showPrincipals(),
             'totalPartners' => $this->showPartners(),
             'transactionYears' => $this->getYears(),
+            'getNearestSchedule' => $this->getNearestSchedule(), 
         ]);
     }
 
@@ -93,5 +96,41 @@ class DashboardController extends Controller
             'total' => $total,
             'data' => $formattedData,
         ]);
+    }
+
+    
+    public function getFilteredSchedule(Request $request)
+    {
+        $filter = $request->query('filter');
+        $query = Transaction_program::query();
+
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+
+        if ($filter === 'week') {
+            $query->whereBetween('schedule_activity', [$startOfWeek,$endOfWeek]);
+        } elseif ($filter === 'month') {
+            $query->whereBetween('schedule_activity', [$startOfMonth, $endOfMonth]);
+        }
+
+        return response()->json($query->get());
+    }
+
+    public function getNearestSchedule()
+    {
+        // Ambil tanggal awal dan akhir minggu ini
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        // Ambil jadwal kegiatan dalam rentang minggu ini
+        return Transaction_program::whereBetween('schedule_activity', [$startOfWeek, $endOfWeek])
+        ->where('status','completed')
+        ->whereDate('schedule_activity', '>=', Carbon::now()->toDateString())
+        ->orderBy('schedule_activity')
+        ->get();
     }
 }

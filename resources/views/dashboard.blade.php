@@ -1,18 +1,21 @@
 <x-app-layout>
     @section('main-content')
-    <div class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 overflow-auto">
-        <div class="grid grid-cols-4 divide-x divide-gray-200 dark:divide-gray-700">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Program Kerja -->
-            <div class="p-4 flex flex-col items-center space-y-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-6 h-6 fill-current" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
+            <div
+                class="p-4 flex flex-col items-center space-y-2 bg-white dark:bg-zinc-900 rounded-md border-2 border-slate-100 dark:border-zinc-900">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="w-6 h-6 fill-current" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
                 </svg>
                 <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">{{ $totalTransaction }}</h2>
                 <p class="text-sm text-gray-600 dark:text-gray-400">Program Kerja</p>
             </div>
-            
+
             <!-- Prioritas -->
-            <div class="p-4 flex flex-col items-center space-y-2">
+            <div
+                class="p-4 flex flex-col items-center space-y-2 bg-white dark:bg-zinc-900 rounded-md border-2 border-slate-100 dark:border-zinc-900">
                 <svg class="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
                     viewBox="0 0 24 24">
                     <path
@@ -21,9 +24,10 @@
                 <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">{{ $totalPriority }}</h2>
                 <p class="text-sm text-gray-600 dark:text-gray-400">Program Prioritas</p>
             </div>
-            
+
             <!-- Pokok -->
-            <div class="p-4 flex flex-col items-center space-y-2">
+            <div
+                class="p-4 flex flex-col items-center space-y-2 bg-white dark:bg-zinc-900 rounded-md border-2 border-slate-100 dark:border-zinc-900">
                 <svg class="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
                     viewBox="0 0 24 24">
                     <path
@@ -32,34 +36,86 @@
                 <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">{{ $totalPrincipals }}</h2>
                 <p class="text-sm text-gray-600 dark:text-gray-400">Program Pokok</p>
             </div>
-            
+
             <!-- Mitra -->
-            <div class="p-4 flex flex-col items-center space-y-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-6 h-6 fill-current" viewBox="0 0 16 16">
-                    <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z"/>
-                    <path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z"/>
+            <div
+                class="p-4 flex flex-col items-center space-y-2 bg-white dark:bg-zinc-900 rounded-md border-2 border-slate-100 dark:border-zinc-900">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="w-6 h-6 fill-current" viewBox="0 0 16 16">
+                    <path
+                        d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z" />
                 </svg>
-                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ $totalPartners }}</h2>
+                <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">{{ $totalPartners }}</h2>
                 <p class="text-sm text-gray-600 dark:text-gray-400">Mitra</p>
             </div>
         </div>
-    </div>
 
-    <div class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 overflow-auto p-6 mt-2">
-        <div>
-            <span>Program kerja tahun</span>
-            <select id="year-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                @foreach($transactionYears as $year)
-                <option value="{{ $year }}">{{ $year }}</option>
-                @endforeach
-            </select>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 h-auto md:h-[60vh] mt-6">
+            <!-- Canvas Memakan 3 Kolom -->
+            <div
+                class="col-span-1 md:col-span-3 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 p-6 flex flex-col">
+                <div>
+                    <span>Program kerja tahun</span>
+                    <select id="year-select"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        @foreach ($transactionYears as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <canvas id="transactionChart" class="flex-1 mt-4"></canvas>
+            </div>
+
+            <!-- Bagian Jadwal Terdekat dan Kegiatan yang Terlewat -->
+            <div class="col-span-1 flex flex-col ">
+                <!-- Jadwal Terdekat Minggu Ini -->
+                <div x-data="scheduleData()"
+                    class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800 flex-1">
+                    <!-- Header Fixed -->
+                    <div
+                        class="flex justify-between border-b pr-6 pl-6 pt-3 pb-3 sticky top-0 bg-white dark:bg-zinc-900 z-10">
+                        <h3 class="font-semibold">Jadwal Terdekat</h3>
+                        <select x-model="selectedFilter" @change="fetchSchedules"
+                            class="bg-transparent text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="week">Minggu ini</option>
+                            <option value="month">Bulan ini</option>
+                        </select>
+                    </div>
+
+                    <!-- Scrollable List -->
+                    <ul class="space-y-3 pr-6 pl-6 pt-3 pb-3 max-h-64 overflow-y-auto">
+                        <template x-if="schedules.length > 0">
+                            <template x-for="schedule in schedules" :key="schedule.id">
+                                <li class="flex justify-between items-center border-b pb-2">
+                                    <span class="text-gray-700 dark:text-gray-300" x-text="schedule.location"></span>
+                                    <span class="text-sm text-gray-500 dark:text-gray-400"
+                                        x-text="formatDate(schedule.schedule_activity)"></span>
+                                </li>
+                            </template>
+                        </template>
+
+                        <template x-if="schedules.length === 0">
+                            <li class="text-gray-500 dark:text-gray-400">Tidak ada jadwal terdekat.</li>
+                        </template>
+                    </ul>
+                </div>
+
+
+
+                <!-- Kegiatan yang Terlewat -->
+                <div
+                    class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800 p-6 flex-1">
+                    <div class="h-full flex items-center justify-center">
+                        <span class="text-center"></span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <canvas id="transactionChart"></canvas>
-    </div>
+        </div>
     @endsection
-</x-app-layout>    
+</x-app-layout>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const currentYear = new Date().getFullYear();
         const yearSelect = document.getElementById('year-select');
         const ctx = document.getElementById('transactionChart');
@@ -110,7 +166,7 @@
         fetchDataForYear(currentYear);
 
         // Add event listener for dropdown change
-        yearSelect.addEventListener('change', function () {
+        yearSelect.addEventListener('change', function() {
             const selectedYear = this.value;
 
             if (selectedYear) {
@@ -145,4 +201,49 @@
             chart.update(); // Re-render chart
         }
     });
+</script>
+
+<script>
+    function scheduleData() {
+        return {
+
+            schedules: [],
+            selectedFilter: 'week',
+
+            // Fungsi untuk mengambil data jadwal berdasarkan filter
+            fetchSchedules() {
+                let url = `{{ route('schedule.activity') }}?filter=${this.selectedFilter}`;
+                console.log('Fetching URL:', url);
+
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => this.schedules = data)
+                    .catch(error => console.error('Fetch error:', error));
+            },
+
+            // Fungsi untuk memformat tanggal dan waktu
+            formatDate(dateStr) {
+                const options = {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false // Gunakan format 24 jam
+                };
+                return new Date(dateStr).toLocaleDateString('id-ID', options).replace(',', '');
+            },
+
+
+            // Panggil fetchSchedules saat komponen di-mount
+            init() {
+                this.fetchSchedules();
+            }
+        };
+    }
 </script>

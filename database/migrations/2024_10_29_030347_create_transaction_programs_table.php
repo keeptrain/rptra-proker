@@ -79,7 +79,7 @@ return new class extends Migration
                 'schedule_activity' => '2024-11-01T02:02',
                 'principal_program_id' => 'PPOK-001',
                 'information' => 'belum_terlaksana',
-                'created_at' => now(),
+                'created_at' => '2024-01-01T02:02',
                 'updated_at' => now()
             ],
             [
@@ -94,7 +94,7 @@ return new class extends Migration
                 'schedule_activity' => '2024-11-02T02:02',
                 'principal_program_id' => 'PPOK-002',
                 'information' => 'terlaksana',
-                'created_at' => now(),
+                'created_at' => '2024-01-02T02:02',
                 'updated_at' => now()
             ],
             [
@@ -109,7 +109,7 @@ return new class extends Migration
                 'schedule_activity' => '2024-11-03T02:02',
                 'principal_program_id' => 'PPOK-003',
                 'information' => 'tidak_terlaksana',
-                'created_at' => now(),
+                'created_at' => '2024-02-01T02:02',
                 'updated_at' => now()
             ],
             [
@@ -167,6 +167,21 @@ return new class extends Migration
                 'volume' => '7',
                 'location' => 'Jakarta Selatan',
                 'schedule_activity' => null,
+                'principal_program_id' => 'PPOK-007',
+                'information' => 'belum_terlaksana',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => '8',
+                'status' => 'completed',
+                'activity' => 'null',
+                'objective' => 'Tujuan completed kedelapan',
+                'output' => 'Output completed kedelapan',
+                'target' => 'Tujuan completed kedelapan',
+                'volume' => '7',
+                'location' => 'Jakarta Selatan',
+                'schedule_activity' => '2024-11-03T02:02',
                 'principal_program_id' => 'PPOK-007',
                 'information' => 'belum_terlaksana',
                 'created_at' => now(),

@@ -16,6 +16,7 @@ use App\Http\Controllers\InstitutionalPartnersController;
 Route::controller(DashboardController::class)->group(function () {
     Route::get('program-kerja/dashboard', 'index')->name('dashboard.index');
     Route::get('/transaction-total/{year}', 'getCreateTransactionYears')->name('transaction.total');
+    Route::get('/get-schedule','getFilteredSchedule')->name('schedule.activity');
 });
 
 Route::controller(PriorityProgramController::class)->group(function () {
