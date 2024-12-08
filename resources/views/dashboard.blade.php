@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 h-auto md:h-[60vh] mt-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
             <!-- Canvas Memakan 3 Kolom -->
             <div
                 class="col-span-1 md:col-span-3 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 p-6 flex flex-col">
@@ -63,17 +63,17 @@
                         @endforeach
                     </select>
                 </div>
-                <canvas id="transactionChart" class="flex-1 mt-4"></canvas>
+                <canvas id="transactionChart" class=" mt-4"></canvas>
             </div>
 
             <!-- Bagian Jadwal Terdekat dan Kegiatan yang Terlewat -->
-            <div class="col-span-1 flex flex-col ">
+            <div class="col-span-1 flex flex-col">
                 <!-- Jadwal Terdekat Minggu Ini -->
                 <div x-data="scheduleData()"
-                    class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800 flex-1">
+                    class=" bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800 ">
                     <!-- Header Fixed -->
                     <div
-                        class="flex justify-between border-b pr-6 pl-6 pt-3 pb-3 sticky top-0 bg-white dark:bg-zinc-900 z-10">
+                        class="flex justify-between border-b pr-6 pl-6 pt-3 pb-2 sticky top-0 bg-white dark:bg-zinc-900 z-10">
                         <h3 class="font-semibold">Jadwal Terdekat</h3>
                         <select x-model="selectedFilter" @change="fetchSchedules"
                             class="bg-transparent text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -83,10 +83,10 @@
                     </div>
 
                     <!-- Scrollable List -->
-                    <ul class="space-y-3 pr-6 pl-6 pt-3 pb-3 max-h-64 overflow-y-auto">
-                        <template x-if="schedules.length > 0">
+                    <ul class="space-y-3 pr-6 pl-6 pt-1 pb-4 max-h-56 overflow-auto">
+                        <template x-if="schedules.length > 0"> 
                             <template x-for="schedule in schedules" :key="schedule.id">
-                                <li class="flex justify-between items-center border-b pb-2">
+                                <li class="flex justify-between items-center border-b pb-1">
                                     <span class="text-gray-700 dark:text-gray-300" x-text="schedule.location"></span>
                                     <span class="text-sm text-gray-500 dark:text-gray-400"
                                         x-text="formatDate(schedule.schedule_activity)"></span>
@@ -100,17 +100,21 @@
                     </ul>
                 </div>
 
-
-
                 <!-- Kegiatan yang Terlewat -->
-                <div
-                    class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800 p-6 flex-1">
-                    <div class="h-full flex items-center justify-center">
-                        <span class="text-center"></span>
+                <div x-data="informationChartData()"
+                    class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800 mt-6">
+                    <div
+                        class="flex justify-end md:col-span-3 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 pr-6 pl-6 pt-3 pb-3">
+                        <select @change="fetchInformation" x-model="selectedMonth"
+                            class="bg-transparent text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <template x-for="month in availableMonths" :key="month">
+                                <option :value="month" x-text="formatMonth(month)"></option>
+                            </template>
+                        </select>
                     </div>
+                    <canvas id="informationChart" class="max-h-64"></canvas>
                 </div>
             </div>
-        </div>
         </div>
     @endsection
 </x-app-layout>
@@ -206,14 +210,13 @@
 <script>
     function scheduleData() {
         return {
-
             schedules: [],
             selectedFilter: 'week',
 
             // Fungsi untuk mengambil data jadwal berdasarkan filter
             fetchSchedules() {
-                let url = `{{ route('schedule.activity') }}?filter=${this.selectedFilter}`;
-                console.log('Fetching URL:', url);
+                let url = `{{ route('schedule.activity') }}?filter=${encodeURIComponent(this.selectedFilter)}`;
+                //console.log('Fetching URL:', url);
 
                 fetch(url)
                     .then(response => {
@@ -223,7 +226,7 @@
                         return response.json();
                     })
                     .then(data => this.schedules = data)
-                    .catch(error => console.error('Fetch error:', error));
+                //.catch(error => console.error('Fetch error:', error));
             },
 
             // Fungsi untuk memformat tanggal dan waktu
@@ -231,7 +234,6 @@
                 const options = {
                     day: '2-digit',
                     month: 'short',
-                    year: 'numeric',
                     hour: '2-digit',
                     minute: '2-digit',
                     hour12: false // Gunakan format 24 jam
@@ -239,10 +241,97 @@
                 return new Date(dateStr).toLocaleDateString('id-ID', options).replace(',', '');
             },
 
-
             // Panggil fetchSchedules saat komponen di-mount
             init() {
                 this.fetchSchedules();
+            }
+        };
+    }
+</script>
+
+<script>
+    function informationChartData() {
+        return {
+            selectedMonth: '',
+            availableMonths: [],
+            chart: null,
+
+            fetchAvailableMonths() {
+                fetch(`{{ route('months.available') }}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.availableMonths = data.map(item => item.month);
+
+                        // Ambil bulan saat ini dalam format 1-12
+                        const currentMonth = new Date().getMonth() + 1;
+
+                        // Jika bulan saat ini tersedia di availableMonths, pilih bulan tersebut
+                        if (this.availableMonths.includes(currentMonth)) {
+                            this.selectedMonth = currentMonth;
+                        } else if (this.availableMonths.length > 0) {
+                            // Jika tidak, pilih bulan pertama yang tersedia
+                            this.selectedMonth = this.availableMonths[0];
+                        }
+                        this.fetchInformation();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching months:', error);
+                    });
+            },
+
+            fetchInformation() {
+                if (!this.selectedMonth) return;
+
+                const url = `{{ route('getInformation', ':filter') }}`.replace(':filter', this.selectedMonth);
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.updateChart(data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching information:', error);
+                    });
+            },
+
+            updateChart(data) {
+                const ctx = document.getElementById('informationChart');
+                const labels = ['Belum Terlaksana', 'Terlaksana', 'Tidak Terlaksana'];
+                const values = [data.belum_terlaksana, data.terlaksana, data.tidak_terlaksana];
+
+                if (this.chart) {
+                    this.chart.destroy();
+                }
+
+                this.chart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: values,
+                            backgroundColor: ['#dbeafe', '#bcfce7', '#fbe2e2'],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            },
+
+            formatMonth(month) {
+                const date = new Date(0);
+                date.setMonth(month - 1);
+                return date.toLocaleString('id-ID', {
+                    month: 'long'
+                });
+            },
+
+            init() {
+                this.fetchAvailableMonths();
             }
         };
     }

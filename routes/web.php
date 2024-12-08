@@ -17,6 +17,8 @@ Route::controller(DashboardController::class)->group(function () {
     Route::get('program-kerja/dashboard', 'index')->name('dashboard.index');
     Route::get('/transaction-total/{year}', 'getCreateTransactionYears')->name('transaction.total');
     Route::get('/get-schedule','getFilteredSchedule')->name('schedule.activity');
+    Route::get('/get-available-months', 'getAvailableMonths')->name('months.available');
+    Route::get('/get-information/{filter}','getInformation')->name('getInformation');
 });
 
 Route::controller(PriorityProgramController::class)->group(function () {

@@ -75,12 +75,15 @@
                             @yield('breadcrumb')
                         </div>
                     </div>
-                    @yield('main-content')
+                    <div >
+                        @yield('main-content')
+                    </div>
+                    
                 </div>
 
-                <div class="hidden w-full lg:block ">
+                <div class="hidden w-full lg:block">
                     <!-- Footer -->
-                    <div class="bg-white dark:bg-zinc-900 py-2 ">
+                    <div class="bg-white dark:bg-zinc-900 py-2">
                         <h1 class="text-black dark:text-white text-center text-sm">Kelompok Rencana Program Kerja 2024
                         </h1>
                     </div>

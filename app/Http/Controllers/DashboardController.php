@@ -8,6 +8,7 @@ use App\Models\Priority_program;
 use App\Models\Principal_program;
 use App\Models\Transaction_program;
 use App\Models\Institutional_partners;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -19,7 +20,8 @@ class DashboardController extends Controller
             'totalPrincipals' => $this->showPrincipals(),
             'totalPartners' => $this->showPartners(),
             'transactionYears' => $this->getYears(),
-            'getNearestSchedule' => $this->getNearestSchedule(), 
+            'getNearestSchedule' => $this->getNearestSchedule(),
+           
         ]);
     }
 
@@ -132,5 +134,40 @@ class DashboardController extends Controller
         ->whereDate('schedule_activity', '>=', Carbon::now()->toDateString())
         ->orderBy('schedule_activity')
         ->get();
+    }
+
+    public function getAvailableMonths()
+    {
+        $months = Transaction_program::select(DB::raw('DISTINCT MONTH(updated_at) as month'))
+            ->whereNotNull('information')
+            ->where('information', '!=', '')
+            ->orderBy('month')
+            ->get();
+
+        return response()->json($months);
+    }
+
+    public function getMonthByInformationAvailable($month)
+    {
+        return Transaction_program::whereMonth('updated_at', $month)
+            ->whereNotNull('information')
+            ->where('information', '!=', '')
+            ->get();
+    }
+
+    public function getInformation(Request $request,$month)
+    {
+        // Mengambil data berdasarkan bulan yang tersedia
+        $data = $this->getMonthByInformationAvailable($month);
+
+        // Menghitung total dari masing-masing nilai enum 'information'
+        $totals = [
+            'belum_terlaksana' => $data->where('information', 'belum_terlaksana')->count(),
+            'terlaksana' => $data->where('information', 'terlaksana')->count(),
+            'tidak_terlaksana' => $data->where('information', 'tidak_terlaksana')->count(),
+        ];
+
+        // Mengembalikan hasil dalam bentuk JSON
+        return response()->json($totals);
     }
 }
