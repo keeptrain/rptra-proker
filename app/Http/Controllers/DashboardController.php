@@ -119,6 +119,8 @@ class DashboardController extends Controller
             $query->whereBetween('schedule_activity', [$startOfMonth, $endOfMonth]);
         }
 
+        $query->orderBy('schedule_activity', 'asc');
+
         return response()->json($query->get());
     }
 
