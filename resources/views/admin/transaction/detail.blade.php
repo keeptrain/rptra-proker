@@ -11,7 +11,8 @@
                     </x-admin.input-label>
 
 
-                    <x-button onclick="window.location.href='{{ url()->previous() }}';" color="zinc" class="p-1 bg-zinc-600 dark:hover:bg-zinc-700 flex items-center">
+                    <x-button onclick="window.location.href='{{ url()->previous() }}';" color="zinc"
+                        class="p-1 bg-zinc-600 dark:hover:bg-zinc-700 flex items-center">
                         <!-- Ikon Kembali -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -23,117 +24,119 @@
                 </div>
             </div>
 
-            <div class=" space-y-4">
-                <!-- Main Content Section -->
-                <div class="grid grid-cols-4 gap-6">
-                    <!-- Content Section -->
-                    <div class="col-span-3">
-                        <div class="grid grid-cols-[auto,1fr] gap-y-3 gap-x-4 text-gray-600 dark:text-gray-200 p-6">
 
-                            <div class="font-semibold text-gray-400 dark:text-gray-500">
-                                {{ __('PROGRAM PRIORITAS') }}
-                            </div>
-                            <div>{{ $selectedProgram->priorityPrograms->name ?? 'kosong' }}</div>
+            <!-- Main Content Section -->
+            <div class="grid grid-cols-4 ">
+                <!-- Content Section -->
+                <div class="col-span-3 pl-6 p-6">
+                    <div class="grid grid-cols-[auto,1fr] gap-y-3 gap-x-4">
 
-                            <div class="font-semibold text-gray-400 dark:text-gray-500">
-                                {{ __('PROGRAM POKOK') }}
-                            </div>
-                            <div>{{ $selectedProgram->principalPrograms->name ?? 'kosong' }}</div>
+                        <div class="font-semibold text-gray-400 dark:text-gray-500 ">
+                            {{ __('PROGRAM PRIORITAS') }}
+                        </div>
+                        <div>{{ $selectedProgram->priorityPrograms->name ?? 'kosong' }}</div>
 
-                            <div class="font-semibold text-gray-400 dark:text-gray-500">
-                                {{ __('KEGIATAN') }}
-                            </div>
-                            <div>{!! $selectedProgram->activity !!}</div>
-            
-                            <div class="font-semibold text-gray-400 dark:text-gray-500">
-                                {{ __('TUJUAN') }}
-                            </div>
-                            <div>{{ $selectedProgram->objective ?? 'kosong' }}</div>
-            
-                            <div class="font-semibold text-gray-400 dark:text-gray-500">
-                                {{ __('OUTPUT') }}
-                            </div>
-                            <div>{{ $selectedProgram->output ?? 'kosong' }}</div>
-            
-                            <div class="font-semibold text-gray-400 dark:text-gray-500">
-                                {{ __('TARGET') }}
-                            </div>
-                            <div>{{ $selectedProgram->target ?? 'kosong' }}</div>
-            
-                            
-            
-                            <div class="font-semibold text-gray-400 dark:text-gray-500">
-                                {{ __('LOKASI') }}
-                            </div>
-                            <div>{{ $selectedProgram->location ?? 'kosong' }}</div>
+                        <div class="font-semibold text-gray-400 dark:text-gray-500">
+                            {{ __('PROGRAM POKOK') }}
+                        </div>
+                        <div>{{ $selectedProgram->principalPrograms->name ?? 'kosong' }}</div>
 
-                            <div class="font-semibold text-gray-400 dark:text-gray-500">
-                                {{ __('MITRA') }}
-                            </div>
-                            <div>
-                                @forelse ($selectedProgram->institutionalPartners as $partner)
-                                    <span class="block text-gray-600">{{ $partner->name }}</span>
-                                @empty
-                                    <span class="text-gray-500">kosong</span>
-                                @endforelse
-                            </div>
+                        <div class="font-semibold text-gray-400 dark:text-gray-500">
+                            {{ __('KEGIATAN') }}
+                        </div>
+                        <div>{!! $selectedProgram->activity !!}</div>
+
+                        <div class="font-semibold text-gray-400 dark:text-gray-500">
+                            {{ __('TUJUAN') }}
+                        </div>
+                        <div>{{ $selectedProgram->objective ?? 'kosong' }}</div>
+
+                        <div class="font-semibold text-gray-400 dark:text-gray-500">
+                            {{ __('OUTPUT') }}
+                        </div>
+                        <div>{{ $selectedProgram->output ?? 'kosong' }}</div>
+
+                        <div class="font-semibold text-gray-400 dark:text-gray-500">
+                            {{ __('TARGET') }}
+                        </div>
+                        <div>{{ $selectedProgram->target ?? 'kosong' }}</div>
+
+
+
+                        <div class="font-semibold text-gray-400 dark:text-gray-500">
+                            {{ __('LOKASI') }}
+                        </div>
+                        <div>{{ $selectedProgram->location ?? 'kosong' }}</div>
+
+                        <div class="font-semibold text-gray-400 dark:text-gray-500">
+                            {{ __('MITRA') }}
+                        </div>
+                        <div>
+                            @forelse ($selectedProgram->institutionalPartners as $partner)
+                                <span class="block text-gray-600">{{ $partner->name }}</span>
+                            @empty
+                                <span class="text-gray-500">kosong</span>
+                            @endforelse
                         </div>
                     </div>
-            
-                    <!-- Sidebar Section -->
-                    <div class="col-span-1 border-l border-slate-100 dark:border-zinc-700 pl-6">
+                </div>
 
-                        <div class="font-semibold text-gray-400 dark:text-gray-500 mt-6">
+                <!-- Sidebar Section -->
+                <div class="col-span-1 border-l border-slate-100 dark:border-zinc-700 pl-6 pt-6">
+                    <div class="grid grid-flow-[auto,1fr] gap-y-3 gap-x-4">
+
+                        <div class="font-semibold text-gray-400 dark:text-gray-500">
                             {{ __('JADWAL KEGIATAN:') }}
                             <span class="font-mono text-gray-600 dark:text-gray-200 block">
                                 {{ $selectedProgram->schedule_activity }}
-                                
                             </span>
                             <x-admin.information-tag :information="$selectedProgram->information" />
-                            
+
                         </div>
 
-                        <div class="font-semibold text-gray-400 dark:text-gray-500 mt-8">
+                        <div class="font-semibold text-gray-400 dark:text-gray-500">
                             {{ __('VOLUME') }}
-                            <span class="font-semibold text-gray-600 dark:text-gray-200 block">{{ $selectedProgram->volume ?? 'kosong' }}</span>
+                            <span
+                                class="font-semibold text-gray-600 dark:text-gray-200 block">{{ $selectedProgram->volume ?? 'kosong' }}</span>
                         </div>
 
-                        <div class="font-semibold text-gray-400 dark:text-gray-500 mt-8">
+                        <div class="font-semibold text-gray-400 dark:text-gray-500">
                             {{ __('PROGRAM DIBUAT:') }}
-                            <span class="font-mono text-gray-600 dark:text-gray-200 block">{{ $selectedProgram->created_at }}</span>
+                            <span
+                                class="font-mono text-gray-600 dark:text-gray-200 block">{{ $selectedProgram->created_at }}</span>
                         </div>
-            
-                        <div class="font-semibold text-gray-400 dark:text-gray-500 mt-8">
+
+                        <div class="font-semibold text-gray-400 dark:text-gray-500">
                             {{ __('TERAKHIR DIPERBARUI:') }}
-                            <span class="font-mono text-gray-600 dark:text-gray-200 block">{{ $selectedProgram->updated_at }}</span>
-                        </div> 
+                            <span
+                                class="font-mono text-gray-600 dark:text-gray-200 block">{{ $selectedProgram->updated_at }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-            
-        @endsection
+    @endsection
 
 </x-app-layout>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const olElements = document.querySelectorAll('ol');
+        const olElements = document.querySelectorAll('ol');
 
-    olElements.forEach(ol => {
-        const liElements = ol.querySelectorAll('li');
+        olElements.forEach(ol => {
+            const liElements = ol.querySelectorAll('li');
 
-        liElements.forEach(li => {
-            const dataList = li.getAttribute('data-list');
+            liElements.forEach(li => {
+                const dataList = li.getAttribute('data-list');
 
-            if (dataList === 'ordered') {
-                ol.classList.add('list-decimal', 'list-inside', 'mb-2');
-                li.classList.add('text-gray-700', 'leading-relaxed');
-            } else if (dataList === 'bullet') {
-                ol.classList.add('list-disc', 'list-inside', 'mb-2');
-                li.classList.add('text-gray-700', 'leading-relaxed');
-            }
+                if (dataList === 'ordered') {
+                    ol.classList.add('list-decimal', 'list-inside', 'mb-2');
+                    li.classList.add('text-gray-700', 'leading-relaxed');
+                } else if (dataList === 'bullet') {
+                    ol.classList.add('list-disc', 'list-inside', 'mb-2');
+                    li.classList.add('text-gray-700', 'leading-relaxed');
+                }
+            });
         });
     });
-});
 </script>

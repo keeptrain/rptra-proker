@@ -12,7 +12,7 @@
     </svg>
 </button>
 
-<!-- Header -->
+<!-- Searchbar>
 <form class="w-1/5">
     <div
         class="hidden rounded-md border border-gray-200 dark:border-zinc-600 overflow-hidden font-[sans-serif] lg:flex">
@@ -26,7 +26,7 @@
             </svg>
         </button>
     </div>
-</form>
+</form-->
 
 <div x-data="{
     darkMode: $persist(localStorage.getItem('theme') === 'dark'),

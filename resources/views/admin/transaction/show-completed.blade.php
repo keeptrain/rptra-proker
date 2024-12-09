@@ -7,7 +7,7 @@
                 <!--input type="checkbox" id="checkbox-all" class="cursor-pointer"-->
             </th>
             <th>Lokasi</th>
-            <th>Informasi</th>
+            <th>Keterangan</th>
             <th>Jadwal Kegiatan</th>
             <th>Aksi</th>
         </tr>
