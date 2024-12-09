@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('main-content')
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-gray-500">
             <!-- Program Kerja -->
             <div
                 class="p-4 flex flex-col items-center space-y-2 bg-white dark:bg-zinc-900 rounded-md border-2 border-slate-100 dark:border-zinc-900">
@@ -84,13 +84,15 @@
 
                     <!-- Scrollable List -->
                     <ul class="space-y-3 pr-6 pl-6 pt-1 pb-4 max-h-56 overflow-auto">
-                        <template x-if="schedules.length > 0"> 
+                        <template x-if="schedules.length > 0">
                             <template x-for="schedule in schedules" :key="schedule.id">
                                 <li class="flex justify-between items-center border-b pb-1">
-                                    <span class="text-gray-700 dark:text-gray-300" x-text="schedule.location"></span>
+                                    <span class="text-gray-700 dark:text-gray-300 break-words max-w-[120px]"
+                                        x-text="schedule.location"></span>
                                     <span class="text-sm text-gray-500 dark:text-gray-400"
                                         x-text="formatDate(schedule.schedule_activity)"></span>
                                 </li>
+
                             </template>
                         </template>
 
@@ -104,15 +106,19 @@
                 <div x-data="informationChartData()"
                     class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800 mt-6">
                     <div
-                        class="flex justify-end md:col-span-3 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 pr-6 pl-6 pt-3 pb-3">
-                        <select @change="fetchInformation" x-model="selectedMonth"
-                            class="bg-transparent text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <template x-for="month in availableMonths" :key="month">
-                                <option :value="month" x-text="formatMonth(month)"></option>
-                            </template>
-                        </select>
+                        class="md:col-span-3 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100">
+                        <div class="flex justify-end border-b pr-6 pl-6 pt-2 pb-2">
+                            <!--h4 class="font-semibold">Perbandingan program</h4-->
+                            <select @change="fetchInformation" x-model="selectedMonth"
+                                class=" bg-transparent text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <template x-for="month in availableMonths" :key="month">
+                                    <option :value="month" x-text="formatMonth(month)"></option>
+                                </template>
+                            </select>
+                        </div>
+
                     </div>
-                    <canvas id="informationChart" class="max-h-64"></canvas>
+                    <canvas id="informationChart" class="max-h-64 mt-2"></canvas>
                 </div>
             </div>
         </div>
