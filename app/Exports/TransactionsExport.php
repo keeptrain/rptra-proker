@@ -144,7 +144,7 @@ class TransactionsExport implements FromCollection,WithCustomStartCell,WithHeadi
         return [
             'NO',
             'PROGRAM POKOK PKK',
-            'PROGRAM',
+            'PROGRAM PRIORITAS',
             'KEGIATAN',
             'TUJUAN',
             'OUTPUT',
