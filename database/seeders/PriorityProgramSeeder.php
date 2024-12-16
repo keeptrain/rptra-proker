@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Priority_program;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PriorityProgramSeeder extends Seeder
 {
@@ -13,10 +12,43 @@ class PriorityProgramSeeder extends Seeder
      */
     public function run(): void
     {
-        Priority_program::create([
-            'id' => 'PPRIO-001',
-            'name' => '',
-            
-        ],);
+      DB::table('priority_programs')->insert([
+            [
+                'id' => 'PPRIO-001',
+                'name' => 'PKK KELUARGA',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 'PPRIO-002',
+                'name' => 'BKB PAUD',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 'PPRIO-003',
+                'name' => 'UP2K',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 'PPRIO-004',
+                'name' => 'HATINYA PKK',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 'PPRIO-005',
+                'name' => 'POSYANDU',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 'PPRIO-006',
+                'name' => 'SME',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }
