@@ -9,7 +9,7 @@
             <th>Lokasi</th>
             <th>Keterangan</th>
             <th>Jadwal Kegiatan</th>
-            <th>Aksi</th>
+            <th></th>
         </tr>
     </x-slot>
 

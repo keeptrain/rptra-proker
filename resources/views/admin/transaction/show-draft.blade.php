@@ -1,12 +1,9 @@
 <x-datatables :routeName="'prog-transaksi.destroy'" :datatablesId="'datatables-transaction-draft'" :nameInputId="'transaction_ids[]'">
-
-
     <x-slot name="slotbutton">
         <button id="delete-selected-button" type="button"
             class="ml-2 px-3 py-2 bg-red-600 text-white font-medium text-sm rounded-lg focus:ring-1 focus:ring-red dark:bg-red-500 dark:hover:bg-red-700 dark:focus:ring-red-800 hidden">
             Hapus
         </button>
-
     </x-slot>
 
     <!-- Slot untuk thead -->
@@ -16,7 +13,7 @@
                 <!--input type="checkbox" id="checkbox-all" class="cursor-pointer"-->
             </th>
             <th class="datetime">Tanggal draft dibuat</th>
-            <th>Aksi</th>
+            <th></th>
         </tr>
     </x-slot>
 
