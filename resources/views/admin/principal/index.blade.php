@@ -28,8 +28,6 @@
 
             </div>
             <div class="p-6">
-                <x-datatables-toolbar />
-
                 @include('admin.principal.show')
             </div>
 

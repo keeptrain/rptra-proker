@@ -1,6 +1,5 @@
 <x-datatables :routeName="'prog-prioritas.destroy'" :datatablesId="'datatables-priority'" :nameInputId="'priority_ids[]'">
     @csrf
-    @method('DELETE')
 
     <!-- Slot untuk thead -->
     <x-slot name="thead">
@@ -20,7 +19,7 @@
         @foreach ($programs as $item)
             <tr>
                 <td>
-                    <input type="checkbox" class="row-checkbox" value="{{ $item->id }}">
+                    <input type="checkbox" name="priority_ids[]" class="row-checkbox" value="{{ $item->id }}">
                 </td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->id }}</td>
@@ -46,7 +45,28 @@
 <script>
     $(document).ready(function() {
         $('#datatables-priority').DataTable({
-
+            columnDefs: [
+                { orderable: false, targets: [0,4] }
+            ],
+            layout: {
+                topStart: function () {
+                 
+                    return topStartTemplate;
+                },
+                topEnd: {
+                    search: {
+                        placeholder: 'Search',
+                    }
+                },
+                bottomStart: {
+                    pageLength: {
+                        menu: [5,10,25]
+                    }
+                }
+            },
+            language: {
+                search: '',
+            },
             responsive: true,
         });
     });

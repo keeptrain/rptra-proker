@@ -29,8 +29,6 @@
 
             </div>
             <div class="p-6">
-                <x-datatables-toolbar/>
-
                 @if (isset($transactions))
                     @include('admin.transaction.show-completed')
                 @elseif (isset($draft))
@@ -45,6 +43,8 @@
     
     
 </x-app-layout>
+
+
 
 
 

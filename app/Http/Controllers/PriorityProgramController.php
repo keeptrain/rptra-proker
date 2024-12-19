@@ -92,11 +92,10 @@ class PriorityProgramController extends Controller
                 $request->input('number'),
                 $request->input('name')
             );
-            return redirect()->route('prog-prioritas.index')->with('success', 'Data berhasil diperbarui.');;;
+            return redirect()->route('prog-prioritas.index')->with('success', 'Data berhasil diperbarui.');
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
-      
     }
 
     /**
@@ -104,11 +103,15 @@ class PriorityProgramController extends Controller
      */
     public function destroy(DestoryPriorityRequest $request)
     {
-        $this->priorityProgram->destroyPriorityPrograms(
-            $request->input('priority_ids')
-        );
-
-        return redirect()->route('prog-prioritas.index')->with('success', 'Data berhasil dihapus');
+        try {
+            $this->priorityProgram->destroyPriorityPrograms(
+                $request->input('priority_ids')
+            );
+            return redirect()->route('prog-prioritas.index')->with('success', 'Data prioritas berhasil dihapus.');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+      
     }
 
 }

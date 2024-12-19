@@ -26,14 +26,9 @@
 
             </div>
 
-
             <div class="p-6">
-
-                <x-datatables-toolbar />
-
                 @include('admin.institutional-partners.show')
             </div>
-
 
         </div>
     @endsection

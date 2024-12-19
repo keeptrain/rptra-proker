@@ -1,5 +1,12 @@
 @props(['routeName', 'datatablesId', 'nameInputId'])
-<form action="{{ route($routeName) }}" class="w-full bg-white dark:bg-zinc-900 dark:text-white">
+<form id="delete-form" action="{{ route($routeName) }}" method="POST" class="w-full bg-white dark:bg-zinc-900 dark:text-white">
+
+    @csrf
+    @method('DELETE')
+
+    <script>
+        const topStartTemplate = `<x-datatables-toolbar />`;
+    </script>
  
     <table id="{{ $datatablesId }}" class="display cell-border min-w-full" style="width:100%">
         <thead class="text-sm font-semibold text-black dark:text-white dark:bg-zinc-900">
@@ -18,111 +25,50 @@
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 
-<!-- DataTables JS Semantic -->
-<!--script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.js"></script>
-<script src="https://cdn.datatables.net/2.1.8/js/dataTables.semanticui.js"></script>
-<script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.js"></script>
-<script src="https://cdn.datatables.net/responsive/3.0.3/js/responsive.semanticui.js"></script-->
 <script>
-
     // Toggle delete button
     function toggleDeleteButton() {
         const anyChecked = $('.row-checkbox:checked').length > 0;
         const deleteButton = $('#delete-selected-button');
-        const exportButton = $('#export-selected-button');
         
-            if (anyChecked) {
-                deleteButton.removeClass('disabled bg-zinc-100').addClass('bg-white hover:bg-gray-300').prop('disabled', false);
-                //exportButton.removeClass('disabled bg-zinc-100').addClass('bg-white').prop('disabled', false);
-            } else {
-                deleteButton.addClass('disabled bg-zinc-100').removeClass('bg-white').prop('disabled', true);
-                //exportButton.addClass('disabled bg-zinc-100').removeClass('bg-white').prop('disabled', true);
-            }
+        if (anyChecked) {
+            deleteButton.removeClass('disabled bg-zinc-100').addClass('bg-white hover:bg-gray-300').prop('disabled', false);
+            //exportButton.removeClass('disabled bg-zinc-100').addClass('bg-white').prop('disabled', false);
+        } else {
+            deleteButton.addClass('disabled bg-zinc-100').removeClass('bg-white').prop('disabled', true);
+            //exportButton.addClass('disabled bg-zinc-100').removeClass('bg-white').prop('disabled', true);
+        }
     }
-
-    
-
-    // Fungsi untuk menampilkan konfirmasi SweetAlert
+ 
     function confirmDelete() {
-        return Swal.fire({
+        Swal.fire({
             title: "Apakah kamu yakin?",
             text: "Anda tidak akan dapat mengembalikan ini!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "Ya, hapus ini!",
-          
+            confirmButtonText: "Ya, hapus",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Lakukan penghapusan data
+                document.getElementById('delete-form').submit();
+            }
         });
     }
 
-    // Event listener untuk tombol hapus terpilih
-    $('#delete-selected-button').on('click', function() {
-        const selectedIds = $('.row-checkbox:checked').map(function() {
-            return $(this).val();
-        }).get();
-
-        if (selectedIds.length > 0) {
-            confirmDelete().then((result) => {
-                if (result.isConfirmed) {
-                    // Set nilai input hidden di dalam form
-                    const form = $('<form>', {
-                        method: 'POST',
-                        action: "{{ route($routeName) }}"
-                    });
-
-                    // Tambahkan CSRF token
-                    form.append($('<input>', {
-                        type: 'hidden',
-                        name: '_token',
-                        value: '{{ csrf_token() }}'
-                    }));
-
-                    // Tambahkan method DELETE
-                    form.append($('<input>', {
-                        type: 'hidden',
-                        name: '_method',
-                        value: 'DELETE'
-                    }));
-
-                    // Tambahkan ID yang dipilih ke dalam form
-                    selectedIds.forEach(function(id) {
-                        form.append($('<input>', {
-                            type: 'hidden',
-                            name: '{{ $nameInputId }}',
-                            value: id
-                        }));
-                    });
-
-                    // Tambahkan form ke body dan submit
-                    $('body').append(form);
-                    form.submit();
-                }
-            });
-        } else {
-            alert('Silakan pilih item untuk dihapus.');
-        }
-    });
-
-    /* Event listener untuk tombol hapus di setiap baris
-    $('#datatables').on('click', '.delete-button', function() {
-        const id = $(this).data('id');
-        confirmDelete().then((result) => {
+    function exportData() {
+        Swal.fire({
+            title: 'Konfirmasi Ekspor',
+            text: 'Apakah Anda yakin ingin mengekspor data?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Ekspor',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
             if (result.isConfirmed) {
-                $.ajax({
-                    url: '/api/transactions/' + id,
-                    type: 'DELETE',
-                    success: function(response) {
-                        // Hapus baris yang dipilih dari tabel
-                        $(this).closest('tr').remove();
-                        Swal.fire('Deleted!', 'Item has been deleted.',
-                            'success');
-                    }.bind(this),
-                    error: function(xhr) {
-                        alert('Terjadi kesalahan saat menghapus data.');
-                    }
-                });
+                // Redirect ke rute ekspor
+                window.location.href = '{{ route('prog-transaksi.export') }}';
             }
         });
-    });*/
-
+    }
 </script>

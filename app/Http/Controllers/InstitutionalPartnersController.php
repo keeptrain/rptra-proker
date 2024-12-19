@@ -52,7 +52,6 @@ class InstitutionalPartnersController extends Controller
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
-
     }
 
     /**
@@ -61,8 +60,9 @@ class InstitutionalPartnersController extends Controller
     public function show(Institutional_partners $institutional_partners)
     {
         $instituionalPartners = $institutional_partners::all();
-        return view('admin.institutional-partners.show', ['institutionalPartnersShow' => $instituionalPartners]);
-
+        return view('admin.institutional-partners.show', [
+            'institutionalPartnersShow' => $instituionalPartners
+        ]);
     }
 
     /**
@@ -70,7 +70,6 @@ class InstitutionalPartnersController extends Controller
      */
     public function edit( $id)
     {
-
         $partner = $this->institutionalPartner->editInstitutionalPartner($id);
 
         return view('admin.institutional-partners.create-edit',[
@@ -104,11 +103,13 @@ class InstitutionalPartnersController extends Controller
      */
     public function destroy(DestroyPartnersRequest $request)
     {
-    
-        $this->institutionalPartner->destroyInstituionalPartners(
-            $request->input('partner_ids'),
-        );
-
-        return redirect()->route('prog-mitra.index')->with('success', 'Data mitra berhasil dihapus.');
+        try {
+            $this->institutionalPartner->destroyInstituionalPartners(
+                $request->input('partner_ids'),
+            );
+            return redirect()->route('prog-mitra.index')->with('success', 'Data mitra berhasil dihapus.');
+        } catch (ValidationException $e) {
+            return redirect()-back()->withErrors($e->errors())->withInput();
+        }  
     }
 }

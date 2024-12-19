@@ -1,9 +1,4 @@
-
 <x-datatables :routeName="'prog-transaksi.destroy'" :datatablesId="'datatables-transaction'" :nameInputId="'transaction_ids[]'">
-    @csrf
-    @method('DELETE')
-
-  
 
     <!-- Slot untuk thead -->
     <x-slot name="thead">
@@ -12,7 +7,7 @@
                 <!--input type="checkbox" id="checkbox-all" class="cursor-pointer"-->
             </th>
             <th>Lokasi</th>
-            <th>Informasi</th>
+            <th>Keterangan</th>
             <th>Jadwal Kegiatan</th>
             <th>Aksi</th>
         </tr>
@@ -20,11 +15,11 @@
 
     <!-- Slot untuk tbody -->
     <x-slot name="tbody">
-    
+        
         @foreach ($transactions as $item)
         <tr>
             <td>
-                <input type="checkbox" class="row-checkbox" value="{{ $item->id }}">
+                <input name="transaction_ids[]" type="checkbox" class="row-checkbox" value="{{ $item->id }}">
             </td>
             <td>{{ $item->location}}</td>
             
@@ -51,35 +46,44 @@
             </td>
         </tr>     
         @endforeach
- 
-       
-    </x-slot>
 
-    
-
-    
+    </x-slot> 
 </x-datatables>
 
-
-
-
-
 <script>
-    
     $(document).ready(function() {
         $('#datatables-transaction').DataTable({
             columnDefs: [
                 { orderable: false, targets: [0,4] }
             ],
+            layout: {
+                topStart: function () {
+                 
+                    return topStartTemplate;
+                },
+                topEnd: {
+                    search: {
+                        placeholder: 'Search...',
+                    }
+                },
+                bottomStart: {
+                    pageLength: {
+                        menu: [5,10,25]
+                    }
+                }
+            },
+            language: {
+                search: '',
+            },
            responsive: true, 
         });
+
     });
-    
+
     // Event listener untuk checkbox
     $('#datatables-transaction tbody').on('change', '.row-checkbox', function() {
         toggleDeleteButton();
     });
 
-    
 </script>
 

@@ -115,10 +115,13 @@ class PrincipalProgramController extends Controller
     public function destroy(DestroyPrincipalRequest $request)
     {
 
-        $this->principalProgram->destroyPrincipalPrograms(
-            $request->input('principal_ids'),
-        );
-
-        return redirect()->route('prog-pokok.index')->with('success', 'Program pokok berhasil di hapus');;
+        try {
+            $this->principalProgram->destroyPrincipalPrograms(
+                $request->input('principal_ids')
+            );
+            return redirect()->route('prog-pokok.index')->with('success', 'Data pokok berhasil dihapus.');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
     }
 }
