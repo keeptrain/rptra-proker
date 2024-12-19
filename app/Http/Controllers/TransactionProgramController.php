@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Exports\TransactionsExport;
 use App\Http\Requests\Transaction\UpdateTransactionRequest;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Models\Principal_program;
 use App\Models\Transaction_program;
-use Illuminate\Support\Facades\Route;
 use App\Models\Institutional_partners;
 use Illuminate\Validation\ValidationException;
-use App\Http\Requests\UpdateTransaction_programRequest;
 use App\Http\Requests\Transaction\StoreTransactionRequest;
 use App\Http\Requests\Transaction\DestoryTransactionRequest;
 use App\Http\Requests\Transaction\StoreDraftTransactionRequest;
@@ -184,8 +180,8 @@ class TransactionProgramController extends Controller
 
     public function export()
     {
-        $date = Carbon::now()->format('H.i_d-m-Y');
-        $fileName = "transaksi-{$date}.xlsx";
+        $date = Carbon::now()->format('H.i, d-m-Y');
+        $fileName = "program-kerja-{$date}.xlsx";
     
         return Excel::download(new TransactionsExport, $fileName);
     }

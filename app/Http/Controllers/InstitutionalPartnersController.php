@@ -109,7 +109,7 @@ class InstitutionalPartnersController extends Controller
             );
             return redirect()->route('prog-mitra.index')->with('success', 'Data mitra berhasil dihapus.');
         } catch (ValidationException $e) {
-            return redirect()-back()->withErrors($e->errors())->withInput();
+            return redirect()->back()->withErrors($e->errors())->withInput();
         }  
     }
 }

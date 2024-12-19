@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Principal\DestroyPrincipalRequest;
 use App\Http\Requests\Principal\StorePrincipalRequest;
 use App\Http\Requests\Principal\UpdatePrincipalRequest;
-use App\Models\Main_program;
 use App\Models\Principal_program;
 use App\Models\Priority_program;
 use Illuminate\Validation\ValidationException;

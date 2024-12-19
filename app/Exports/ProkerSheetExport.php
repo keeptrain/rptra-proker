@@ -26,10 +26,9 @@ class ProkerSheetExport implements FromCollection,WithCustomStartCell,WithHeadin
                         ->get();
 
         return $transactions->map(function ($transaction,$index){
-        
             // Mengubah format dateTime
             $transaction->day_name = Carbon::parse($transaction->schedule_activity)
-                ->translatedFormat('l, d F Y , H:m');
+                                    ->translatedFormat('l, d F Y. H:i');
 
             // Mengambil data mitra/unit/lembaga pada table pivot insitutional_partner_transaction_program    
             $transaction->partner_names = $transaction->institutionalPartners->pluck('name')->join(', ');
