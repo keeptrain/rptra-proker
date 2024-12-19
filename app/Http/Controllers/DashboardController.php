@@ -47,8 +47,8 @@ class DashboardController extends Controller
 
     public function getYears()
     {
-        // Mengambil tahun yang unik dari kolom created_at
-        return Transaction_program::selectRaw('YEAR(created_at) as year')
+        // Mengambil tahun yang unik dari kolom schedule_activity
+        return Transaction_program::selectRaw('YEAR(schedule_activity) as year')
         ->distinct()
         ->orderBy('year', 'asc')
         ->pluck('year');
@@ -56,7 +56,7 @@ class DashboardController extends Controller
 
     public function getTotalInYears($year)
     {
-        return Transaction_program::whereYear('created_at', $year)
+        return Transaction_program::whereYear('schedule_activity', $year)
             ->where('status','completed')
             ->count();
     }
@@ -67,9 +67,9 @@ class DashboardController extends Controller
         $total = $this->getTotalInYears($year);
 
         // Mengambil jumlah transaksi per bulan untuk tahun tertentu
-        $monthlyData = Transaction_program::whereYear('created_at', $year)
+        $monthlyData = Transaction_program::whereYear('schedule_activity', $year)
             ->where('status','completed')
-            ->selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->selectRaw('MONTH(schedule_activity) as month, COUNT(*) as count')
             ->groupBy('month')
             ->orderBy('month')
             ->get();
