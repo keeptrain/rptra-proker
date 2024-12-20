@@ -78,14 +78,14 @@
                 @push('modal')
                     <x-admin.modal :saveIdButton="'saveDraftButton'">
                         @section('content-modal')
-                            <p>Apakah kamu yakin untuk menyimpan draft ini?</p>
-                            <!--form id="draftForm">
-                                                        <div class="mb-4">
-                                                            <input type="text"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
-                                                                id="draftName" name="draftName" placeholder="Masukkan nama untuk draft">
-                                                        </div>
-                                                    </form-->
+                            {{-- <p>Apakah kamu yakin untuk menyimpan draft ini?</p> --}}
+                            <form id="draftForm">
+                                <div class="mb-4">
+                                    <input type="text"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full text-sm p-2.5"
+                                        id="draftName" name="draftName" placeholder="Masukkan nama untuk draft" required>
+                                </div>
+                            </form>
                         @endsection
                         <x-slot name="nameButton">
                             Simpan draft

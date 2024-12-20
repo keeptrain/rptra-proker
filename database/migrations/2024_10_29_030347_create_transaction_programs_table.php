@@ -13,6 +13,7 @@ return new class extends Migration {
     {
         Schema::create('transaction_programs', function (Blueprint $table) {
             $table->increments('id')->primary();
+            $table->string('name')->nullable(true);
             $table->enum('status', ['draft', 'completed'])->default('draft');
             $table->text('activity')->nullable(true);
             $table->text('objective')->nullable(true);

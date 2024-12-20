@@ -24,8 +24,6 @@ x-on:click.away="openModal=false"
             </div>
             <div class="p-4">
                 @yield('content-modal')
-
-
             </div>
             <div class="p-4 border-t flex justify-end">
                 <button x-on:click="openModal = false" type="button" class="mr-2 px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Batal</button>
@@ -40,7 +38,14 @@ x-on:click.away="openModal=false"
     function submitForm() {
         const form = document.getElementById('create-form');
         const formData = new FormData(form);
-       
+        const nameDraft = document.getElementById('draftName').value;
+
+        formData.append('name', nameDraft);
+
+        if (!nameDraft) {
+            alert('Nama draft harus diisi!');
+            return;
+        }
 
         fetch('{{ route("prog-transaksi.draft") }}', {
             method: 'POST',

@@ -16,6 +16,7 @@ class Transaction_program extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'name',
         'status',
         'activity',
         'objective',
@@ -80,6 +81,7 @@ class Transaction_program extends Model
     }
 
     public function storeTransactionProgram(
+        $name,
         $status,
         $activity,
         $objective,
@@ -93,9 +95,9 @@ class Transaction_program extends Model
         $information
     )
     {
-    
         // Membuat transaksi baru
         $transaction = self::create([
+            'name' => $name,
             'status' => $status,
             'activity' => $activity,
             'objective' => $objective,
@@ -109,12 +111,6 @@ class Transaction_program extends Model
             'timestamps' => Carbon::now()
 
         ]);
-
-        // Decode JSON dari Tagify
-        // $decodedPartners = json_decode($institutional_partner_ids, true);
-
-        // Ambil hanya nilai `value`
-        // $partnerIds = collect($decodedPartners)->pluck('value')->toArray();
 
         // Attach ke tabel pivot
         if (!empty($institutional_partner_ids)) {

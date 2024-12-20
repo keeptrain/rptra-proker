@@ -12,6 +12,7 @@
             <th>
                 <!--input type="checkbox" id="checkbox-all" class="cursor-pointer"-->
             </th>
+            <th>Nama draft</th>
             <th class="datetime">Tanggal draft dibuat</th>
             <th></th>
         </tr>
@@ -24,6 +25,7 @@
                 <td>
                     <input type="checkbox" name="transaction_ids[]" class="row-checkbox" value="{{ $item->id }}">
                 </td>
+                <td>{{ $item->name }}</td>
                 <td class="datetime">{{ $item->day_name }}</td>
                 <td>
                     <button onclick="window.location.href='{{ route('prog-transaksi.show.detail', $item->id) }}'" class="p-2 inline-flex items-center rounded-md bg-zinc-200 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-400" type="button">
@@ -55,7 +57,7 @@
     $(document).ready(function() {
         $('#datatables-transaction-draft').DataTable({
             columnDefs: [
-                { orderable: false, targets: [2] }
+                { orderable: false, targets: [0,3] }
             ],
             layout: {
                 topStart: function () {

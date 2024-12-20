@@ -60,6 +60,7 @@ class TransactionProgramController extends Controller
     {
         try {
             $this->transaction->storeTransactionProgram(
+                $request->input('name'),
                 'completed',
                 $request->input('activity'),
                 $request->input('objective'),
@@ -83,6 +84,7 @@ class TransactionProgramController extends Controller
         try {
             // Simpan data ke dalam draft
              $this->transaction->storeTransactionProgram(
+                $request->name,
                 'draft',
                 $request->activity,
                 $request->objective,
