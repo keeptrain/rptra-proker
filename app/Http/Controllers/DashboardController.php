@@ -21,7 +21,6 @@ class DashboardController extends Controller
             'totalPartners' => $this->showPartners(),
             'transactionYears' => $this->getYears(),
             'getNearestSchedule' => $this->getNearestSchedule(),
-           
         ]);
     }
 
@@ -49,9 +48,9 @@ class DashboardController extends Controller
     {
         // Mengambil tahun yang ada dari kolom schedule_activity
         return Transaction_program::selectRaw('YEAR(schedule_activity) as year')
-            ->whereNotNull('schedule_activity')
             ->distinct()
-            ->orderBy('year', 'asc')
+            ->whereNotNull('schedule_activity')
+            ->orderBy('year', 'desc')
             ->pluck('year');
     }
 
@@ -106,7 +105,7 @@ class DashboardController extends Controller
     public function getFilteredSchedule(Request $request)
     {
         $filter = $request->query('filter');
-        $query = Transaction_program::query();
+        $query = Transaction_program::query()->where('information','belum_terlaksana');
 
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
@@ -143,9 +142,13 @@ class DashboardController extends Controller
 
     public function getAvailableMonths()
     {
-        $months = Transaction_program::select(DB::raw('DISTINCT MONTH(updated_at) as month'))
+        $currentYear = Carbon::now()->year;
+
+        $months = Transaction_program::selectRaw('MONTH(schedule_activity) as month')
+            ->distinct()
+            ->where('status', 'completed')
+            ->whereYear('schedule_activity', $currentYear)
             ->whereNotNull('information')
-            ->where('information', '!=', '')
             ->orderBy('month')
             ->get();
 
@@ -154,16 +157,18 @@ class DashboardController extends Controller
 
     public function getMonthByInformationAvailable($month)
     {
-        return Transaction_program::whereMonth('updated_at', $month)
-            ->whereNotNull('information')
-            ->where('information', '!=', '')
-            ->get();
+        $currentYear = Carbon::now()->year;
+
+        return Transaction_program::whereMonth('schedule_activity', $month)
+            ->whereYear('schedule_activity', $currentYear)
+            ->where('status', 'completed')
+            ->whereNotNull('information');
     }
 
-    public function getInformation(Request $request,$month)
+    public function getInformation($month)
     {
         // Mengambil data berdasarkan bulan yang tersedia
-        $data = $this->getMonthByInformationAvailable($month);
+        $data = $this->getMonthByInformationAvailable($month)->get();
 
         // Menghitung total dari masing-masing nilai enum 'information'
         $totals = [
@@ -175,4 +180,5 @@ class DashboardController extends Controller
         // Mengembalikan hasil dalam bentuk JSON
         return response()->json($totals);
     }
+
 }
