@@ -52,7 +52,9 @@ class Transaction_program extends Model
     public function getCompletedStatus()
     {
         // Ambil data dengan status 'completed'
-        $completedRecords = self::where('status', 'completed')->get();
+        $completedRecords = self::where('status', 'completed')
+                            ->orderBy('created_at','desc')
+                            ->get();
 
         // Format tanggal di 'schedule_activity' menjadi nama hari, tanggal
         $completedRecords->map(function ($record) {

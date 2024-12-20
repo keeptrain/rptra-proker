@@ -2,7 +2,7 @@
     <div class="flex flex-col flex-shrink-0 w-full">
         <div class="flex items-center justify-center p-6 mt-1 text-center">
             <a href="#" class="text-lg leading-normal text-gray-600 dark:text-gray-300 focus:outline-none focus:ring">
-                RPTRA</a>
+                RPTRA Cibubur</a>
         </div>
         <nav>
             <div class="flex-grow md:block md:overflow-y-auto overflow-x-hidden"
