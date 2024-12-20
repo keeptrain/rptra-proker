@@ -47,16 +47,18 @@ class DashboardController extends Controller
 
     public function getYears()
     {
-        // Mengambil tahun yang unik dari kolom schedule_activity
+        // Mengambil tahun yang ada dari kolom schedule_activity
         return Transaction_program::selectRaw('YEAR(schedule_activity) as year')
-        ->distinct()
-        ->orderBy('year', 'asc')
-        ->pluck('year');
+            ->whereNotNull('schedule_activity')
+            ->distinct()
+            ->orderBy('year', 'asc')
+            ->pluck('year');
     }
 
     public function getTotalInYears($year)
     {
         return Transaction_program::whereYear('schedule_activity', $year)
+            ->whereNotNull('schedule_activity')
             ->where('status','completed')
             ->count();
     }
@@ -129,13 +131,14 @@ class DashboardController extends Controller
         // Ambil tanggal awal dan akhir minggu ini
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
-
+        
         // Ambil jadwal kegiatan dalam rentang minggu ini
         return Transaction_program::whereBetween('schedule_activity', [$startOfWeek, $endOfWeek])
-        ->where('status','completed')
-        ->whereDate('schedule_activity', '>=', Carbon::now()->toDateString())
-        ->orderBy('schedule_activity')
-        ->get();
+            ->where('status','completed')
+            ->where('information','belum_terlaksana')
+            ->whereDate('schedule_activity', '>=', Carbon::now()->toDateString())
+            ->orderBy('schedule_activity')
+            ->get();
     }
 
     public function getAvailableMonths()
