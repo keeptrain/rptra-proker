@@ -53,7 +53,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
             <!-- Canvas Memakan 3 Kolom -->
             <div
-                class="col-span-1 md:col-span-3 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 p-6 flex flex-col">
+                class="col-span-1 md:col-span-4 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 p-6 flex flex-col">
                 <div>
                     <span>Program kerja tahun</span>
                     <select id="year-select"
@@ -63,17 +63,43 @@
                         @endforeach
                     </select>
                 </div>
-                <canvas id="transactionChart" class=" mt-4"></canvas>
+                <canvas id="transactionChart" class=" mt-4" height="300dp"></canvas>
             </div>
 
+        
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
             <!-- Bagian Jadwal Terdekat dan Kegiatan yang Terlewat -->
-            <div class="col-span-1 flex flex-col">
-                <!-- Jadwal Terdekat Minggu Ini -->
+            <div class="col-span-2 flex flex-col">
+                <!-- Perbandingan chart information -->
+                
+                <div x-data="informationChartData()"
+                    class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800">
+                    <div
+                        class="md:col-span-3 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100">
+                        <div class="flex justify-between border-b pr-5 pl-6 pt-3 pb-2 sticky top-0 bg-white dark:bg-zinc-900 z-10">
+                            <!--h4 class="font-semibold">Perbandingan program</h4-->
+                            <h3 class="font-semibold">Perbandingan keterangan</h3>
+                            <select @change="fetchInformation" x-model="selectedMonth"
+                                class=" bg-transparent text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <template x-for="month in availableMonths" :key="month">
+                                    <option :value="month" x-text="formatMonth(month)"></option>
+                                </template>
+                            </select>
+                        </div>
+
+                    </div>
+                    <canvas id="informationChart" class="max-h-64 mt-2"></canvas>
+                </div>
+            </div>
+            <!-- Jadwal Terdekat Minggu Ini -->
+            <div class="col-span-2" >
                 <div x-data="scheduleData()"
                     class=" bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800 ">
                     <!-- Header Fixed -->
                     <div
-                        class="flex justify-between border-b pr-6 pl-6 pt-3 pb-2 sticky top-0 bg-white dark:bg-zinc-900 z-10">
+                        class="flex justify-between border-b pr-5 pl-6 pt-3 pb-2 sticky top-0 bg-white dark:bg-zinc-900 z-10">
                         <h3 class="font-semibold">Jadwal Terdekat</h3>
                         <select x-model="selectedFilter" @change="fetchSchedules"
                             class="bg-transparent text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -87,12 +113,11 @@
                         <template x-if="schedules.length > 0">
                             <template x-for="schedule in schedules" :key="schedule.id">
                                 <li class="flex justify-between items-center border-b pb-1">
-                                    <span class="text-gray-700 dark:text-gray-300 break-words max-w-[120px]"
+                                    <span class="text-gray-700 dark:text-gray-300 break-words max-w-[200px]"
                                         x-text="schedule.location"></span>
                                     <span class="text-sm text-gray-500 dark:text-gray-400"
                                         x-text="formatDate(schedule.schedule_activity)"></span>
                                 </li>
-
                             </template>
                         </template>
 
@@ -101,26 +126,8 @@
                         </template>
                     </ul>
                 </div>
-
-                <!-- Kegiatan yang Terlewat -->
-                <div x-data="informationChartData()"
-                    class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800 mt-6">
-                    <div
-                        class="md:col-span-3 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100">
-                        <div class="flex justify-end border-b pr-6 pl-6 pt-2 pb-2">
-                            <!--h4 class="font-semibold">Perbandingan program</h4-->
-                            <select @change="fetchInformation" x-model="selectedMonth"
-                                class=" bg-transparent text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <template x-for="month in availableMonths" :key="month">
-                                    <option :value="month" x-text="formatMonth(month)"></option>
-                                </template>
-                            </select>
-                        </div>
-
-                    </div>
-                    <canvas id="informationChart" class="max-h-64 mt-2"></canvas>
-                </div>
             </div>
+                
         </div>
     @endsection
 </x-app-layout>

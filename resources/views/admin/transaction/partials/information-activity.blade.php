@@ -94,27 +94,27 @@
                 <div class="flex flex-row justify-between">
                     <label class="flex items-center">
                         <input type="checkbox" name="information" value="belum_terlaksana"
-                            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring focus:ring-blue-300"
+                            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring focus:ring-blue-300 md:ml-4"
                             :checked="selected === 'belum_terlaksana'"
                             @change="selected = 'belum_terlaksana'; resetCheckboxes('belum_terlaksana')">
-                        <span class="text-gray-700 text-sm ml-2">Belum terlaksana</span>
+                        <span class="text-gray-700 dark:text-gray-400 text-xs ml-2">Belum terlaksana</span>
                     </label>
 
                     <label class="flex items-center">
                         <input type="checkbox" name="information" value="terlaksana"
-                            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring focus:ring-blue-300"
+                            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring focus:ring-blue-300 md:ml-4"
                             :checked="selected === 'terlaksana'"
                             @change="selected = 'terlaksana'; resetCheckboxes('terlaksana')">
-                        <span class="text-gray-700 text-sm ml-2">Terlaksana</span>
+                        <span class="text-gray-700 dark:text-gray-400 text-xs ml-2">Terlaksana</span>
                     </label>
 
 
                     <label class="flex items-center">
                         <input type="checkbox" name="information" value="tidak_terlaksana"
-                            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring focus:ring-blue-300"
+                            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring focus:ring-blue-300 md:ml-4"
                             :checked="selected === 'tidak_terlaksana'"
                             @change="selected = 'tidak_terlaksana'; resetCheckboxes('tidak_terlaksana')">
-                        <span class="text-gray-700 text-sm ml-2">Tidak terlaksana</span>
+                        <span class="text-gray-700 dark:text-gray-400 text-xs ml-2">Tidak terlaksana</span>
                     </label>
                 </div>
             </div>
