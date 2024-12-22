@@ -1,10 +1,8 @@
 <x-app-layout>
     @section('main-content')
-    <div x-data="{ openModals: false }">
         <div
             class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 overflow-auto">
             <div class="border-b dark:border-zinc-700 pl-6 pr-6 pt-4 pb-4">
-
                 <div class="flex justify-between items-center ">
                     <x-admin.input-label>
                         @if (isset($transactions))
@@ -38,14 +36,5 @@
                 @endif
             </div>
         </div>
-    </div>
     @endsection
-    
-    
 </x-app-layout>
-
-
-
-
-
-
