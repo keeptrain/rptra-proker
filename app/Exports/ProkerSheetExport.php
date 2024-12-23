@@ -14,16 +14,35 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 
 
-class ProkerSheetExport implements FromCollection,WithCustomStartCell,WithHeadings,WithEvents,WithTitle
+class ProkerSheetExport implements 
+    FromCollection,
+    WithCustomStartCell,
+    WithHeadings,
+    WithEvents,
+    WithTitle
 {
+    protected $startDate;
+    protected $endDate;
+
+    public function __construct($startDate = null, $endDate = null) {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        $transactions = Transaction_program::where('status', 'completed')
+        $query = Transaction_program::where('status', 'completed')
                         ->with(['principalPrograms', 'priorityPrograms', 'institutionalPartners'])
-                        ->get();
+                        ->orderBy('schedule_activity','asc');
+
+        if ($this->startDate && $this->endDate) {  
+            $query->whereBetween('schedule_activity', [$this->startDate, $this->endDate]);   
+        }
+
+        $transactions= $query->get();
 
         return $transactions->map(function ($transaction,$index){
             // Mengubah format dateTime
@@ -32,7 +51,7 @@ class ProkerSheetExport implements FromCollection,WithCustomStartCell,WithHeadin
 
             // Mengambil data mitra/unit/lembaga pada table pivot insitutional_partner_transaction_program    
             $transaction->partner_names = $transaction->institutionalPartners->pluck('name')->join(', ');
-
+    
             return [
                 'NO' => $index + 1,
                 'PROGRAM POKOK PKK' => $transaction->principalPrograms->name,

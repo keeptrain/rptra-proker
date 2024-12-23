@@ -12,11 +12,11 @@ use App\Http\Requests\Transaction\StoreTransactionRequest;
 use App\Http\Requests\Transaction\DestoryTransactionRequest;
 use App\Http\Requests\Transaction\StoreDraftTransactionRequest;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionProgramController extends Controller
 {
-
     protected $transaction;
     protected $principalProgram;
     protected $institutionalPartner;
@@ -177,14 +177,35 @@ class TransactionProgramController extends Controller
         } catch (ValidationException $e){
             return redirect()->back()->withErrors($e->errors())->withInput();
         }
-       
     }
 
-    public function export()
+    public function exportAll()
     {
         $date = Carbon::now()->format('H.i, d-m-Y');
-        $fileName = "program-kerja-{$date}.xlsx";
+        $fileName = "export-semua-program-kerja-{$date}.xlsx";
     
-        return Excel::download(new TransactionsExport, $fileName);
+        return Excel::download(new TransactionsExport(), $fileName);
+    }
+
+    public function exportCustom(Request $request)
+    {
+        $request->validate([
+            'startDate' => 'required|date',
+            'endDate' => 'required|date|after_or_equal:startDate',
+        ]);
+    
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+
+        $date = Carbon::now()->format('H.i, d-m-Y');
+    
+        // Nama file export
+        $fileName = "export-custom-program-kerja-{$date}.xlsx";
+    
+        try {
+            return Excel::download(new TransactionsExport($startDate, $endDate), $fileName);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan saat memproses export.']);
+        }
     }
 }

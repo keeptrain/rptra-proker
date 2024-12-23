@@ -15,29 +15,49 @@ use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 /**
  * EvaluationSheetExport
  */
-class EvaluationSheetExport implements FromCollection,WithCustomStartCell,WithHeadings,WithTitle,WithMapping,WithEvents
+class EvaluationSheetExport implements 
+    FromCollection,
+    WithCustomStartCell,
+    WithHeadings,
+    WithTitle,
+    WithMapping,
+    WithEvents
 {
+    protected $startDate;
+    protected $endDate;
+
+    public function __construct($startDate = null, $endDate = null) {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+    }
+    
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return Transaction_program::where('status', 'completed')
-        ->selectRaw('
-            YEAR(schedule_activity) as year,
-            MONTH(schedule_activity) as month,
-            COUNT(*) as total_programs,
-            SUM(CASE WHEN information = "belum_terlaksana" THEN 1 ELSE 0 END) as belum_terlaksana_count,
-            SUM(CASE WHEN information = "terlaksana" THEN 1 ELSE 0 END) as terlaksana_count,
-            SUM(CASE WHEN information = "tidak_terlaksana" THEN 1 ELSE 0 END) as tidak_terlaksana_count,
-            ROUND((SUM(CASE WHEN information = "belum_terlaksana" THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) as belum_terlaksana_percentage,
-            ROUND((SUM(CASE WHEN information = "terlaksana" THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) as terlaksana_percentage,
-            ROUND((SUM(CASE WHEN information = "tidak_terlaksana" THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) as tidak_terlaksana_percentage
-        ')
-        ->groupBy('year', 'month')
-        ->orderBy('year')
-        ->orderBy('month')
-        ->get();
+        $query = Transaction_program::where('status', 'completed')
+            ->selectRaw('
+                YEAR(schedule_activity) as year,
+                MONTH(schedule_activity) as month,
+                COUNT(*) as total_programs,
+                SUM(CASE WHEN information = "belum_terlaksana" THEN 1 ELSE 0 END) as belum_terlaksana_count,
+                SUM(CASE WHEN information = "terlaksana" THEN 1 ELSE 0 END) as terlaksana_count,
+                SUM(CASE WHEN information = "tidak_terlaksana" THEN 1 ELSE 0 END) as tidak_terlaksana_count,
+                ROUND((SUM(CASE WHEN information = "belum_terlaksana" THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) as belum_terlaksana_percentage,
+                ROUND((SUM(CASE WHEN information = "terlaksana" THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) as terlaksana_percentage,
+                ROUND((SUM(CASE WHEN information = "tidak_terlaksana" THEN 1 ELSE 0 END) / COUNT(*)) * 100, 2) as tidak_terlaksana_percentage
+            ');
+
+        if ($this->startDate && $this->endDate) {  
+            $query->whereBetween('schedule_activity', [$this->startDate, $this->endDate]);   
+        }
+
+        return $query
+            ->groupBy('year', 'month')
+            ->orderBy('year')
+            ->orderBy('month')
+            ->get();
     }
 
     private function getMonthName($monthNumber)

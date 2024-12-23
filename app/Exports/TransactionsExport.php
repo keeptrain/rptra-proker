@@ -6,13 +6,24 @@ use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class TransactionsExport implements WithMultipleSheets
 {
+    protected $startDate;
+    protected $endDate;
+
+    public function __construct($startDate = null, $endDate = null)
+    {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+    }
+    
     public function sheets(): array
     {
         return [
-            'Program kerja' => new ProkerSheetExport(),
-            'Evaluasi'  => new EvaluationSheetExport(), 
+            'Program kerja' => new ProkerSheetExport($this->startDate, $this->endDate), 
+            'Evaluasi'  => new EvaluationSheetExport($this->startDate, $this->endDate), 
         ];
     }
   
 }
+
+
 

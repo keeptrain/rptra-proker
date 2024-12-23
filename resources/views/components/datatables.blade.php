@@ -59,21 +59,68 @@
 
     function exportAllData() {
         Swal.fire({
-            title: 'Konfirmasi Ekspor',
-            text: 'Apakah Anda yakin ingin mengekspor data?',
-            icon: 'question',
+            title: 'Export Semua Data',
+            text: 'Apakah Anda yakin ingin mengekspor semua data?',
+            icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Ekspor',
+            confirmButtonText: 'Export',
             cancelButtonText: 'Batal',
         }).then((result) => {
             if (result.isConfirmed) {
-                // Redirect ke rute ekspor
                 window.location.href = '{{ route('prog-transaksi.export') }}';
             }
         });
     }
 
     function exportCustomData() {
+        Swal.fire({
+            title: 'Pilih Rentang Tanggal',
+            html: `
+                <div style="display: flex; flex-direction: column; gap: 10px; text-align: left;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label for="startDate" style="width: 100px;">Mulai</label>
+                        <input type="date" id="startDate" class="swal2-input" style="flex: 1; padding: 5px;"/>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label for="endDate" style="width: 100px;">Sampai</label>
+                        <input type="date" id="endDate" class="swal2-input" style="flex: 1; padding: 5px;"/>
+                    </div>
+                </div>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Export',
+            cancelButtonText: 'Batal',
+            preConfirm: () => {
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+
+                if (!startDate || !endDate) {
+                    Swal.showValidationMessage('Kedua tanggal harus diisi!');
+                } else if (new Date(startDate) > new Date(endDate)) {
+                    Swal.showValidationMessage(
+                        'Tanggal mulai tidak boleh lebih besar dari tanggal sampai!');
+                }
+
+                return {
+                    startDate,
+                    endDate
+                };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const {
+                    startDate,
+                    endDate
+                } = result.value;
+
+                const url =
+                    `{{ route('prog-transaksi.export-custom') }}?startDate=${startDate}&endDate=${endDate}`;
+                window.location.href = url;
+            }
+        });
+    }
+
+    function exportCustomDataAnother() {
         Swal.fire({
             title: 'Pilih Rentang Tanggal',
             html: '<div>' +
@@ -93,6 +140,9 @@
 
                 if (!startDate || !endDate) {
                     Swal.showValidationMessage('Kedua tanggal harus diisi!');
+                } else if (new Date(startDate) > new Date(endDate)) {
+                    Swal.showValidationMessage(
+                        'Tanggal mulai tidak boleh lebih besar dari tanggal sampai!');
                 }
 
                 return {
@@ -107,12 +157,7 @@
                     endDate
                 } = result.value;
 
-                // Lakukan sesuatu dengan rentang tanggal
-                console.log('Tanggal mulai:', startDate);
-                console.log('Tanggal sampai:', endDate);
-
-                // Contoh pengiriman data
-                fetch('{{ route('prog-transaksi.export') }}', {
+                fetch('{{ route('prog-transaksi.export-custom') }}', {
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -123,13 +168,21 @@
                             endDate
                         })
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        Swal.fire('Berhasil!', 'Data berhasil di-export.', 'success');
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        a.download = 'export_custom.xlsx'; // Nama file
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        Swal.fire('Berhasil!', 'File telah diunduh.', 'success');
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        Swal.fire('Error!', 'Terjadi kesalahan saat meng-export data.', 'error');
+                        Swal.fire('Error!', 'Terjadi kesalahan saat meng-export data custom.', 'error');
                     });
             }
         });
