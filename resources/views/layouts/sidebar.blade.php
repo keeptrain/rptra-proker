@@ -1,7 +1,7 @@
 <div class="flex flex-col items-stretch justify-between h-full border-x dark:border-zinc-700">
     <div class="flex flex-col flex-shrink-0 w-full">
         <div class="flex items-center justify-center p-6 mt-1 text-center">
-            <a href="#" class="text-lg leading-normal text-gray-600 dark:text-gray-300 focus:outline-none focus:ring">
+            <a href="{{ route('dashboard.index') }}" class="text-lg font-bold leading-normal text-gray-600 dark:text-gray-300 focus:outline-none focus:ring">
                 RPTRA Cibubur</a>
         </div>
         <nav>
@@ -57,7 +57,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5 fill-current" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
                         </svg>
-                        <span class="flex-grow mx-4">Transaksi</span>
+                        <span class="flex-grow mx-4">Program kerja</span>
                         <svg :class="{'rotate-180': open}" class="w-4 h-4 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
