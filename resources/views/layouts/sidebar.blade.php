@@ -1,7 +1,8 @@
 <div class="flex flex-col items-stretch justify-between h-full border-x dark:border-zinc-700">
     <div class="flex flex-col flex-shrink-0 w-full">
         <div class="flex items-center justify-center p-6 mt-1 text-center">
-            <a href="{{ route('dashboard.index') }}" class="text-lg font-bold leading-normal text-gray-600 dark:text-gray-300 focus:outline-none focus:ring">
+            <a href="{{ route('dashboard.index') }}"
+                class="text-lg font-bold leading-normal text-gray-600 dark:text-gray-300 focus:outline-none focus:ring">
                 RPTRA Cibubur</a>
         </div>
         <nav>
@@ -40,40 +41,31 @@
                     <span class="mx-4">Pokok</span>
 
                 </a>
-                
+
                 <a class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white {{ request()->is('program-kerja/mitra*') ? 'bg-gray-200 dark dark:bg-blue-900 dark:text-white' : '' }}"
                     href="{{ route('prog-mitra.index') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5 fill-current" viewBox="0 0 16 16">
-                        <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z"/>
-                        <path d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z"/>
-                      </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="w-5 h-5 fill-current" viewBox="0 0 16 16">
+                        <path
+                            d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z" />
+                        <path
+                            d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z" />
+                    </svg>
                     <span class="mx-4">Mitra</span>
-
                 </a>
 
-                <div x-data="{ open: false }">
+                <div>
                     <!-- Dropdown Menu -->
-                    <a @click="open = !open" class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white cursor-default">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-5 h-5 fill-current" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
+                    <a
+                        class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white cursor-default">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="w-5 h-5 fill-current" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5" />
                         </svg>
                         <span class="flex-grow mx-4">Program kerja</span>
-                        <svg :class="{'rotate-180': open}" class="w-4 h-4 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
                     </a>
-                
-                    <div x-show="open" class="pl-3">
-                        <a href="{{ route('prog-transaksi.index') }}" class="flex items-center px-4 py-2 text-sm  hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white">
-                            <span class="flex-grow mx-4">- Data</span>
-                        </a>
-                        <a href="{{ route('prog-transaksi.show.draft') }}" class="flex items-center  px-4 py-2 text-sm  hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white">
-                            <span class="flex-grow mx-4">- Draft</span>
-                        </a>
-                      
-                    </div>
                 </div>
-                
             </div>
         </nav>
     </div>
