@@ -30,13 +30,15 @@ class TransactionProgramController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $completed = $this->transaction->getCompletedStatus();
-        //$draft = $this->transaction->getDraftStatus();
-        return view('admin.transaction.index', [
-            'transactions' => $completed,
-        ]);
+        $filter = $request->query('filter','completed');
+
+        if ($filter === 'draft') {
+            return $this->showDraft();
+        } else {
+            return $this->showCompleted();
+        }
     }
 
     /**
@@ -79,6 +81,15 @@ class TransactionProgramController extends Controller
         }
     }
 
+    public function showCompleted()
+    {
+        $data = $this->transaction->getCompletedStatus();
+        //$draft = $this->transaction->getDraftStatus();
+        return view('admin.transaction.index', [
+            'transactions' => $data,
+        ]);
+    }
+
     public function storeToDraft(StoreDraftTransactionRequest $request)
     {
         try {
@@ -108,9 +119,9 @@ class TransactionProgramController extends Controller
      */
      public function showDraft()
      {
-         $draft = $this->transaction->getDraftStatus();
+         $data = $this->transaction->getDraftStatus();
          return view('admin.transaction.index', [
-             'draft' => $draft,
+             'draft' => $data,
          ]);
      }
  
