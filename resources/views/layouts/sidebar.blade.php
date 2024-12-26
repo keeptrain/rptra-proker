@@ -6,9 +6,9 @@
                 RPTRA Cibubur</a>
         </div>
         <nav>
-            <div class="flex-grow md:block md:overflow-y-auto overflow-x-hidden"
+            <div class="flex-grow m-1.5 md:block md:overflow-y-auto overflow-x-hidden"
                 :class="{ 'opacity-1': sidebarOpen, 'opacity-0': !sidebarOpen }">
-                <a class="flex justify-start items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white"
+                <a class="flex justify-start items-center px-4 py-3 hover:bg-zinc-200 rounded-xl dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white {{ request()->is('/*') ? 'bg-white dark:bg-blue-900 dark:text-white rounded-xl' : '' }}"
                     href="{{ route('dashboard.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
                         role="img" class="w-5 h-5 fill-current" preserveAspectRatio="xMidYMid meet"
@@ -20,7 +20,7 @@
                     <span class="mx-4">Dashboard</span>
                 </a>
 
-                <a class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white {{ request()->is('program-kerja/prioritas*') ? 'bg-gray-200 dark:bg-blue-900 dark:text-white' : '' }}"
+                <a class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white {{ request()->is('program-kerja/prioritas*') ? 'bg-gray-200 dark:bg-blue-900 dark:text-white rounded-xl' : '' }}"
                     href="{{ route('prog-prioritas.index') }}">
                     <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
                         viewBox="0 0 24 24">
@@ -31,7 +31,7 @@
 
                 </a>
 
-                <a class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white {{ request()->is('program-kerja/pokok*') ? 'bg-gray-200 dark:bg-blue-900 dark:text-white' : '' }}"
+                <a class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white {{ request()->is('program-kerja/pokok*') ? 'bg-gray-200 dark:bg-blue-900 dark:text-white rounded-xl' : '' }}"
                     href="{{ route('prog-pokok.index') }}">
                     <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"
                         viewBox="0 0 24 24">
@@ -42,7 +42,7 @@
 
                 </a>
 
-                <a class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white {{ request()->is('program-kerja/mitra*') ? 'bg-gray-200 dark dark:bg-blue-900 dark:text-white' : '' }}"
+                <a class="flex items-center px-4 py-3  hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white {{ request()->is('program-kerja/mitra*') ? 'bg-gray-200 dark dark:bg-blue-900 dark:text-white rounded-xl' : '' }}"
                     href="{{ route('prog-mitra.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="w-5 h-5 fill-current" viewBox="0 0 16 16">
@@ -55,9 +55,8 @@
                 </a>
 
                 <div>
-                    <!-- Dropdown Menu -->
-                    <a
-                        class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white cursor-default">
+                    <a class="flex items-center px-4 py-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 focus:bg-gray-200 hover:text-black dark:hover:text-white {{ request()->is('program-kerja/transaksi*') ? 'bg-gray-200 dark:bg-blue-900 dark:text-white rounded-xl ' : '' }} cursor-default"
+                        href="{{ route('prog-transaksi.index') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="w-5 h-5 fill-current" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
