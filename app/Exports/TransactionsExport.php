@@ -2,10 +2,12 @@
 
 namespace App\Exports;
 
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class TransactionsExport implements WithMultipleSheets
 {
+    use Exportable;
     protected $startDate;
     protected $endDate;
 
@@ -18,7 +20,8 @@ class TransactionsExport implements WithMultipleSheets
     public function sheets(): array
     {
         return [
-            'Program kerja' => new ProkerSheetExport($this->startDate, $this->endDate), 
+            'Program kerja' => new ProkerSheetExport($this->startDate, $this->endDate),
+            'Evaluasi program kerja' => new ProkerEvaluationSheetExport(), 
             'Evaluasi'  => new EvaluationSheetExport($this->startDate, $this->endDate), 
         ];
     }
