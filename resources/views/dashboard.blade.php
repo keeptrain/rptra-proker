@@ -51,7 +51,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
-            <!-- Canvas Memakan 3 Kolom -->
+            <!-- Canvas Memakan 1 Kolom -->
             <div
                 class="col-span-1 md:col-span-4 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-900 p-6 flex flex-col">
                 <div>
@@ -65,20 +65,17 @@
                 </div>
                 <canvas id="transactionChart" class=" mt-4" height="300dp"></canvas>
             </div>
-
-        
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
-            <!-- Bagian Jadwal Terdekat dan Kegiatan yang Terlewat -->
+            <!-- 2 Kolom -->
             <div class="col-span-2 flex flex-col">
                 <!-- Perbandingan chart information -->
-                
                 <div x-data="informationChartData()"
                     class="bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800">
-                    <div
-                        class="md:col-span-3 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100">
-                        <div class="flex justify-between border-b pr-5 pl-6 pt-3 pb-2 sticky top-0 bg-white dark:bg-zinc-900 z-10">
+                    <div class="md:col-span-3 bg-white dark:bg-zinc-900 text-black dark:text-neutral-100">
+                        <div
+                            class="flex justify-between border-b pr-5 pl-6 pt-3 pb-2 sticky top-0 bg-white dark:bg-zinc-900 z-10">
                             <!--h4 class="font-semibold">Perbandingan program</h4-->
                             <h3 class="font-semibold">Perbandingan keterangan</h3>
                             <select @change="fetchInformation" x-model="selectedMonth"
@@ -88,13 +85,13 @@
                                 </template>
                             </select>
                         </div>
-
                     </div>
                     <canvas id="informationChart" class="max-h-64 mt-2"></canvas>
                 </div>
             </div>
-            <!-- Jadwal Terdekat Minggu Ini -->
-            <div class="col-span-2" >
+
+            <div class="col-span-2">
+                 <!-- Jadwal Terdekat Minggu Ini -->
                 <div x-data="scheduleData()"
                     class=" bg-white dark:bg-zinc-900 text-black dark:text-neutral-100 rounded-md border-2 border-slate-100 dark:border-zinc-800 ">
                     <!-- Header Fixed -->
@@ -113,8 +110,9 @@
                         <template x-if="schedules.length > 0">
                             <template x-for="schedule in schedules" :key="schedule.id">
                                 <li class="flex justify-between items-center border-b pb-1">
-                                    <span class="text-gray-700 dark:text-gray-300 break-words max-w-[200px]"
-                                        x-text="schedule.location"></span>
+                                    <a :href="`{{ route('prog-transaksi.show.detail', ':id') }}`.replace(':id', schedule.id)"
+                                        class="text-gray-700 dark:text-gray-300 break-words max-w-[200px] hover:underline"
+                                        x-text="schedule.location"></a>
                                     <span class="text-sm text-gray-500 dark:text-gray-400"
                                         x-text="formatDate(schedule.schedule_activity)"></span>
                                 </li>
@@ -127,7 +125,6 @@
                     </ul>
                 </div>
             </div>
-                
         </div>
     @endsection
 </x-app-layout>
