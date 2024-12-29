@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Perencanaan Program ') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Alpine Plugins -->
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.14.3/dist/cdn.min.js"></script>
@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
+    <!-- Tagify -->
     <!--script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" /-->
@@ -49,23 +50,21 @@
     <div x-data="{ sidebarOpen: $persist(true) }" class="w-full flex h-svh max-h-svh">
         <!-- Sidebar Lama-->
         <div id="sidebar">
-
             <div :class="{ 'w-56': sidebarOpen, 'w-0': !sidebarOpen }"
-                class="top-0 bottom-0 left-0 z-30 block w-56 h-full min-h-screen overflow-y-auto text-gray-500 transition-all duration-300 ease-in-out bg-white dark:bg-zinc-900  overflow-x-hidden">
+                class="bg-white dark:bg-zinc-900 top-0 bottom-0 left-0 z-30 block w-56 h-full min-h-screen overflow-y-auto overflow-x-hidden text-gray-500 transition-all duration-300 ease-in-out">
                 @include('layouts.sidebar')
             </div>
         </div>
 
-        <div class="h-full flex-1 bg-gray-50 dark:bg-zinc-800 overflow-auto  ">
+        <div class="h-full flex-1 bg-gray-50 dark:bg-zinc-800 overflow-auto">
             <!-- Main Content Area -->
             <div class="flex h-full flex-col justify-between overflow-y ">
                 <div id="main-header" class="sticky top-0 xl:ml-32 xl:mr-32 z-10">
                     <!-- Header -->
-                    <div class="flex items-center  bg-gray-50 dark:bg-zinc-800 p-6 py-6">
+                    <div class="flex bg-gray-50 dark:bg-zinc-800 p-6 py-6">
                         <!-- Header -->
                         @include('layouts.header')
                     </div>
-
                 </div>
 
                 <div class="p-6 flex flex-1 flex-col xl:ml-32 xl:mr-32">
@@ -75,10 +74,10 @@
                             @yield('breadcrumb')
                         </div>
                     </div>
-                    <div >
+                    <div>
                         @yield('main-content')
                     </div>
-                    
+
                 </div>
 
                 <div class="hidden w-full lg:block">
