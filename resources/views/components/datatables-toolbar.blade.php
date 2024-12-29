@@ -16,8 +16,7 @@
     @if (Route::currentRouteName() === 'prog-transaksi.index')
         <!-- Tombol Export -->
         <div x-data="{ openExport: false }" class="relative border dark:border-zinc-800">
-            <button @click="openExport = ! openExport" class="flex items-center pe-10 p-2"
-                type="button">
+            <button @click="openExport = ! openExport" class="flex items-center pe-10 p-2" type="button">
                 <svg id="exportIcon" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1 mr-2" fill="currentColor"
                     viewBox="0 0 16 16">
                     <path
@@ -25,7 +24,7 @@
                     <path
                         d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
                 </svg>
-                Export
+                <span class="text-sm">Export</span>
                 <span class="select-none absolute inset-y-0 right-0 flex items-center cursor-pointer pr-3 ">
                     <svg :class="{ 'rotate-180': openExport }"
                         class="w-4 h-4 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg"
@@ -38,8 +37,8 @@
             <!-- Dropdown -->
             <div x-cloak x-show="openExport" @click.away="openExport = false"
                 class="w-full absolute top-12 z-10 left-0 p-2 bg-white border border-gray-200 shadow">
-                <div class="px-2 py-1 cursor-pointer hover:bg-sky-100 rounded-lg" onclick="exportAllData();">Semua</div>
-                <div class="px-2 py-1 cursor-pointer hover:bg-sky-100 rounded-lg" onclick="exportCustomData();">Custom
+                <div class="px-2 py-1 cursor-pointer hover:bg-sky-50" onclick="exportAllData();">Semua</div>
+                <div class="px-2 py-1 cursor-pointer hover:bg-sky-50" onclick="exportCustomData();">Custom
                 </div>
             </div>
         </div>
