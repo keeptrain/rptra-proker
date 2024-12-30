@@ -21,7 +21,7 @@ class TransactionsExport implements WithMultipleSheets
     {
         return [
             'Program kerja' => new ProkerSheetExport($this->startDate, $this->endDate),
-            'Evaluasi program kerja' => new ProkerEvaluationSheetExport(), 
+            'Evaluasi program kerja' => new ProkerEvaluationSheetExport($this->startDate,$this->endDate), 
             'Evaluasi'  => new EvaluationSheetExport($this->startDate, $this->endDate), 
         ];
     }

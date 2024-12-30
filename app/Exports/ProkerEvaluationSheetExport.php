@@ -21,14 +21,34 @@ use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
 
 class ProkerEvaluationSheetExport implements FromCollection, WithCharts, WithEvents, WithMapping, WithHeadings, WithCustomStartCell, WithTitle
 {
+    protected $startDate;
+
+    protected $endDate;
+
+    public function __construct($startDate = null, $endDate = null) {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+    }
+
     /**
      * @return \Illuminate\Support\Collection
      */
     public function collection()
     {
-        $query = Transaction_program::select(DB::raw('YEAR(schedule_activity) as year'), DB::raw('MONTH(schedule_activity) as month'), DB::raw('COUNT(*) as total_program_kerja'))->where('status', 'completed')->groupBy(DB::raw('YEAR(schedule_activity), MONTH(schedule_activity)'))->orderBy(DB::raw('YEAR(schedule_activity), MONTH(schedule_activity)'))->get();
+        $query = Transaction_program::select(
+            DB::raw('YEAR(schedule_activity) as year'), 
+            DB::raw('MONTH(schedule_activity) as month'), 
+            DB::raw('COUNT(*) as total_program_kerja'))
+            ->where('status', 'completed');
+            
+        if ($this->startDate && $this->endDate) {
+            $query->whereBetween('schedule_activity', [$this->startDate,$this->endDate]);
+        }    
 
-        return $query;
+        return $query
+            ->groupBy(DB::raw('YEAR(schedule_activity), MONTH(schedule_activity)'))
+            ->orderBy(DB::raw('YEAR(schedule_activity), MONTH(schedule_activity)'))
+            ->get();
     }
 
     private function getHighestRow()
@@ -38,11 +58,33 @@ class ProkerEvaluationSheetExport implements FromCollection, WithCharts, WithEve
         return $data->count() + 2; // +2 untuk mempertimbangkan header (baris 1 dan 2)
     }
 
+    private function getDynamicCategories()
+    {
+        // Ambil kolom dan baris terakhir untuk kategori
+        $highestRow = $this->getHighestRow();
+
+        // Tentukan rentang kategori
+        $categoriesRange = 'EvaluasiProgramKerja!$B$3:$C$' . $highestRow;
+
+        return [new DataSeriesValues('String', $categoriesRange, null, $highestRow - 2)];
+    }
+
+    private function getDynamicValues()
+    {
+        // Ambil kolom dan baris terakhir untuk nilai
+        $highestRow = $this->getHighestRow();
+
+        // Tentukan rentang nilai
+        $valuesRange = 'EvaluasiProgramKerja!D$3:$D$' . $highestRow;
+
+        return [new DataSeriesValues('Number', $valuesRange, null, $highestRow - 2)];
+    }
+
     public function charts()
     {
         return $this->generateChart();
     }
-
+    
     private function generateChart()
     {
         // Tentukan label tetap
@@ -69,7 +111,7 @@ class ProkerEvaluationSheetExport implements FromCollection, WithCharts, WithEve
 
         // Buat chart
         $chart = new Chart(
-            'ProkerEvaluation', // Nama unik chart
+            'Evaluasi Program Kerja', // Nama unik chart
             $chartTitle, // Judul
             null, // Tidak ada legenda
             $plotArea, // Area plot
@@ -80,28 +122,6 @@ class ProkerEvaluationSheetExport implements FromCollection, WithCharts, WithEve
         $chart->setBottomRightPosition('N25'); // Posisi sudut kanan bawah chart
 
         return $chart;
-    }
-
-    private function getDynamicCategories()
-    {
-        // Ambil kolom dan baris terakhir untuk kategori
-        $highestRow = $this->getHighestRow();
-
-        // Tentukan rentang kategori
-        $categoriesRange = 'EvaluasiProgramKerja!$B$3:$C$' . $highestRow;
-
-        return [new DataSeriesValues('String', $categoriesRange, null, $highestRow - 2)];
-    }
-
-    private function getDynamicValues()
-    {
-        // Ambil kolom dan baris terakhir untuk nilai
-        $highestRow = $this->getHighestRow();
-
-        // Tentukan rentang nilai
-        $valuesRange = 'EvaluasiProgramKerja!D$3:$D$' . $highestRow;
-
-        return [new DataSeriesValues('Number', $valuesRange, null, $highestRow - 2)];
     }
 
     public function registerEvents(): array
@@ -150,12 +170,20 @@ class ProkerEvaluationSheetExport implements FromCollection, WithCharts, WithEve
 
     public function map($row): array
     {
-        return [$row->year, $this->getMonthName($row->month), $row->total_program_kerja];
+        return [
+            $row->year,
+            $this->getMonthName($row->month),
+            $row->total_program_kerja
+        ];
     }
 
     public function headings(): array
     {
-        return ['Tahun', 'Bulan', 'Total Program Kerja'];
+        return [
+            'Tahun', 
+            'Bulan',
+            'Total Program Kerja'
+        ];
     }
 
     public function startCell(): string
