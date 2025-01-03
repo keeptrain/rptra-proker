@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
@@ -13,18 +12,16 @@ use App\Http\Controllers\InstitutionalPartnersController;
 Route::middleware('guest')->group(function () { 
     Route::get('login', [LoginController::class, 'index'])->name('login');
     Route::post('login', [LoginController::class, 'login'])->name('auth.login');
-    
 });
 
-// Route::middleware('auth')->group(function () { 
-
-//     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
-//     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.setting');
-//     Route::post('logout', [LoginController::class, 'logout'])->name('auth.logout');
-//     Route::patch('settings/profile', [ProfileController::class,'update'])->name('profile.update');
-//     Route::get('settings/password', [ProfileController::class,'editPassword'])->name('profile.password');
-// });
-
+Route::middleware('auth')->group(function () { 
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.setting');
+    Route::post('logout', [LoginController::class, 'logout'])->name('auth.logout');
+    Route::patch('settings/profile', [ProfileController::class,'update'])->name('profile.update');
+    Route::get('settings/password', [ProfileController::class,'editPassword'])->name('profile.password');
+    Route::put('settings/password', [ProfileController::class,'updatePassword'])->name('profile.password.update');
+});
 
 Route::controller(DashboardController::class)->middleware('auth')
     ->group(function () {
