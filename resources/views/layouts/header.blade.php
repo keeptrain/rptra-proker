@@ -1,5 +1,4 @@
 <!-- Button to toggle sidebar -->
-
 <button @click="sidebarOpen = !sidebarOpen"
     :class="{ 'text-zinc-500 dark:text-gray-400': !sidebarOpen, 'text-gray-500 dark:text-gray-400': sidebarOpen }">
     <svg viewBox="0 0 20 20" class="w-7 h-7 fill-current mr-2">
@@ -30,7 +29,8 @@
 
 <div x-data="{
     darkMode: $persist(localStorage.getItem('theme') === 'dark'),
-    isFullscreen: false
+    isFullscreen: false,
+    openProfile: false
 }" class="justify-end flex flex-1">
     <!-- Button to toggle dark/light mode -->
     <button
@@ -38,7 +38,7 @@
                     document.body.classList.toggle('dark', darkMode);
                     localStorage.setItem('theme', darkMode ? 'dark' : 'light');"
         type="button"
-        class="mr-4 text-gray-500 bg-white dark:bg-zinc-900  border-b border-gray-200 dark:border-zinc-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-full text-sm p-2"
+        class="mr-4 text-gray-500 bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-full text-sm p-3"
         aria-checked="false">
         <svg x-show="!darkMode" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg">
@@ -60,21 +60,37 @@
                 document.exitFullscreen(); 
             }"
         type="button"
-        class="text-gray-500 bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-full text-sm p-2">
+        class="mr-4 text-gray-500 bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-800 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-full text-sm p-3">
         <svg x-show="!isFullscreen" class="w-5 h-5 text-gray-800 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg"
             fill="currentColor" class="bi bi-arrows-fullscreen" viewBox="0 0 16 16">
             <path fill-rule="evenodd"
                 d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707m4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707m0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707m-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707" />
         </svg>
 
-
-
         <svg x-show="isFullscreen" class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M16 4h4m0 0v4m0-4-5 5M8 20H4m0 0v-4m0 4 5-5" />
         </svg>
-
     </button>
 
+    {{-- <button @click="openProfile = !openProfile" class="rounded-full border-2 border-gray-200 dark:border-zinc-800 "
+        id="user-menu-button">
+
+        <img class="size-10 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt="Bordered avatar">
+
+        <!-- Dropdown -->
+        <div x-cloak x-show="openProfile" @click.away="openProfile = false"
+            class="absolute right-6 z-10 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none">
+            <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                id="user-menu-item-0">Your Profile</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                id="user-menu-item-1">Settings</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                id="user-menu-item-2">Sign out</a>
+        </div>
+    </button> --}}
 </div>
