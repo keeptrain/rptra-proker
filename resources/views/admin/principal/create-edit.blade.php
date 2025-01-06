@@ -13,7 +13,7 @@
                     </x-admin.input-label>
 
 
-                    <x-button onclick="window.location.href='{{ url()->previous() }}';" class="p-1 bg-zinc-600 dark:hover:bg-zinc-700 flex items-center">
+                    <x-button onclick="window.location.href='{{ route('prog-pokok.index') }}';" class="p-1 bg-zinc-600 dark:hover:bg-zinc-700 flex items-center">
                         <!-- Ikon Kembali -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
