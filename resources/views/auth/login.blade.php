@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Login</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -13,24 +14,31 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body>
     <div class="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
         <div class="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-            <h1 class="font-bold text-center text-2xl mb-5">RPTRA Cibubur</h1>
-            <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
-                <form action="{{ route('auth.login')}}" method="POST">
-                    @CSRF
-                    <div class="px-5 py-7">
+
+            <div class="bg-white shadow w-full rounded-lg ">
+                <div class="flex items-center justify-center h-32">
+                    <img src="{{ asset('icons/rptra-cibubur.png') }}" alt="" class="w-24 h-24 ">
+                </div>
+
+                <form action="{{ route('auth.login') }}" method="POST">
+                    @csrf
+                    @method('post')
+                    <div class="px-5 mt-3">
                         <label class="font-semibold text-sm text-gray-600 pb-1 block">Username</label>
-                        <input name="username" type="text" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
+                        <input name="username" type="text"
+                            class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
                         <label class="font-semibold text-sm text-gray-600 pb-1 block">Password</label>
                         <input name="password" type="password"
                             class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
                         <button type="submit"
                             class="transition duration-200 bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
                             <span class="inline-block mr-2">Login</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                class="w-4 h-4 inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" class="w-4 h-4 inline-block">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>
@@ -92,6 +100,5 @@
         </div>
     </div>
 </body>
+
 </html>
-
-
