@@ -32,7 +32,8 @@ Route::controller(DashboardController::class)->middleware('auth')
     Route::get('/get-information/{filter}','getInformation')->name('getInformation');
 });
 
-Route::controller(PriorityProgramController::class)->group(function () {
+Route::controller(PriorityProgramController::class)->middleware('auth')
+    ->group(function () {
     Route::get('program-kerja/prioritas', 'index')->name('prog-prioritas.index'); 
     Route::get('program-kerja/prioritas/buat', 'create')->name('prog-prioritas.create');
     Route::post('program-kerja/prioritas/tambah', 'store')->name('prog-prioritas.store');
@@ -41,7 +42,8 @@ Route::controller(PriorityProgramController::class)->group(function () {
     Route::delete('program-kerja/prioritas/hapus', 'destroy')->name('prog-prioritas.destroy');
 });
 
-Route::controller(PrincipalProgramController::class)->group(function () {
+Route::controller(PrincipalProgramController::class)->middleware('auth')
+    ->group(function () {
     Route::get('program-kerja/pokok', 'index')->name('prog-pokok.index');
     Route::get('program-kerja/pokok/buat', 'create')->name('prog-pokok.create');
     Route::post('program-kerja/pokok/tambah', 'store')->name('prog-pokok.store');
@@ -50,7 +52,8 @@ Route::controller(PrincipalProgramController::class)->group(function () {
     Route::delete('program-kerja/pokok/hapus', 'destroy')->name('prog-pokok.destroy');
 });
 
-Route::controller(InstitutionalPartnersController::class)->group(function () {
+Route::controller(InstitutionalPartnersController::class)->middleware('auth')
+    ->group(function () {
     Route::get('program-kerja/mitra', 'index')->name('prog-mitra.index');     
     Route::get('program-kerja/mitra/buat', 'create')->name('prog-mitra.create');
     Route::post('program-kerja/mitra/tambah', 'store')->name('prog-mitra.store');
@@ -59,7 +62,8 @@ Route::controller(InstitutionalPartnersController::class)->group(function () {
     Route::delete('program-kerja/mitra/hapus', 'destroy')->name('prog-mitra.destroy');
 });
 
-Route::controller(TransactionProgramController::class)->group(function () {
+Route::controller(TransactionProgramController::class)->middleware('auth')
+    ->group(function () {
     Route::get('program-kerja/transaksi', 'index')->name('prog-transaksi.index');
     Route::get('program-kerja/transaksi/draft', 'showDraft')->name('prog-transaksi.show.draft');
     Route::get('program-kerja/transaksi/detail/{id}', 'showDetailTransaction')->name('prog-transaksi.show.detail');        
