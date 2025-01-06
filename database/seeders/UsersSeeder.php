@@ -18,7 +18,7 @@ class UsersSeeder extends Seeder
                 'name' => 'Admin',
                 'email'=> 'admin',
                 'password'=> bcrypt('123'),
-
+                'image' => 'images/profile-default.svg',
             ],
         ]);
     }
