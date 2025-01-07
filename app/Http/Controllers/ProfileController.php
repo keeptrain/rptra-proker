@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Intervention\Image\Laravel\Facades\Image;
 use App\Http\Requests\Profile\UpdateProfileRequest;
 
 class ProfileController extends Controller
@@ -31,19 +32,27 @@ class ProfileController extends Controller
         // Isi data pengguna dari input yang divalidasi
         $user->fill($request->validated());
 
-        // Proses file gambar jika ada
+        // Proses gambar jika ada
         if ($request->hasFile('image')) {
-            // // Hapus file lama jika ada
-            // if ($user->image && Storage::exists('public/upload/images' . $user->image)) {
-            //     Storage::delete('public/upload/images' . $user->image);
-            // }
+            $file = $request->file('image');
+            $fileName = 'user_' . $user->id . '.' . $file->getClientOriginalExtension();
 
-            $fileName = 'user_' . $user->id . '.' . $request->file('image')->getClientOriginalExtension();
+            // Baca gambar menggunakan Intervention Image
+            $image = Image::read($file);
 
-            // Simpan file ke direktori public/storage/upload/images
-            $filePath = $request->file('image')->storeAs('upload/images',$fileName, 'public');
+            // Crop gambar berdasarkan input
+            $cropX = (int)$request->input('crop_x');
+            $cropY = (int)$request->input('crop_y');
+            $cropWidth = (int)$request->input('crop_width');
+            $cropHeight = (int)$request->input('crop_height');
+            
+            $image->crop($cropWidth, $cropHeight, $cropX, $cropY);
+            
+            // Simpan gambar ke storage
+            $filePath = 'upload/images/' . $fileName;
+            $image->save(storage_path('app/public/' . $filePath));
 
-            // Simpan path ke kolom image di database
+            // Update path di database
             $user->image = $filePath;
         }
 
