@@ -4,28 +4,10 @@
     </x-admin.input-label>
 
     <!-- Quill Editor Container -->
-    <div id="quill-editor" style="height: 150px;"></div>
+    <div id="quill-editor" class="text-black dark:text-white" style="height: 150px;"></div>
 
     <!-- Hidden Textarea untuk menyimpan konten Quill -->
     <textarea id="quill-editor-area" name="activity" rows="5" class="hidden">{{ isset($selectedProgram) ? $selectedProgram->activity : old('activity') }}</textarea>
-
-
-    <!-- Create toolbar container -->
-    <!--div id="toolbar" class="dark:bg-zinc-600">
-   
-    <select class="ql-size dark:text-black dark:bg-zinc-600">
-      <option value="small" class="dark:text-black dark:bg-zinc-700"></option>
-      
-      <option value="large"></option>
-      <option value="huge"></option>
-    </select>
- 
-    <button class="ql-bold"></button>
-
-    <button class="ql-script" value="sub"></button>
-    <button class="ql-script" value="super"></button>
-  </div-->
-
 
 </div>
 
@@ -44,7 +26,6 @@
 
         <!-- Spacer -->
         <div class="flex items-center justify-center pb-2.5 w-6 h-6">
-
         </div>
 
         <!-- Output Program -->
@@ -67,11 +48,8 @@
                 placeholder="Masukkan output " />
         </div>
 
-
-
         <!-- Spacer -->
         <div class="flex items-center justify-center pb-2.5 w-6 h-6">
-
         </div>
 
         <!-- Volume Program -->
@@ -90,7 +68,7 @@
                 Keterangan
             </x-admin.input-label>
             <div x-data="{ selected: '{{ isset($selectedProgram) ? $selectedProgram->information : old('information', 'belum_terlaksana') }}' }"
-                class="w-full max-w-2xl flex flex-col rounded-lg bg-white dark:bg-zinc-900 shadow p-3">
+                class="w-full max-w-2xl flex flex-col rounded-lg bg-white dark:bg-zinc-900 dark:border dark:border-gray-600 shadow p-3">
                 <div class="flex flex-row justify-between">
                     <label class="flex items-center">
                         <input type="checkbox" name="information" value="belum_terlaksana"
@@ -108,7 +86,6 @@
                         <span class="text-gray-700 dark:text-gray-400 text-xs ml-2">Terlaksana</span>
                     </label>
 
-
                     <label class="flex items-center">
                         <input type="checkbox" name="information" value="tidak_terlaksana"
                             class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring focus:ring-blue-300 md:ml-4"
@@ -119,7 +96,7 @@
                 </div>
             </div>
             <span
-                class="text-gray-400 text-xs mt-2 block">{{ __('* Secara default, keterangan akan terpilih sebagai Belum terlaksana') }}</span>
+                class="text-gray-400 text-xs mt-2 block">* Secara default, keterangan akan terpilih sebagai Belum terlaksana</span>
         </div>
     </div>
 @endsection
