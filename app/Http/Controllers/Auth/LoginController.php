@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -16,14 +16,8 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function create()
-    {
-
-    }
-
     public function login(LoginRequest $request)
     {
-       
         $credentials = [
             'email' => $request->username,
             'password' => $request->password,
@@ -41,7 +35,13 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect()->route('login');
 
+        // Menghapus semua data sesi yang ada
+        $request->session()->invalidate();
+
+        // Membuat token CSRF baru untuk sesi berikutnya
+        $request->session()->regenerateToken();
+
+        return Redirect::to('login');
     }
 }
