@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use Intervention\Image\Laravel\Facades\Image;
 use App\Http\Requests\Profile\UpdateProfileRequest;
@@ -35,7 +36,12 @@ class ProfileController extends Controller
         // Proses gambar jika ada
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $fileName = 'user_' . $user->id . '.' . $file->getClientOriginalExtension();
+            $fileNameBase = 'user_' . $user->id;
+            $newFileName = $fileNameBase . '.' . $file->getClientOriginalExtension();
+
+            // Hapus semua file lama dengan nama yang sama tetapi ekstensi berbeda
+            $filesToDelete = Storage::disk('public')->files('upload/images', $fileNameBase . '.*');
+            Storage::disk('public')->delete($filesToDelete);
 
             // Baca gambar menggunakan Intervention Image
             $image = Image::read($file);
@@ -46,14 +52,15 @@ class ProfileController extends Controller
             $cropWidth = (int)$request->input('crop_width');
             $cropHeight = (int)$request->input('crop_height');
             
+            // Lalukan crop gambar dengan nilai yang di dapat dari input
             $image->crop($cropWidth, $cropHeight, $cropX, $cropY);
             
-            // Simpan gambar ke storage
-            $filePath = 'upload/images/' . $fileName;
-            $image->save(storage_path('app/public/' . $filePath));
+            // Simpan gambar baru ke storage
+            $newFilePath = 'upload/images/' . $newFileName;
+            $image->save(storage_path('app/public/' . $newFilePath));
 
             // Update path di database
-            $user->image = $filePath;
+            $user->image = $newFilePath;
         }
 
         // Simpan data pengguna
