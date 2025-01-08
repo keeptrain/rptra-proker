@@ -47,41 +47,54 @@
     <x-admin.alert />
 
     <!-- Main container -->
-    <div x-data="{ sidebarOpen: $persist(true) }" class="w-full flex h-svh max-h-svh">
-        <!-- Sidebar Lama-->
-        <div id="sidebar">
-            <div :class="{ 'w-56': sidebarOpen, 'w-0': !sidebarOpen }"
-                class="bg-white dark:bg-zinc-900 top-0 bottom-0 left-0 z-30 block w-56 h-full min-h-screen overflow-y-auto overflow-x-hidden text-gray-500 transition-all duration-300 ease-in-out">
+    <div x-data="{ sidebarOpen: $persist(true) }"
+        class="bg-gray-50 dark:bg-zinc-800 text-black dark:text-neutral-100 flex h-svh max-h-svh">
+
+        <!-- Sidebar -->
+        <div id="sidebar"
+            class="fixed md:static inset-y-0 left-0 z-40 border-r dark:border-zinc-700 transition-transform transform "
+            :class="{ '-translate-x-full hidden': !sidebarOpen, 'translate-x-0': sidebarOpen }">
+            <div class="flex flex-col items-stretch bg-white dark:bg-zinc-900 justify-between h-full w-56">
+                <!-- Sidebar content -->
                 @include('layouts.sidebar')
             </div>
         </div>
 
-        <div class="h-full flex-1 bg-gray-50 dark:bg-zinc-800 overflow-auto">
-            <!-- Main Content Area -->
-            <div class="flex h-full flex-col justify-between overflow-y ">
-                <div id="main-header" class="sticky top-0 xl:ml-32 xl:mr-32 z-10">
-                    <!-- Header -->
-                    <div class="flex bg-gray-50 dark:bg-zinc-800 p-6 py-6">
-                        <!-- Header -->
+        <!-- Overlay (Active only on mobile) -->
+        <div class="fixed inset-0 bg-black bg-opacity-50 z-30 transition-opacity md:hidden"
+            :class="{ 'opacity-100': sidebarOpen, 'opacity-0 pointer-events-none': !sidebarOpen }"
+            @click="sidebarOpen = false">
+        </div>
+
+        <!-- Content Area -->
+        <div class="flex-1 overflow-auto transition-all duration-300"
+            :class="{ 'ml-0': sidebarOpen && window.innerWidth >= 768, 'ml-0': !sidebarOpen || window.innerWidth < 768 }">
+            <div class="flex h-full flex-col justify-between overflow-y">
+
+                <!-- Header -->
+                <div id="main-header" class=" top-0 xl:ml-16 xl:mr-16">
+                    <div class="flex  p-6 py-6">
                         @include('layouts.header')
                     </div>
                 </div>
 
-                <div class="p-6 flex flex-1 flex-col xl:ml-32 xl:mr-32">
-                    <!-- Page header (Breadcrumb) -->
-                    <div class="breadcrumb">
-                        <div class="bg-gray-50 dark:bg-zinc-800 text-black dark:text-neutral-100 mb-4">
+                <!-- Main content -->
+                <div class="p-6 flex flex-1 flex-col xl:ml-16 xl:mr-16">
+
+                    <!-- Breadcrumb -->
+                    {{-- <div class="breadcrumb">
+                        <div class="mb-4">
                             @yield('breadcrumb')
                         </div>
-                    </div>
+                    </div> --}}
+
                     <div>
                         @yield('main-content')
                     </div>
-
                 </div>
 
+                <!-- Footer-->
                 <div class="hidden w-full lg:block">
-                    <!-- Footer -->
                     <div class="bg-white dark:bg-zinc-900 py-2">
                         <h1 class="text-black dark:text-white text-center text-sm">Kelompok Rencana Program Kerja 2025
                         </h1>
